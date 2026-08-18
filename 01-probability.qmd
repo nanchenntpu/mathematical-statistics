@@ -3,7 +3,15 @@ title: "機率與單變量分配"
 ---
 
 ::: {.callout-tip title="本章定位"}
-本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
+本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語、公式與例題，並整理為可連續閱讀的教學形式。
+
+學生在大二已使用 Hogg, Tanis & Zimmerman 的 *Probability and Statistical Inference* 學過機率基礎，因此本章**不是重新教授機率論**，而是採取
+
+$$
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+$$
+
+的三階段安排：先快速喚醒已學內容，再深化數理統計所需的推導工具，最後連接抽樣分配、收斂與後續推論。標題保留 Hogg, McKean & Craig Chapter 1 的 section numbering，方便對照課本；各節不採等比例講解。
 :::
 
 ## 學習目標
@@ -15,14 +23,25 @@ title: "機率與單變量分配"
 - 辨認離散與連續隨機變數的分配
 - 計算期望、變異數、動差與動差生成函數
 - 使用 Markov、Chebyshev 與 Jensen 不等式
+- 由 Chebyshev 不等式推導樣本平均數的依機率收斂
 
 ## 必備的先備知識
 
-集合符號、基本微積分與有限和。
+集合符號、基本微積分與有限和。機率法則、條件機率、隨機變數及 pmf / pdf / cdf 視為大二已學內容，課堂中以診斷題與例題快速喚醒。
 
-以下依原講義順序整理核心定義、定理、公式與例題。
+::: {.callout-note title="教學節奏"}
+- **Stage 1 — Recall（快速）**：Sections 1.1--1.5，以 60--90 分鐘的 example-driven review 喚醒基本概念；忘記的內容在例題中補回，不重走完整的 Definition--Theorem--Proof 流程。
+- **Stage 2 — Deepen（主體）**：Sections 1.6--1.9。1.6 與 1.7 的 pmf / pdf 基礎快速帶過，把時間放在 transformation；1.8 與 1.9 深入處理 $E[g(X)]$、moments、variance 與 MGF 的推導。
+- **Stage 3 — Connect（橋接）**：Section 1.10。以重要不等式連接 sample mean、Chebyshev、convergence in probability 與後續 mathematical statistics。
+:::
 
-## Introduction
+## Stage 1 — Recall：快速喚醒 {.unnumbered}
+
+> **學過的，快速喚醒；忘記的，在例題中補回來。**
+
+本階段以概念辨識與短例題為主。學生應能迅速回答 $P(A\mid B)$、$F_X(x)=P(X\le x)$、pmf / pdf 的差異及 cdf 的基本性質；細部證明可依診斷結果選講。
+
+## 1.1 Introduction
 
 ### Definition of experiment
 
@@ -83,6 +102,8 @@ title: "機率與單變量分配"
   - $N(S) = N(H) + N(T) = n$
 
   - $N(S)/n =1$
+
+## 1.2 Sets
 
 ### Algebra of sets
 
@@ -284,7 +305,7 @@ title: "機率與單變量分配"
 
 - Find $Q(A)$ and $Q(B)$.
 
-## Probability set function
+## 1.3 Probability Set Function
 
 ### Recall frequency
 
@@ -593,7 +614,7 @@ Each of the $$C_k^n = {n\choose k} =\frac{n!}{k!(n-k)!}$$ permutations of $n$ ob
   P\left[ \cap_{n=1}^{\infty} C_n \right].$$
 :::
 
-## Conditional probability and independent
+## 1.4 Conditional Probability and Independence
 
 ### Example 13
 
@@ -834,7 +855,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - Find $P[\text{Failure of the system}]$.
 
-## Random variables
+## 1.5 Random Variables
 
 ### Definition
 
@@ -1068,7 +1089,23 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - Find $c$.
 
-## Discrete random variables
+## Stage 2 — Deepen：從會算到會推導 {.unnumbered}
+
+本階段開始放慢。Sections 1.6--1.7 的前段定義是 Recall 與 Deepen 的橋接，課堂重點不是再次背誦 pmf / pdf，而是從
+
+$$
+X\longrightarrow g(X)\longrightarrow\text{distribution of }g(X)
+$$
+
+進一步走向
+
+$$
+X_1,\ldots,X_n\longrightarrow T(X_1,\ldots,X_n),
+$$
+
+為 sampling distribution 建立工具。接著以 Sections 1.8--1.9 深化 expectation、moments、variance 與 MGF。
+
+## 1.6 Discrete Random Variables
 
 ### Discrete random variables
 
@@ -1190,7 +1227,7 @@ A random variable is a discrete random variable if its space is either finite or
 
 - Find the pmf of $Z$.
 
-## Continuous random variables
+## 1.7 Continuous Random Variables
 
 ### Continuous random variables
 
@@ -1347,7 +1384,7 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 
 - Find $P[-3<X \le \frac{1}{2}]$ and $P[X=0]$.
 
-## Expectation of a random variable
+## 1.8 Expectation of a Random Variable
 
 ### Expectation -- Continuous
 
@@ -1472,7 +1509,7 @@ When the expectation exists, it satisfies the following properties:
 
 - Find $E[X(5-X)]$.
 
-## Some special expectations
+## 1.9 Some Special Expectations
 
 ### Settings
 
@@ -1623,7 +1660,11 @@ When the expectation exists, it satisfies the following properties:
 
 - Then $M^{(m)}(0)=E[X^m]$.
 
-## Important inequalities
+## Stage 3 — Connect：由機率工具走向數理統計 {.unnumbered}
+
+本階段不把 inequalities 當作孤立公式。Markov、Chebyshev 與 Jensen 分別提供尾端機率控制、集中現象及凸性比較；其中 Chebyshev 不等式會直接連接樣本平均數與依機率收斂，為後續抽樣分配、漸近理論與統計推論鋪路。
+
+## 1.10 Important Inequalities
 
 ### Existence of moments
 
@@ -1666,6 +1707,62 @@ When the expectation exists, it satisfies the following properties:
 - Let the random variable $X$ of the discrete type have probabilities 1/8, 6/8, 1/8 at the points $x=-1,0,1$, respectively.
 
 - Find $P[|X-\mu|\ge k\sigma]$ and the upper bound.
+
+### Connect: sample mean and Chebyshev
+
+令 $X_1,\ldots,X_n$ 為獨立同分配（iid）的隨機變數，且
+
+$$
+E(X_i)=\mu,\qquad \operatorname{Var}(X_i)=\sigma^2<\infty.
+$$
+
+樣本平均數為
+
+$$
+\overline X_n=\frac{1}{n}\sum_{i=1}^n X_i.
+$$
+
+由期望值與獨立性，
+
+$$
+E(\overline X_n)=\mu,
+\qquad
+\operatorname{Var}(\overline X_n)
+=\frac{1}{n^2}\sum_{i=1}^n\operatorname{Var}(X_i)
+=\frac{\sigma^2}{n}.
+$$
+
+因此對任意 $\varepsilon>0$，Chebyshev 不等式給出
+
+$$
+P\!\left(\left|\overline X_n-\mu\right|\ge\varepsilon\right)
+\le
+\frac{\operatorname{Var}(\overline X_n)}{\varepsilon^2}
+=\frac{\sigma^2}{n\varepsilon^2}
+\longrightarrow 0.
+$$
+
+這正是
+
+$$
+\overline X_n\xrightarrow{P}\mu,
+$$
+
+也就是樣本平均數**依機率收斂**到母體平均數；這個結果是弱大數法則的一個版本。
+
+::: {.callout-tip title="往後連接"}
+這裡的邏輯鏈是
+
+$$
+\operatorname{Var}(\overline X_n)=\frac{\sigma^2}{n}
+\Longrightarrow
+\text{Chebyshev bound}\to0
+\Longrightarrow
+\overline X_n\xrightarrow{P}\mu.
+$$
+
+後續將把 $T(X_1,\ldots,X_n)$ 視為 statistic，研究其 sampling distribution，並在漸近理論中系統整理 convergence in probability。參見 [Sampling and Inference](04-sampling-inference.qmd) 與 [Asymptotics](05-asymptotics.qmd)。
+:::
 
 ### Convex function
 
@@ -1719,7 +1816,7 @@ When the expectation exists, it satisfies the following properties:
 
 ## 本章摘要
 
-本章建立機率模型、隨機變數、分配與期望的共同語言，並以基本不等式連結後續的收斂與推論理論。
+本章依 **Recall $\to$ Deepen $\to$ Connect** 建立後續數理統計所需的共同語言。Stage 1 快速喚醒機率模型、條件機率、隨機變數與分配；Stage 2 深化 transformation、$E[g(X)]$、moments、variance 與 MGF；Stage 3 以重要不等式連接樣本平均數、依機率收斂及後續推論理論。
 
 ## 常見錯誤
 
@@ -1735,6 +1832,6 @@ When the expectation exists, it satisfies the following properties:
 3. 從原講義例題挑選一題，完整寫出解題目標、方法選擇、計算與結果解釋。
 4. 設計一個會違反本章方法條件的反例，說明錯誤會出現在哪一步。
 
-::: {.callout-note title="待逐章補強"}
-建議後續為本章補入：中文概念導讀、完整解答、課堂練習難度標記，以及與下一章的銜接說明。
+::: {.callout-note title="授課提醒"}
+本章保留完整材料供學生查閱，但「保留」不等於「逐頁等速講授」。Stage 1 可按班級診斷結果選題，Stage 2 應保留推導時間，Stage 3 則務必讓學生說明 Chebyshev 如何導出 $\overline X_n\xrightarrow{P}\mu$。
 :::

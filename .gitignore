@@ -35,3 +35,4 @@ Desktop.ini
 # Quarto 產生的完整 LaTeX 文件
 /01-probability.tex
 /數理統計.tex
+**/*.quarto_ipynb
