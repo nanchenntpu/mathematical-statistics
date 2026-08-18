@@ -1,0 +1,37 @@
+# Quarto 暫存及輸出
+/.quarto/
+/_book/
+
+# LaTeX 暫存檔
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# R 暫存檔
+.Rhistory
+.RData
+.Rproj.user/
+
+# Windows 暫存檔
+Thumbs.db
+Desktop.ini
+
+# 其他轉換及預覽輸出
+/.conversion/
+/_verified-site/
+/corrected-output/
+/final-output/
+/preview-site/
+/preview-site-final/
+/slides-output/
+
+# 根目錄內產生的 HTML
+/*.html
+
+# Quarto 產生的完整 LaTeX 文件
+/01-probability.tex
+/數理統計.tex

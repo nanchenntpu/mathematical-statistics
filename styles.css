@@ -1,0 +1,22 @@
+body {
+  line-height: 1.75;
+}
+
+h1, h2, h3 {
+  letter-spacing: 0.01em;
+}
+
+.callout {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+div.sourceCode, pre {
+  border-radius: 0.35rem;
+}
+
+.math.display {
+  overflow-x: auto;
+  padding-block: 0.35rem;
+}
+

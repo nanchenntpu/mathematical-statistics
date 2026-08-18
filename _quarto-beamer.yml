@@ -1,0 +1,20 @@
+project:
+  type: default
+  output-dir: slides-output
+
+format: beamer
+
+pdf-engine: xelatex
+classoption: notheorems
+aspectratio: 169
+theme: default
+mainfont: "Times New Roman"
+sansfont: "Arial"
+monofont: "Courier New"
+CJKmainfont: "Microsoft JhengHei"
+CJKsansfont: "Microsoft JhengHei"
+slide-level: 2
+section-titles: true
+keep-tex: true
+
+lang: zh-tw

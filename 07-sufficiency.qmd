@@ -1,0 +1,786 @@
+---
+title: "充分性、完備性與估計量品質"
+---
+
+::: {.callout-tip title="本章定位"}
+本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
+:::
+
+## 學習目標
+
+完成本章後，學生應能：
+
+- 以偏誤、變異數與 MSE 評估估計量
+- 使用因子分解定理辨認充分統計量
+- 說明完備性與唯一性
+- 辨認指數族並運用其結構
+- 理解最小充分性、附屬統計量與獨立性
+
+## 必備的先備知識
+
+聯合分配、條件分配、點估計與似然函數。
+
+以下依原講義順序整理核心定義、定理、公式與例題。
+
+## Measures of quality of estimators
+
+### Notation
+
+- Let $f(x;\theta)$ be a pdf (pmf) of a continuous (discrete) random variable $X$.
+
+- Let $Y_n = u(X_1, \ldots, X_n)$ denote a point estimator of $\theta$ based on a sample $X_1, \ldots, X_n$.
+
+- Recall properties of estimators
+
+  - $Y_n$ is a consistent estimator if $Y_n\stackrel{P}{\rightarrow} \theta$.
+
+  - $Y_n$ is an unbiased estimator if $E[Y_n] = \theta$.
+
+### MVUE
+
+::: {#def-ch7-1}
+- Let $Y_n = u(X_1, \ldots, X_n)$ denote a point estimator of $\theta$ based on a sample $X_1, \ldots, X_n$.
+
+- $Y_n$ is called a minimum variance unbiased estimator (MVUE) of $\theta$ if
+
+  - $Y_n$ is unbiased.
+
+  - $\operatorname{Var}(Y_n)$ is less than or equal to the variance of every other unbiased estimator of $\theta$.
+:::
+
+### Example 1
+
+- Consider a sample $X_1, \ldots, X_9$ from $N(\theta,\sigma^2)$, $\theta\in R$.
+
+- Compare the variance of $\bar{X}$ and $X_1$.
+
+### Decision rule
+
+- Consider a sample $X_1, \ldots, X_n$ from $f(x; \theta)$, $\theta\in\Omega$.
+
+- Let $Y_n = u(X_1, \ldots, X_n)$ denote a point estimator of $\theta$ based on a sample $X_1, \ldots, X_n$.
+
+- Let $\delta(y)$ be that function of the observed value of the statistic $Y_n$.
+
+- The function $\delta(y)$ decides the value of our point estimate of $\theta$ and $\delta$ is called a decision function or a decision rule.
+
+- One value of the decision function, say $\delta(y)$, is called a decision.
+
+### Loss function
+
+- With each pair, $[\theta, \delta(y)]$, $\theta\in \Omega$, we associate a nonnegative number ${\mathcal{L}}[\theta, \delta(y)]$ that reflects the seriousness of difference.
+
+- ${\mathcal{L}}$ is called the loss function.
+
+- The expected (mean) value of the loss function is called the risk function.
+
+- Suppose $Y$ is a continuous random variable, then we have $$R(\theta, \delta) = E[{\mathcal{L}}[\theta,\delta(y)]] = \int_{-\infty}^{\infty} {\mathcal{L}}[\theta,\delta(y)]f_Y(y;\theta)dy$$
+
+- It would be desirable to select a decision function that minimizes the risk $R(\theta, \delta)$ for all values of $\theta$, $\theta\in \Omega$.
+
+### Example 2
+
+- Consider a sample $X_1, \ldots, X_{25}$ from $N(\theta,1)$, $\theta\in R$.
+
+- Let $Y=\bar{X}$.
+
+- Let ${\mathcal{L}}[\theta,\delta(y)] = [\theta-\delta(y)]^2$.
+
+- Consider $\delta_1 = y$ and $\delta_2 = 0$ for $y\in R$.
+
+- Find $R(\theta,\delta_1)$ and $R(\theta,\delta_2)$.
+
+### Example 3 — Cont's
+
+- If $\theta=0$, $\delta_2(y)$ is an excellent decision.
+
+- If $\theta=2$, $\delta_1(y)$ is a better decision.
+
+- If $-\frac{1}{5}<\theta<\frac{1}{5}$, $R(\theta,\delta_2)\le R(\theta,\delta_1)$.
+
+- Otherwise, $R(\theta,\delta_1)\le R(\theta,\delta_2)$.
+
+### Example 4 — Cont's
+
+- Suppose the decision function $\delta$ needs to satisfy $$E[\delta(Y)] = \theta \forall \theta\in \Omega.$$
+
+- The decision function $\delta_2(y) = 0$ is not allowed.
+
+- Under this restriction and with the given ${\mathcal{L}}[\theta, \delta(y)]$, the risk function is the variance of the unbiased estimator $\delta(Y)$.
+
+- The problem becomes to find the MVUE of $\theta$.
+
+### Minimax criterion
+
+- Find a decision that minimize the maximum of the risk function.
+
+- If the decision function given by $\delta_0(y)$ is such that, for all $\theta\in\Omega$, $$\max_\theta R[\theta, \delta_0(y)] \le \max_\theta R[\theta, \delta(y)]$$ for every other decision function $\delta(y)$, then $\delta_0(y)$ is called a minimax decision function.
+
+### MVUE
+
+- With the restriction $E[\delta(Y)] = \delta$ and the loss function ${\mathcal{L}}[\theta, \delta(y)] = [\theta- \delta(y)]^2$.
+
+- The decision function that minimizes the risk function yields an unbiased estimator with minimum variance.
+
+### Minimum mean-squared-error estimator
+
+- Without the restriction $E[\delta(Y)] = \delta$ and the loss function ${\mathcal{L}}[\theta, \delta(y)] = [\theta- \delta(y)]^2$.
+
+- the decision function δ(Y ), if it exists, which minimizes $E[\theta- \delta(y)]^2$ uniformly in $\theta$ is sometimes called the minimum mean-squared-error estimator.
+
+### Loss function
+
+- Square-error loss function $${\mathcal{L}}[\theta, \delta(y)] = [\theta- \delta(y)]^2.$$
+
+- Absolute-error loss function $${\mathcal{L}}[\theta, \delta(y)] = |\theta- \delta(y)|$$
+
+- Goalpost loss function $${\mathcal{L}}[\theta, \delta(y)] = \left\{
+  \begin{array}{ll}
+  0  & |\theta- \delta(y)|\le a\\
+  0b & |\theta- \delta(y)|> a\\
+  \end{array}
+  \right.$$ where $a$ and $b$ are positive constants.
+
+### Example 5
+
+- Suppose that two statisticians, $A$ and $B$, observe 10 independent trials of a random experiment ending in success or failure.
+
+- Let the probability of success on each trial be $\theta$, where $0 < \theta < 1$.
+
+- Suppose each statistician observes one success in these 10 trials.
+
+### Example 6 — Statistician $A$
+
+- $A$ had decided to take n = 10 such observations in advance and found only one success.
+
+- $Y~Bin(n=10, \theta)$ and $y=1$ is observed.
+
+- An estimator of $\theta$ is $Y/n$.
+
+- $E[Y/n] = \theta$
+
+- $Y/n$ is an unbiased estimator of $\theta$.
+
+### Example 7 — Statistician $B$
+
+- $B$ had decided to take as many observations as needed to get the first success, which happened on the 10th trial.
+
+- $B$ considers the random variable $Z$ that has a geometric pmf $g(z) = (1- \theta)^{z-1}θ$, $z$ = 1, 2, 3, $\ldots$, and $z = 10$ is observed.
+
+### Example 8 — Statistician $B$
+
+- $B$ had decided to take as many observations as needed to get the first success, which happened on the 10th trial.
+
+- $B$ considers the random variable $Z$ that has a geometric pmf $g(z) = (1- \theta)^{z-1}θ$, $z$ = 1, 2, 3, $\ldots$, and $z = 10$ is observed.
+
+- An estimator of $\theta$ is $1/Z$.
+
+- $E[1/Z] = \sum_{z=1}^\infty \frac{1}{z}(1- \theta)^{z-1}θ = \theta +\frac{1}{2}(1-\theta)\theta + \cdots>\theta$.
+
+- $1/Z$ ia a biased estimator.
+
+### Example 9 — Likelihood
+
+- Consider two likelihood functions, namely, $$\begin{aligned}
+  L_1(\theta) &= {10\choose y}\theta^y(1- \theta)^{10-y}\\
+  L_2(\theta) &= (1- \theta)^{z-1}\theta.
+  \end{aligned}$$
+
+- Both maximize $(1-\theta)^9\theta$ and give $\hat{\theta}=1/10$.
+
+### Likelihood principle
+
+- Suppose two different sets of data from possibly two different random experiments lead to respective likelihood ratios, $L_1(\theta)$ and $L_2(\theta)$, that are proportional to each other.
+
+- These two data sets provide the same information about the parameter $\theta$ and a statistician should obtain the same estimate of $\theta$ from either.
+
+## A sufficient statistic for a parameter
+
+### Example 10 — Sufficient statistic
+
+- Consider 10 independent trials of a random experiment ending in success or failure.
+
+- First experiment -- 1 1 0 0 0 0 1 1 0 0
+
+- Second experiment -- 0 0 1 0 0 0 0 0 0 0
+
+- Third experiment -- 1 1 1 1 1 1 1 1 0 1
+
+### Example 11 — Bernoulli trial
+
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from the distribution that has pmf $$\begin{aligned}
+  f(x;\theta) &= \theta^x(1- \theta)^{1-x}, x= 0, 1; 0<\theta<1\\
+  \end{aligned}$$ and 0 elsewhere.
+
+- Let $Y = \sum_{i=1}^n X_i$.
+
+- Find the conditional distribution of $X_1, X_2, \ldots, X_n$ given $Y=y$.
+
+### Sufficient statistic
+
+::: {#def-ch7-2}
+- Let $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from the distribution that has pdf or pmf $f(x;\theta)$, $\theta\in\Omega$.
+
+- Let $Y_1 = u_1(X_1, \ldots, X_n)$ be a statistic whose pdf or pmf is $f_{Y_1} (y; \theta)$.
+
+- Then $Y_1$ is a sufficient statistic for $\theta$ if and only if $$\frac{f(x_1;\theta)f(x_2;\theta)\cdots f(x_n;\theta)}{f_{Y_1} (y; \theta)} = H(x_1, x_2, \cdots, x_n),$$ where $H(x_1, x_2, \cdots, x_n)$ does not depend upon $\theta\in\Omega$.
+:::
+
+### Example 12 — Gamma distribution
+
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a gamma distribution with $\alpha=2$ and $\beta = \theta>0$.
+
+- Let $Y = \sum_{i=1}^n X_i$.
+
+- Show $Y$ is a sufficient statistic of $\theta$.
+
+### Example 13 — Location-shift exponential distribution
+
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a location-shift exponential distribution with pdf $$f(x;\theta) = e^{-(x-\theta)}, x>\theta.$$
+
+- Let $Y = \min(X1, \cdots, X_n)$.
+
+- Show $Y$ is a sufficient statistic of $\theta$.
+
+### Neyman factorization theorem
+
+::: {#thm-ch7-1}
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a distribution with pdf or pmf $f(x;\theta)$, $\theta\in\Omega$.
+
+- The statistic $Y_1 = u_1(X_1, \ldots , X_n)$ is a sufficient statistic for $\theta$ if and only if we can find two nonnegative functions, $k_1$ and $k_2$, such that $$\begin{aligned}
+  \lefteqn{f(x_1;\theta)f(x_2;\theta)\cdots f(x_n;\theta) }\\
+  & = k_1[u_1(x_1, x_2, \ldots, x_n);\theta]k_2(x_1, x_2, \ldots, x_n),
+  \end{aligned}$$ where $k_2(x_1, x_2, \ldots, x_n)$ does not depend upon $\theta$.
+:::
+
+### Example 14 — Normal distribution
+
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a normal distribution with $\mu$ and $\sigma^2$, where $\theta\in R$ and $\sigma^2$ is known.
+
+- Let $Y = \bar{X}$.
+
+- Show $Y$ is a sufficient statistic of $\theta$.
+
+### Example 15 — Special distribution
+
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a distribution with pdf $$f(x;\theta) = \left\{
+  \begin{array}{ll}
+  \theta x^{\theta-1} & 0<x<1\\
+  0 & \text{elsewhere},
+  \end{array}
+  \right.$$ where $\theta>0$.
+
+- Find a sufficient statistic of $\theta$.
+
+## Properties of a sufficient statistic
+
+### Recall
+
+- If $X_1$ and $X_2$ are random variables such that the variance of $X_2$ exists, then $$E[X_2] = E[E[X_2|X_1]]$$ and $$\operatorname{Var}(X_2)\ge \operatorname{Var}(E[X_2|X_1]).$$
+
+### Rao-Blackwell theorem
+
+::: {#thm-ch7-2}
+- Le $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a distribution with pdf or pmf $f(x;\theta)$, $\theta\in\Omega$.
+
+- The statistic $Y_1 = u_1(X_1, \ldots , X_n)$ is a sufficient statistic for $\theta$ .
+
+- Let $Y_2 = u_2(X_1, X_2, \ldots, X_n)$, not a function of $Y_1$, be an unbiased estimator of $\theta$.
+
+- Define $E[Y_2|Y_1 = y_1] = \psi(y_1)$.
+
+- Then
+
+  - $\psi(Y_1)$ is an unbiased estimator of $\theta$.
+
+  - $\operatorname{Var}(\psi(Y_1))\le \operatorname{Var}(Y_2)$.
+:::
+
+### Properties of MLE
+
+::: {#thm-ch7-3}
+- Let $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a distribution with pdf or pmf $f(x;\theta)$, $\theta\in\Omega$.
+
+- The statistic $Y_1 = u_1(X_1, \ldots , X_n)$ is a sufficient statistic for $\theta$ .
+
+- If a maximum likelihood estimator $\hat{\theta}$ of $\theta$ also exists uniquely.
+
+- Then $\hat{\theta}$ is a function of $Y_1$.
+:::
+
+### Example 16 — Exponential distribution
+
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a distribution with pdf $$f(x;\theta) = \left\{
+  \begin{array}{ll}
+  \theta e^{-\theta x} & 0<x; \theta>0\\
+  0 & \text{elsewhere},
+  \end{array}
+  \right..$$
+
+- Find an MVUE of $\theta$.
+
+## Completeness and uniqueness
+
+### Example 17 — Poisson distribution
+
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from the Poisson distribution with pmf $$f(x;\theta) = \frac{\theta^x e^{-\theta}}{x!}, x=0, 1, 2,\ldots; \theta>0,$$ $$f(x;\theta) = \left\{
+  \begin{array}{ll}
+  \frac{\theta^x e^{-\theta}}{x!},& x=0, 1, 2,\ldots; \theta>0,\\
+  0 & \text{elsewhere},
+  \end{array}
+  \right..$$
+
+- Let $Y_1 = \sum_{i=1}^nX_i$.
+
+- Consider $u(Y_1)$.
+
+- Show that $E[u(Y_1)] = 0$ if and only if $u(y_1) = 0$, $\forall y_1 = 0, 1, 2, \ldots$.
+
+### Complete family
+
+::: {#def-ch7-3}
+- Let the random variable $Z$ of either the continuous type or the discrete type have a pdf or pmf that is one member of the family $\{h(z; \theta): \theta \in\Omega\}$.
+
+- If the condition $E[u(Z)] = 0$, for every $\theta\in\Omega$, requires that $u(z)$ be zero except on a set of points that has probability zero for each $h(z; \theta)$, $\theta\in\Omega$.
+
+- Then the family $\{h(z; \theta): \theta \in\Omega\}$ is called a complete family of probability density or mass functions.
+:::
+
+### Example 18 — Exponential distribution
+
+- Consider the family of pdf $\{h(z; \theta): 0<\theta<\infty\}$.
+
+- Suppose $Z$ has a pdf in this family given by $$f(x;\theta) = \left\{
+  \begin{array}{ll}
+  \frac{1}{\theta} e^{-x/\theta} & 0<x; \theta>0\\
+  0 & \text{elsewhere},
+  \end{array}
+  \right..$$
+
+- Show this is a complete family. \[Laplace transformation\]
+
+### Lehmann and Scheffé theorem
+
+::: {#thm-ch7-4}
+- Le $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from a distribution with pdf or pmf $f(x;\theta)$, $\theta\in\Omega$.
+
+- Let $Y_1 = u_1(X_1, \cdots, X_n)$ be a sufficient statistic for $\theta$.
+
+- Let the family $\{f_{Y_1}(y_1;\theta): \theta\in\Omega\}$ be complete.
+
+- If $\psi(Y_1)$ is an unbiased estimator of $\theta$.
+
+- Then $\psi(Y_1)$ is the unique MVUE (UMVUE) of $\theta$.
+:::
+
+### Example 19 — Uniform distribution
+
+- Consider $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from the uniform distribution with pdf $$f(x;\theta) = \frac{1}{\theta}, 0<x<\theta, \theta>0,$$ and zero elsewhere.
+
+- Find the UMVUE of $\theta$.
+
+## The exponential class of distributions
+
+### Exponential class
+
+::: {#def-ch7-4}
+- A pdf of the form $$f(x;\theta) = \left\{
+  \begin{array}{cc}
+  \exp[p(\theta)K(x) + H(x) + q(\theta)] & x\in {\mathcal{S}}\\
+  0 & \text{elsewhere,}
+  \end{array}
+  \right.$$ where ${\mathcal{S}}$ is the support of $X$, is said to be a member of the regular exponential class of probability density or mass functions if
+
+  1.  ${\mathcal{S}}$, the support of $X$, does not depend upon $\theta$.
+
+  2.  $p(\theta)$ is a nontrivial continuous function of $\theta\in\Omega$.
+
+  3.  Finally,
+
+      1.  if $X$ is a continuous random variable, then each of $K^{{\prime}}(x)\ne 0$ and $H(x)$ is a continuous function of $x\in {\mathcal{S}}$.
+
+      2.  if X is a discrete random variable, then $K(x)$ is a nontrivial function of $x\in {\mathcal{S}}$.
+:::
+
+### Exponential family and sufficient statistic
+
+- Let $X_1, \ldots, X_n$ denote a random sample from a distribution that has a pdf of the form $$f(x;\theta) = \exp[p(\theta)K(x) + H(x) + q(\theta)],  x\in {\mathcal{S}}$$ and 0 elsewhere.
+
+- Show $Y_1 = \sum_{i=1}^n K(x_i)$ is a sufficient statistic for $\theta$.
+
+### Example 20 — Normal distribution
+
+- Consider the family $\{f(x;\theta): 0<\theta<\infty\}$, where $f(x;\theta)$ is $N(0,\theta)$.
+
+- Show this is an exponential family.
+
+### Example 21 — Uniform distribution
+
+- Consider the family $\{f(x;\theta): 0<\theta<\infty\}$, where $f(x;\theta)$ is an uniform (0, 1) density.
+
+- Show this is not an exponential family.
+
+### Properties of exponential class
+
+::: {#thm-ch7-5}
+- Let $X_1, \ldots, X_n$ denote a random sample from a distribution that has a pdf of the form $$f(x;\theta) = \exp[p(\theta)K(x) + H(x) + q(\theta)],  x\in {\mathcal{S}}$$ and 0 elsewhere.
+
+- Consider $Y_1 = \sum_{i=1}^n K(X_i)$.
+:::
+
+### Properties of exponential class
+
+::: {#thm-ch7-6}
+- The pdf or pmf of $Y_1$ has the form $$f(x;\theta) = \left\{
+  \begin{array}{cc}
+  \exp[p(\theta)K(x) + H(x) + q(\theta)] & x\in {\mathcal{S}}\\
+  0 & \text{elsewhere,}
+  \end{array}
+  \right.$$ for $y_1 \in {\mathcal{S}}_{Y_1}$ and some function $R(y_1)$ and ${\mathcal{S}}_{Y_1}$ and $R(y_1)$ depend on $\theta$.
+
+- $E[Y_1] = -n\frac{q^{'}(\theta)}{p^{'}(\theta)}$.
+
+- $\operatorname{Var}(Y_1) = n\frac{1}{(p^{'}(\theta))^3} \{p^{''}(\theta)q^{'}(\theta) - q^{''}(\theta)p^{'}(\theta)\}$.
+:::
+
+### Example 22 — Poisson distribution
+
+- Let $X$ have a Poisson distribution with parameter $\theta\in (0, \infty)$.
+
+- Show that this is an exponential family.
+
+### Properties
+
+- Let $f(x; \theta)$, $\gamma < \theta < \delta$, be a pdf or pmf of a random variable $X$ whose distribution is a regular case of the exponential class.
+
+- If $X_1, X_2, \ldots, X_n$ is a random sample from the distribution of $X$, then
+
+  - the statistic $Y_1 = \sum_{i=1}^n K(X_i)$ is a sufficient statistic for $\theta$
+
+  - the family $\{f_{Y_1} (y_1; \theta): \gamma < \theta < \delta\}$ of probability density functions of $Y_1$ is complete.
+
+  - That is, $Y_1$ is a complete sufficient statistic for $\theta$.
+
+### Example 23 — Normal distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from a normal distribution $N(\theta,\sigma^2)$, where $x\in R$, $\theta\in R$ and $\sigma^2$ is given.
+
+- Show $\bar{X}$ is the UMVUE of $\theta$.
+
+### Example 24 — Poisson distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from a Poisson distribution with parameter $\theta\in (0, \infty)$.
+
+- Show that $\bar{X}$ is the UMVUE of $\theta$.
+
+## Functions of a parameter
+
+### Example 25 — Bernoulli distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from a Bernoulli distribution $b(1,\theta)$, $0<\theta<1$.
+
+- Find the UMVUE of $\delta = \theta (1-\theta)$.
+
+### Example 26 — Uniform distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from an uniform $(0, \theta)$ distribution.
+
+- Find the UMVUE of $g(\theta)$, where $g(\theta)$ is any differentiable function of $\theta$.
+
+### Example 27 — Normal distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from a normal distribution $N(\theta,\sigma^2)$, where $x\in R$, $\theta\in R$ and $\sigma^2$ is given.
+
+- Find the UMVUE of $P[X_1\le c]$.
+
+## The case of several parameters
+
+### Sufficient statistic
+
+::: {#def-ch7-5}
+- Let $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from the distribution that has pdf or pmf $f(x;\boldsymbol{\theta})$, $\boldsymbol{\theta}\subset\Omega^p$.
+
+- Let ${\mathcal{S}}$ denote the support of $X$.
+
+- Let $\boldsymbol{Y}$ be an $m$-dimensional random vector of statistics $\boldsymbol{Y} = (Y_1, \ldots, Y_m)^{'}$, where $Y_i = u_i(X_1, \ldots, X_n)$, for $i = 1, 2, \ldots, m.$
+
+- Denote the pdf or pmf of $\boldsymbol{Y}$ by $f_{\boldsymbol{Y}}(\boldsymbol{y}; \boldsymbol{\theta})$ for $\boldsymbol{y} \in R^m$.
+
+- Then $\boldsymbol{Y}$ is jointly sufficient for $\boldsymbol{\theta}$ if and only if $$\frac{f(x_1;\boldsymbol{\theta})f(x_2;\boldsymbol{\theta})\cdots f(x_n;\boldsymbol{\theta})}{f_{\boldsymbol{Y}} (\boldsymbol{y}; \boldsymbol{\theta})} = H(x_1, x_2, \cdots, x_n),$$ where $H(x_1, x_2, \cdots, x_n)$ does not depend upon $\boldsymbol{\theta}$.
+:::
+
+### Example 28 — Uniform distribution
+
+- Let $X_i$, $i = 1, 2, \ldots, n$ denote a random sample from the distribution having pdf $$f(x;\theta_1, \theta_2) = \left\{
+  \begin{array}{ll}
+  \frac{1}{2\theta_2} & \theta_1-\theta_2 < x < \theta_1+\theta_2\\
+  0 & \text{elsewhere} 
+  \end{array}
+  \right .$$
+
+- Find joint sufficient statistics for $\theta_1$ and $\theta_2$.
+
+### Exponential class
+
+::: {#def-ch7-6}
+- A pdf of the form $$f(x;\boldsymbol{\theta}) = \left\{
+  \begin{array}{cc}
+  \exp[\sum_{j=1}^m p_j(\boldsymbol{\theta})K_j(x) + H(x) + q(\boldsymbol{\theta})] & x\in {\mathcal{S}}\\
+  0 & \text{elsewhere,}
+  \end{array}
+  \right.$$ where ${\mathcal{S}}$ is the support of $X$, is said to be a member of the regular exponential class of probability density or mass functions if
+
+  1.  ${\mathcal{S}}$, the support of $X$, does not depend upon $\boldsymbol{\theta}$.
+
+  2.  the space $\Omega$ contains a nonempty, $m$-dimensional open rectangle,
+
+  3.  $p_j(\boldsymbol{\theta})$, $j=1, \ldots, m$, are nontrivial, functionally independent, continuous functions of $\boldsymbol{\theta}$.
+:::
+
+### Exponential class
+
+::: {#def-ch7-7}
+- and
+
+  1.  if $X$ is a continuous random variable, then the $m$ derivatives $K_j^{{\prime}}(x)$, for $j = 1, 2, \ldots, m$, are continuous for $a<x<b$ and no one is a linear homogeneous function of the others, and $H(x)$ is a continuous function of $x$, $a<x<b$.
+
+  2.  if X is a discrete random variable, then $K_j(x)$, $j=1,2,\ldots,m$, are nontrivial functions of $x\in {\mathcal{S}}$ and no one is a linear homogeneous function of the others.
+:::
+
+### Example 29 — Normal distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from a normal distribution $N(\theta_1,\theta_2)$, where $x\in R$, $\theta_1\in R$ and $\theta_2>0$.
+
+- Find the joint complete sufficient statistics of $\theta_1$ and $\theta_2$.
+
+### Properties
+
+- Suppose $\boldsymbol{X}$ is a $k$-dimensional random vector with pdf or pmf $f(\boldsymbol{x}; \boldsymbol{\theta})$, $\boldsymbol{\theta}\subset \Omega\in R^k$.
+
+- Let ${\cal\boldsymbol{S}} \subset R^k$ denote the support of $\boldsymbol{X}$.
+
+- Suppose $f(\boldsymbol{x}; \boldsymbol{\theta})$ is of form $$f(\boldsymbol{x}; \boldsymbol{\theta}) = 
+  \left\{
+  \begin{array}{ll}
+  \exp\left[
+  \sum_{j=1}^m p_j(\boldsymbol{\theta}) K_j(\boldsymbol{x}) + H(\boldsymbol{x}) +
+  q(\boldsymbol{\theta})\right] & \text{for all }\boldsymbol{x}\in {\mathcal{S}},\\
+  0 & \text{elsewhere}
+  \end{array}
+  \right.$$
+
+- Denote $Y_j = \sum_{i=1}^n K_j(\boldsymbol{X}_i)$, $j= 1,2, \ldots, m$.
+
+- Then $\boldsymbol{Y} = (Y_1, \ldots, Y_m)^{'}$ are sufficient and complete statistic for $\boldsymbol{\theta}$.
+
+### Example 30 — Multinomial distribution
+
+- Let $X_j$ be 1 or 0 depending on whether the $j$th outcome does or does not occur, for $j = 1, \ldots, k$.
+
+- Suppose the probability that outcome $j$ occurs is $p_j$; hence, $\sum_{j=1}^k p_j = 1$.
+
+- Let $\boldsymbol{X} = (X_1, X_2, \ldots, X_k)^{'}$ and $\boldsymbol{p} = (p_1,\ldots, p_{k-1})^{'}$.
+
+- $\boldsymbol{X}$ has a multinomial distribution.
+
+- Find the joint complete sufficient statistics of $\boldsymbol{p}$.
+
+### Example 31 — Multinomial distribution
+
+- Let $X_j$ be 1 or 0 depending on whether the $j$th outcome does or does not occur, for $j = 1, \ldots, k$.
+
+- Suppose the probability that outcome $j$ occurs is $p_j$; hence, $\sum_{j=1}^k p_j = 1$.
+
+- Let $\boldsymbol{X} = (X_1, X_2, \ldots, X_k)^{'}$ and $\boldsymbol{p} = (p_1,\ldots, p_{k-1})^{'}$.
+
+- $\boldsymbol{X}$ has a multinomial distribution.
+
+- Find UMVUE of $p_jp_l$, $j\ne l$.
+
+### Example 32 — Multivariate normal distribution
+
+- Let $\boldsymbol{X}$ have the multivariate normal distribution $N_k(\boldsymbol{\mu}, \boldsymbol{\Sigma})$, where $\boldsymbol{\Sigma}$ is a positive definite $k\times k$ matrix.
+
+- Let $\boldsymbol{X}_1$, $\ldots$, $\boldsymbol{X}_n$ be a random sample from $\boldsymbol{X}$.
+
+- Find the joint complete sufficient statistics of $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$.
+
+## Minimal sufficiency and ancillary statistics
+
+### Minimal sufficient statistics
+
+- Let $X_1, \ldots, X_n$ be a random sample from a pdf $f(x, \boldsymbol{\theta})$, $\theta \in R^k$.
+
+- Reducing the number of statistics involved until we cannot go any further without losing the sufficiency of the resulting statistics.
+
+- Those statistics are called minimal sufficient statistics.
+
+- If there are $k$ parameters, we can find $k$ joint sufficient statistics that are minimal.
+
+### Example 33 — Uniform distribution
+
+- Let $X_1, \ldots, X_n$ be a random sample from the uniform distribution over $(\theta_1, \theta_2)$ having pdf $$f(x; \theta) = \frac{1}{\theta_2-\theta_1}\times I_{(\theta_1, \theta_2)}(x),$$ where $\theta_1 < \theta_2$, and $\theta_1, \theta_2 \in R$.
+
+- Find the sufficient statistics for $\theta$.
+
+### Example 34 — Uniform distribution
+
+- Let $X_1, \ldots, X_n$ be a random sample from the uniform distribution over $(\theta-1, \theta + 1)$ having pdf $$f(x; \theta) = \frac{1}{2}\times I_{(\theta-1, \theta+1)}(x),$$ where $\theta \in R$.
+
+- Find the sufficient statistics for $\theta$.
+
+### Remark
+
+- The mle $\hat{\theta}$ of $\theta$ is a function of one or more sufficient statistics, when the latter exists.
+
+- Since this sufficient statistic $\theta$ is a function of the other sufficient statistics, it must be minimal.
+
+### Example 35 — Minimal sufficient statistic
+
+- $N(\theta,\sigma^2)$, $\sigma^2$ known.
+
+- Poisson($\theta$)
+
+- Uniform(0, $\theta$)
+
+- $N(\theta_1, \theta_2)$
+
+### Note
+
+- The minimal sufficient statistics do not need to be unique, for any one-to-one transformation of them also provides minimal sufficient statistics.
+
+- The linkage between minimal sufficient statistics and the mle, however, does not hold in many interesting instances.
+
+### Example 36 — Uniform distribution
+
+- Let $X_1, \ldots, X_n$ be a random sample from the uniform distribution over $(\theta-1, \theta + 1)$ having pdf $$f(x; \theta) = \frac{1}{2}\times I_{(\theta-1, \theta+1)}(x),$$ where $\theta \in R$.
+
+- Find the MLE for $\theta$ (Not unique).
+
+### Example 37 — Location model
+
+- Consider a location model given by $$X_i = \theta + W_i,$$ where $W_1, \ldots, W_n$ be a random sample from a common pdf $f(w)$ and common continuous cdf $F(w)$.
+
+- Find minimal sufficient statistics for the following four situations
+
+  1.  $f(w) \sim N(0, 1)$
+
+  2.  $f(w) = \exp(-w)$, for $w>0$, zero elsewhere.
+
+  3.  $f(w) = \frac{\exp(-(x-\theta)}{\{(1+\exp(-(x-\theta))\}^2}$, $x\in R$; $\theta\in R$.
+
+  4.  $f(w) = \frac{1}{2}\exp(-|x|)$, $x\in R$.
+
+### Note
+
+- The complete sufficient statistics are minimal sufficient statistics.
+
+- The converse is not true.
+
+### Example 38 — Uniform distribution
+
+- Let $X_1, \ldots, X_n$ be a random sample from the uniform distribution over $(\theta-1, \theta + 1)$ having pdf $$f(x; \theta) = \frac{1}{2}\times I_{(\theta-1, \theta+1)}(x),$$ where $\theta \in R$.
+
+- Show the minimal sufficient statistics are not complete since $$E\left[\frac{Y_n-Y_1}{2} - \frac{n-1}{n+1}\right] = 0, \forall \theta.$$
+
+### Ancillary statistics
+
+- The statistics called ancillary statistics have distributions free of the parameters and seemingly contain no information about those parameters.
+
+### Example 39 — Location model
+
+- Consider a location model given by $$X_i = \theta + W_i,$$ where $\theta\in R$ and $W_1, \ldots, W_n$ be a random sample from a common pdf $f(w)$ and common continuous cdf $F(w)$.
+
+- Let $Z=u(X_1, X_2, \ldots, X_n)$ be a statistic such that $$u(x_1+d, x_2+d, \ldots, x_n+d) = u(x_1, x_2, \ldots, x_n),$$ for all $d\in R$.
+
+- Show that $Z$ is an ancillary statistic and is called a location-invariate statistic.
+
+### Example 40 — Scale model
+
+- Consider a scale model given by $$X_i = \theta W_i,$$ where $\theta>0$ and $W_1, \ldots, W_n$ be a random sample from a common pdf $f(w)$.
+
+- Let $Z=u(X_1, X_2, \ldots, X_n)$ be a statistic such that $$u(cx_1, cx_2, \ldots, cx_n) = u(x_1, x_2, \ldots, x_n),$$ for all $d\in R$.
+
+- Show that $Z$ is an ancillary statistic and is called a scale-invariate statistic.
+
+### Example 41 — Scale model
+
+- Consider a location and scale model given by $$X_i = \theta_1 + \theta_2 W_i,$$ where $\theta_\in R$, $\theta_2>0$, and $W_1, \ldots, W_n$ be a random sample from a common pdf $f(w)$.
+
+- Let $Z=u(X_1, X_2, \ldots, X_n)$ be a statisic such that $$u(cx_1 + d, cx_2 + d, \ldots, cx_n + d) = u(x_1, x_2, \ldots, x_n),$$ for all $d\in R$.
+
+- Show that $Z$ is an ancillary statistic and is called a location and scale invariate statistic.
+
+## Sufficiency, completeness, and independence
+
+### Independence
+
+::: {#thm-ch7-7}
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from a distribution having a pdf $f(x;\theta)$, $\theta\in\Omega$, where $\Omega$ is an interval set.
+
+- Suppose that the statistic $Y_1$ is a complete and sufficient statistic for $\theta$.
+
+- Let $Z= u(X_1, X_2, \ldots, X_n)$ be any other statistic (not a function of $Y_1$ alone).
+
+- If the distribution of $Z$ does not depend upon $\theta$, then $Z$ is independent of the sufficient statistic $Y_1$.
+:::
+
+### Remark
+
+- The theorem (including the special formulation of it for regular cases of the exponential class) extends immediately to probability density functions that involve $m$ parameters for which there exist $m$ joint sufficient statistics.
+
+### Example 42 — Normal distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from $N(\mu,\sigma^2$).
+
+- Show that $\bar{X}$ and $S^2$ are independent.
+
+### Example 43 — Shifted-exponential distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from the distribution having pdf $$f(x;\theta) = \left\{
+  \begin{array}{ll}
+  \exp(-(x-\theta)), & \theta<x; \theta\in R\\
+  0, & \text{elsewhere}.
+  \end{array}
+  \right .$$
+
+- Show that $\min(X_i)$ and $S^2$, the sample range and $$\frac{1}{n}\sum_{i=1}^n [X_i - \min X_i]$$ are independent.
+
+### Example 44 — Exponential distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from the distribution having pdf $$f(x;\theta) = \left\{
+  \begin{array}{ll}
+  \frac{1}{\theta}\exp(-x/\theta), & 0<x; \theta>0\\
+  0, & \text{elsewhere}.
+  \end{array}
+  \right .$$
+
+- Show that $\bar{X}$ and $X_i/\sum_{i=1}^n X_i$ are independent. are independent.
+
+### Example 45 — Normal distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from $N(\theta_1, \theta_2)$, $\theta_1\in R$ and $\theta_2>0$.
+
+- Show that $\bar{X}$ and $S^2$ are independent of . $$Z = \frac{\sum_{i=1}^{n-1}(X_{i+1}-X_i)^2}{\sum_{i=1}^n)(X_i-\bar{X})^2}$$ are independent.
+
+## 本章摘要
+
+本章研究樣本中與參數相關的資訊如何被統計量濃縮，並以充分性與完備性建立最佳不偏估計的理論。
+
+## 常見錯誤
+
+- 把充分性誤解為估計量一定有效率
+- 未區分充分、最小充分與完備
+- 套用 Rao–Blackwell 或 Lehmann–Scheffé 定理時漏掉條件
+- 忽略參數空間對完備性的影響
+
+## 章末練習
+
+1. 從本章選出三個關鍵定義，分別寫出數學形式、成立條件及一個例子。
+2. 選擇一個主要定理或方法，重做推導並標記每一步使用的假設。
+3. 從原講義例題挑選一題，完整寫出解題目標、方法選擇、計算與結果解釋。
+4. 設計一個會違反本章方法條件的反例，說明錯誤會出現在哪一步。
+
+::: {.callout-note title="待逐章補強"}
+建議後續為本章補入：中文概念導讀、完整解答、課堂練習難度標記，以及與下一章的銜接說明。
+:::

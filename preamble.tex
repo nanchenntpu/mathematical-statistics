@@ -1,0 +1,74 @@
+% Quarto 會自行產生 \documentclass；此檔不可再宣告文件類別。
+% fontspec 與 xeCJK 由 Quarto/XeLaTeX 字型設定載入。
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage[outercaption]{sidecap}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{listings}
+\usepackage[parfill]{parskip}
+
+% 額外英文字型命令
+\newfontfamily{\E}{Arial}
+\newfontfamily{\A}{Arial}
+\newfontfamily{\C}[Scale=0.9]{Arial}
+\newfontfamily{\TT}[Scale=0.8]{Times New Roman}
+\newfontfamily{\SA}[Scale=0.9]{Arial}
+\newfontfamily{\SCP}{Arial}
+
+% 額外中文字型命令（使用 Windows 字型的內部英文名稱較穩定）
+\newCJKfontfamily{\MB}{Microsoft JhengHei}
+\newCJKfontfamily{\SM}[Scale=0.8]{PMingLiU}
+\newCJKfontfamily{\K}{DFKai-SB}
+
+% 中文自動換行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip=0pt plus 1pt
+
+% 自訂命令
+\newcommand{\cw}{\texttt{cw}\kern-.6pt\TeX}
+\newcommand{\imgdir}{../PyImages/}
+
+% 中文圖表名稱
+\renewcommand{\tablename}{表}
+\renewcommand{\figurename}{圖}
+
+% 定理環境
+\theoremstyle{remark}
+\newtheorem{example}{\MB 範例}
+\newtheorem{proj}{\LARGE\MB 專題}
+
+% 顏色
+\definecolor{slight}{gray}{0.9}
+\definecolor{airforceblue}{rgb}{0.36,0.54,0.66}
+\definecolor{arylideyellow}{rgb}{0.91,0.84,0.42}
+\definecolor{babyblue}{rgb}{0.54,0.81,0.94}
+\definecolor{cadmiumred}{rgb}{0.89,0.0,0.13}
+\definecolor{coolblack}{rgb}{0.0,0.18,0.39}
+\definecolor{beaublue}{rgb}{0.74,0.83,0.9}
+\definecolor{beige}{rgb}{0.96,0.96,0.86}
+\definecolor{bisque}{rgb}{1.0,0.89,0.77}
+\definecolor{grayxeleven}{rgb}{0.75,0.75,0.75}
+\definecolor{limegreen}{rgb}{0.2,0.8,0.2}
+\definecolor{splashedwhite}{rgb}{1.0,0.99,1.0}
+
+% lstlisting 程式碼樣式
+\lstset{
+  language=Python,
+  frame=lines,
+  basicstyle=\SCP\normalsize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{airforceblue}\itshape,
+  backgroundcolor=\color{beige},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2
+}

@@ -1,0 +1,54 @@
+project:
+  type: book
+
+book:
+  title: "數理統計"
+  subtitle: "蘇南誠老師講義・Quarto 教學整理版"
+  author: "蘇南誠"
+  date: last-modified
+  chapters:
+    - index.qmd
+    - 01-probability.qmd
+    # - 02-multivariate.qmd
+    # - 03-special-distributions.qmd
+    # - 04-sampling-inference.qmd
+    # - 05-asymptotics.qmd
+    # - 06-likelihood.qmd
+    # - 07-sufficiency.qmd
+  downloads: [pdf]
+
+bibliography: references.bib
+
+# Quarto Book 中，1 表示只編到章節下一層；三級標題不會出現 2.3.8。
+# 這是格式選項，必須放在最外層，不能放在 book: 之下。
+number-depth: 1
+
+format:
+  html:
+    theme:
+      light: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: true
+
+  pdf:
+    documentclass: scrreprt
+    pdf-engine: xelatex
+    include-in-header: preamble.tex
+    mainfont: "Times New Roman"
+    sansfont: "Arial"
+    monofont: "Courier New"
+    CJKmainfont: "Microsoft JhengHei"
+    CJKsansfont: "Microsoft JhengHei"
+    geometry:
+      - left=1.25in
+      - right=1.25in
+      - top=1in
+      - bottom=1in
+    toc: true
+    number-sections: true
+    keep-tex: true
+
+lang: zh-tw

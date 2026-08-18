@@ -1,0 +1,632 @@
+---
+title: "最大概似方法"
+---
+
+::: {.callout-tip title="本章定位"}
+本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
+:::
+
+## 學習目標
+
+完成本章後，學生應能：
+
+- 寫出似然與對數似然函數
+- 求最大概似估計量並檢查最大值
+- 計算 Fisher information 與 Cramér–Rao 下界
+- 使用概似比進行假設檢定
+- 處理多參數模型與 EM 演算法
+
+## 必備的先備知識
+
+抽樣分配、多變量微積分、矩陣與漸近常態性。
+
+以下依原講義順序整理核心定義、定理、公式與例題。
+
+## Maximum likelihood estimation
+
+### Parametric assumption
+
+- Consider a random variable $X$ whose pdf $f(x;\theta)$ depends on an unknown parameter $\theta$ which is in a set $\Omega\in R^q$.
+
+- The general discussion is for the continuous case, but the results extend to the discrete case also.
+
+- For information, suppose that we have a random sample $X_1,\ldots,X_n$ on $X$; i.e., $X_1,\ldots,X_n$ are iid random variables with common pdf $f(x; \theta)$, $\theta \in \Omega$.
+
+### Likelihood function for a single parameter
+
+- Assume $\Omega\in R$.
+
+- Define likelihood function as $$L(\theta; \boldsymbol{x}) = \prod_{i=1}^n f(x_i; \theta), \theta\in \Omega,$$ where $\boldsymbol{x} = (x_1, \ldots, x_n)^{'}$.
+
+- Write it as $L(\theta)$.
+
+### Log likelihood function for a single parameter
+
+- Log likelihood function is more convenient to use.
+
+- Denote as $$l(\theta; \boldsymbol{x}) = \log L(\theta) = \sum_{i=1}^n \log f(x_i; \theta), \theta\in \Omega,$$ where $\boldsymbol{x} = (x_1, \ldots, x_n)^{'}$.
+
+- Write it as $l(\theta)$.
+
+### Assumptions -- Regularity conditions
+
+- (R0) The cdfs are distinct; i.e., $\theta \ne \theta^{'}$ $\Rightarrow$ $F(x_i;\theta) \ne F(x_i;\theta^{'})$.
+
+- (R1) The pdfs have common support for all $\theta$.
+
+- (R2) The point $\theta_0$ is an interior point in $\Omega$.
+
+### Properties
+
+::: {#thm-ch6-1}
+- Assume that $\theta_0$ is the true parameter and that $$E_{\theta_0}\left[\frac{f(X_i; \theta)}{f(X_i; \theta_0)}\right]$$ exists.
+
+- Under assumptions (R0) and (R1), $$lim_{n\rightarrow \infty} P_{\theta_0}[L(\theta_0, \boldsymbol{X}) > L(\theta, \boldsymbol{X})] = 1, 
+  \forall \theta \ne \theta_0.$$
+:::
+
+### Maximum likelihood estimator (MLE)
+
+::: {#def-ch6-1}
+- Point estimator of $\theta$ is $\hat{\theta}$ = $\hat{\theta}(X_1,\ldots,X_n)$, where $\hat{\theta}$ maximizes the function $L(\theta)$, i.e., $$\hat{\theta} = \operatorname{argmax}_\theta L(\theta) = \operatorname{argmax}_\theta l(\theta).$$
+
+- $\hat{\theta}$ is called the maximum likelihood estimator (MLE) of $\theta$.
+:::
+
+### Example 1 — Laplace distribution
+
+- Let $X_1, \ldots, X_n$ be iid with density $$f(x; \theta) = \frac{1}{2} e^{-|x-\theta|}, x\in R, \theta\in R.$$
+
+- Find mle of $\theta$.
+
+### Example 2 — Logistic distribution
+
+- Let $X_1, \ldots, X_n$ be iid with density $$f(x; \theta) = \frac{\exp\{-(x-\theta)\}}{(1+ \exp\{-(x-\theta)\})^2}, x\in R, \theta\in R.$$
+
+- Find mle of $\theta$.
+
+### Example 3 — Bernoulli distribution
+
+- Let $X_1, \ldots, X_n$ be iid with pmf $$f(x; \theta) = \theta^x (1 - \theta)^{1-x}, x= 0, 1, \theta\in [0, 1/3].$$
+
+- Find mle of $\theta$.
+
+### Property of MLE
+
+::: {#thm-ch6-2}
+- Let $X_1,\ldots,X_n$ be iid with the pdf $f(x;\theta)$, $\theta\in\Omega$.
+
+- For a specified function $g$, let $\eta = g(\theta)$ be a parameter of interest.
+
+- Suppose $\hat{\theta}$ is the mle of $\theta$.
+
+- Then $g(\hat{\theta})$ is the mle of $\eta = g(\theta)$.
+:::
+
+### Properties
+
+::: {#thm-ch6-3}
+- Assume that $X_1, \ldots, X_n$ satisfy regularity conditions (R0) through (R2), where $\theta_0$ is the true parameter.
+
+- Assume $f(x; \theta)$ is differentiable with respect to $\theta\in\Omega$,
+
+- Then the likelihood equation $$\frac{\partial}{\partial \theta} L(\theta) = 0$$ has a solution $\hat{\theta}_n$ such that $\hat{\theta}_n \stackrel{P}{\rightarrow} \theta_0$.
+:::
+
+### Properties
+
+::: corollary
+- Assume that $X_1, \ldots, X_n$ satisfy regularity conditions (R0) through (R2), where $\theta_0$ is the true parameter.
+
+- Assume $f(x; \theta)$ is differentiable with respect to $\theta\in\Omega$,
+
+- Suppose the likelihood equation has the unique solution $\hat{\theta}_n$.
+
+- Then $\hat{\theta}_n \stackrel{P}{\rightarrow} \theta_0$.
+:::
+
+## Rao-Cramér lower bound and efficiency
+
+### Assumptions -- Regularity conditions
+
+- (R3) The pdf $f(x;\theta)$ is twice differentiable as a function of $\theta$.
+
+- (R4) The integral $\int f(x;\theta) dx$ can be differentiated twice under the integral sign as a function of $\theta$.
+
+### Score function
+
+- The score function is defined as $$\frac{\partial \log f(x;\theta)}{\partial \theta}.$$
+
+### Fisher information of a sample of size 1
+
+- Let $X$ have a pdf or pmf $f(x;\theta)$.
+
+- The Fisher information is the variance of the score function and defined as $$\begin{aligned}
+  I(\theta) = & \operatorname{Var}\left( \frac{\partial \log f(X;\theta)}{\partial \theta}  \right) 
+   =  E\left[\left( 
+  \frac{\partial \log f(X;\theta)}{\partial \theta} \right )^2 \right ].
+  \end{aligned}$$
+
+### Example 4 — Bernoulli distribution
+
+- Let $X$ be Bernoulli $b(1, \theta)$ with pmf $$f(x; \theta) = \theta^x (1 - \theta)^{1-x}, x= 0, 1, \theta\in [0, 1].$$
+
+- Find the Fisher information.
+
+### Example 5 — Location family
+
+- Consider a random sample $X_1, \ldots, X_n$ such that $$X_i = \theta + e_i, i= 1, \ldots, n,$$ where $e_1, e_2, \ldots, e_n$ are iid with common pdf $f(x)$ and with support $(-\infty, \infty)$.
+
+- Find the Fisher information.
+
+### Fisher information of a sample of size $n$
+
+- Let $X_1, \ldots, X_n$ be a random sample from a distribution having pdf or pmf $f(x;\theta)$.
+
+- The random variable whose variance is the information in the sample is given by $$\frac{\partial \log L(\theta; {\boldsymbol X})}{\partial \theta} = \sum_{i=1}^n\frac{\partial \log L(\theta; X_i)}{\partial \theta}.$$
+
+- Denote Fisher information in a random sample of size $n$ as $$\begin{aligned}
+   \operatorname{Var}\left( \frac{L(\theta; {\boldsymbol X})}{\partial \theta}  \right) =  nI(\theta).
+  \end{aligned}$$
+
+### Rao-Cramér lower bound
+
+::: {#thm-ch6-4}
+- Let $X_1, \ldots, X_n$ be a random sample from a distribution having pdf or pmf $f(x;\theta)$, for $\theta\in \Omega$.
+
+- Assume that the regularity conditions (R0)--(R4) hold.
+
+- Let $Y = u(X_1, \ldots, X_n)$ be a statistic with mean $E(Y) = E[u(X_1, \ldots, X_n)] = k(\theta)$.
+
+- Then $$\operatorname{Var}(Y) \ge \frac{[k^{'}(\theta)]^2}{nI(\theta)}.$$
+:::
+
+### Properties
+
+- Let $X_1, \ldots, X_n$ be a random sample from a distribution having pdf or pmf $f(x;\theta)$, for $\theta\in \Omega$.
+
+- Assume that the regularity conditions (R0)--(R4) hold.
+
+- Let $Y = u(X_1, \ldots, X_n)$ be a statistic with mean $E(Y) = E[u(X_1, \ldots, X_n)] = \theta$.
+
+- Then $$\operatorname{Var}(Y) \ge \frac{1}{nI(\theta)}.$$
+
+### Efficient estimator
+
+::: {#def-ch6-2}
+- Let $Y$ be an unbiased estimator of a parameter $\theta$ in the case of point estimation.
+
+- The statistic $Y$ is called an efficient estimator of $\theta$ if and only if the variance of $Y$ attains the Rao--Cramér lower bound.
+:::
+
+### Efficiency
+
+::: {#def-ch6-3}
+- Suppose we can differentiate with respect to a parameter under an integral or summation symbol.
+
+- The ratio of the Rao--Cramér lower bound to the actual variance of any unbiased estimator of a parameter is called the efficiency of that estimator.
+:::
+
+### Example 6 — Poisson
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from a Poisson distribution that has the mean $\theta > 0$.
+
+- Show $\bar{X}$ is an efficient estimator of $\theta$.
+
+### Assumptions -- Regularity conditions
+
+- (R5) The pdf $f(x;\theta)$ is three times differentiable as a function of $\theta$. Further, for all $\theta\in \Omega$, there exist a constant c and a function $M(x)$ such that $$|\frac{\partial^3}{\partial \theta^3}\log f(x;\theta)|\le M(x),$$ with $E_{\theta_0}[M(X)]<\infty$, for all $\theta_0-c < \theta < \theta_0 + c$ and all $x$ in the support of $X$.
+
+### Asymptotic distribution of MLE
+
+::: {#thm-ch6-5}
+- Assume $X_1,\ldots,X_n$ are iid with pdf $f(x;\theta_0)$ for $\theta\in \Omega$ such that the regularity conditions (R0)--(R5) are satisfied.
+
+- Suppose further that the Fisher information satisfies $0 < I(\theta_0) < \infty$.
+
+- Then any consistent sequence of solutions of the mle equations satisfies $$\sqrt{n}(\hat{\theta}- \theta_0) \stackrel{D}{\rightarrow} N(0, \frac{1}{I(\theta_0)}$$
+:::
+
+### Example 7 — Beta distribution
+
+- Let $X_1, X_2, \ldots, X_n$ denote a random sample from a Beta($\theta$, 1) distribution with pdf $$f(x;\theta) = \left\{\begin{array}{ll}
+  \theta x^{\theta-1} & 0<x<1\\ 0 & \text{elsewhere},
+  \end{array}\right.$$ where $\Omega = (0, \infty)$.
+
+- Find an unbiased estimator of $\theta$.
+
+## Maximum likelihood tests
+
+### Hypotheses
+
+- Let $X_1, \ldots, X_n$ be iid with pdf $f(x;\theta)$ for $\theta\in\Omega$.
+
+- Assume $\theta$ is a scalar.
+
+- Consider a two-sided hypotheses $$\begin{array}{ccc}
+  H_0: \theta = \theta_0 & \text{versus} & H_a: \theta \ne \theta_0
+  \end{array}$$ where $\theta=\theta_0$ is a specified value.
+
+### Likelihood function and log likelihood function for a single parameter
+
+- Assume $\Omega\in R$.
+
+- Define likelihood function as $$L(\theta) = L(\theta; \boldsymbol{x}) = \prod_{i=1}^n f(x_i; \theta), \theta\in \Omega,$$ where $\boldsymbol{x} = (x_1, \ldots, x_n)^{'}$.
+
+- Log likelihood function is more convenient to use.
+
+- Denote as $$l(\theta) = l(\theta; \boldsymbol{x}) = \log L(\theta) = \sum_{i=1}^n \log f(x_i; \theta), \theta\in \Omega,$$ where $\boldsymbol{x} = (x_1, \ldots, x_n)^{'}$.
+
+### Ratio of two likelihood functions
+
+- If $\theta_0$ is the true value of $\theta$, asymptotically $L(\theta_0)$ is the maximum value of $L(\theta)$.
+
+- Consider the ratio of two likelihood function defined as $$\Lambda = \frac{L(\theta_0)}{L(\hat{\theta})}$$
+
+- Note
+
+  - $\Lambda\le 1$
+
+  - If $H_0$ is true, $\Lambda$ should be large (close to 1).
+
+  - If $H_a$ is true, $\Lambda$ should be small.
+
+### Likelihood ratio tests
+
+- For a specified significance level $\alpha$, this leads to the intuitive decision rule $$\text{Reject }H_0\text{ in favor of }H_a\text{ if }\Lambda \le c\text{,}$$ where $c$ is such that $$\alpha = P[\Lambda \le c| \theta = \theta_0]$$
+
+- Call it the likelihood ratio test (LRT).
+
+### Example 8 — Exponential dsitribution
+
+- Suppose $X_1, \ldots , X_n$ are iid with pdf $f(x; θ) = \theta^{-1} exp{(-x/\theta)}$, for $x, \theta > 0$.
+
+- Consider a two-sided hypotheses $$\begin{array}{ccc}
+  H_0: \theta = \theta_0 & \text{versus} & H_a: \theta \ne \theta_0
+  \end{array}$$ where $\theta=\theta_0$ is a specified value.
+
+- Find the critical region based on LRT.
+
+### Example 9 — Normal distribution
+
+- Suppose $X_1, \ldots , X_n$ are iid from a $N(\theta, \sigma^2)$ distribution, where $-\infty<\theta<\infty$ and $\sigma^2$ is known.
+
+- Consider a two-sided hypotheses $$\begin{array}{ccc}
+  H_0: \theta = \theta_0 & \text{versus} & H_a: \theta \ne \theta_0
+  \end{array}$$ where $\theta=\theta_0$ is a specified value.
+
+- Find the critical region based on LRT.
+
+### Asymptotic distribution of LRT
+
+::: {#thm-ch6-6}
+- Assume the same regularity conditions as for Theorem 6.2.2.
+
+- Under the null hypothesis, $H_0: \theta = \theta_0$, $$-2\log \Lambda \stackrel{D}{\rightarrow} \chi^2(1).$$
+:::
+
+### Remarks -- Decision rule
+
+- LRT $$\text{Reject }H_0\text{ if }\chi_L^2\ge \chi^2_\alpha(1).$$ where $\chi_L^2 = -2\log \Lambda$.
+
+- Wald test $$\text{Reject }H_0\text{ if }\chi_W^2\ge \chi^2_\alpha(1).$$ where $\chi_W^2 = \Big\{ \sqrt{nI(\hat{\theta})}(\hat{\theta}-\theta_0)\Big\}^2$.
+
+- Under $H_0$, we have $$\chi_W^2 - \chi_L^2 \stackrel{P}{\rightarrow} 0.$$
+
+### Score test
+
+- The scores are the components of the vector $$\boldsymbol{S}(\theta) = \left(\frac{\partial\log f(X_1;\theta)}{\partial\theta}, \cdots, \frac{\partial\log f(X_n;\theta)}{\partial\theta} \right)^{'}.$$
+
+- Define $$\chi_R^2 = \left(\frac{l^{'}(\theta_0)}{\sqrt{nI(\theta_0}}\right)^2,$$ where $$\frac{1}{\sqrt{n}}l^{'}(\theta_0) = \frac{1}{\sqrt{n}}\sum_{i=1}^n \frac{\partial\log f(X_i;\theta)}{\partial\theta}$$
+
+### Remark
+
+- Under $H_0$, we have $$\chi_R^2 = \chi_W^2 + R_{0n}$$ where $R_{0n}$ convergens to 0 in probability.
+
+- Decision rule based on the score test $$\text{Reject }H_0\text{ if }\chi_R^2\ge \chi^2_\alpha(1).$$
+
+### Example 10 — Beta distribution
+
+- Suppose $X_1, \ldots , X_n$ are iid from beta($\theta$, 1), for $x, \theta > 0$.
+
+- Consider a two-sided hypotheses $$\begin{array}{ccc}
+  H_0: \theta = 1 & \text{versus} & H_a: \theta \ne 1
+  \end{array}$$ where $\theta=\theta_0$ is a specified value.
+
+- Find the critical region based on LRT, Wald test and score test.
+
+### Example 11 — Laplace location model
+
+- Suppose the location model $$X_i = \theta + e_i, i = 1, \dots, n,$$ where $\theta\in R$ and the random errors eis are iid each having the Laplace pdf, $$f(x) = \frac{1}{2}e^{-|x|}, x\in R.$$
+
+- Consider a two-sided hypotheses $$\begin{array}{ccc}
+  H_0: \theta = \theta_0 & \text{versus} & H_a: \theta \ne \theta_0
+  \end{array}$$ where $\theta=\theta_0$ is a specified value.
+
+- Find the critical region based on LRT, Wald test and score test.
+
+## Multiparameter case: estimation
+
+### Likelihood function and log likelihood function for multiparameter
+
+- Assume $\Omega\in R^p$.
+
+- Define likelihood function as $$L(\boldsymbol{\theta}) = L(\theta; \boldsymbol{x}) = \prod_{i=1}^n f(x_i; \boldsymbol{\theta}), \boldsymbol{\theta}\in \Omega,$$ where $\boldsymbol{x} = (x_1, \ldots, x_n)^{'}$.
+
+- Log likelihood function is more convenient to use.
+
+- Denote as $$l(\boldsymbol{\theta}) = l(\theta; \boldsymbol{x}) = \log L(\boldsymbol{\theta}) = \sum_{i=1}^n \log f(x_i; \theta), \boldsymbol{\theta}\in \Omega,$$ where $\boldsymbol{x} = (x_1, \ldots, x_n)^{'}$.
+
+### Maximum likelihood estimator (MLE)
+
+::: {#def-ch6-4}
+- Point estimator of $\boldsymbol{\theta}$ is $\hat{\boldsymbol{\theta}}$ = $\hat{\boldsymbol{\theta}}(X_1,\ldots,X_n)$, where $\hat{\boldsymbol{\theta}}$ maximizes the function $L(\boldsymbol{\theta})$, i.e., $$\hat{\boldsymbol{\theta}} = \operatorname{argmax}_{\boldsymbol{\theta}} L(\boldsymbol{\theta}) = \operatorname{argmax}_{\boldsymbol{\theta}} l(\boldsymbol{\theta}).$$
+
+- $\hat{\boldsymbol{\theta}}$ is called the maximum likelihood estimator (mle) of $\boldsymbol{\theta}$.
+:::
+
+### Property of MLE
+
+::: {#thm-ch6-7}
+- Let $X_1,\ldots,X_n$ be iid with the pdf $f(x;\boldsymbol{\theta})$, $\boldsymbol{\theta}\in\Omega$.
+
+- For a specified function $g$, let $\eta = g(\boldsymbol{\theta})$ be a parameter of interest.
+
+- Suppose $\hat{\boldsymbol{\theta}}$ is the mle of $\theta$.
+
+- Then $g(\hat{\boldsymbol{\theta}})$ is the mle of $\eta = g(\boldsymbol{\theta})$.
+:::
+
+### Example 12 — Normal distribution
+
+- Suppose $X_1, \ldots , X_n$ are iid from a $N(\mu, \sigma^2)$ distribution, where $-\infty<\mu<\infty$ and $\sigma^2>0$.
+
+- Find the MLE of $\boldsymbol{\theta} = (\mu, \sigma^2)$.
+
+### Example 13 — Laplace location model
+
+- Suppose $X_1, \ldots , X_n$ are iid from a general Laplace distribution with pdf $$f(x) = \frac{1}{2b}e^{-|x-a|/b}, x\in R$$ where $-\infty<a<\infty$ and $b>0$.
+
+- Find the MLE of $\boldsymbol{\theta} = (a, b)$.
+
+### Score vector
+
+- The score vector is defined as $$\Delta\log f(X;\boldsymbol{\theta}) = \left(\frac{\partial \log f(x;\boldsymbol{\theta})}{\partial \theta_1},
+  \cdots, \frac{\partial \log f(x;\boldsymbol{\theta})}{\partial \theta_p}\right)^{'}.$$
+
+### Fisher information matrix of size 1
+
+- Let $X$ have a pdf or pmf $f(x;\boldsymbol{\theta})$.
+
+- The Fisher information is the variance of the score vector and defined as $$\begin{aligned}
+  \boldsymbol{I}(\boldsymbol{\theta}) = & \operatorname{Cov}\left(\Delta\log f(X;\boldsymbol{\theta})\right).
+  \end{aligned}$$ where the $jk$th entry of $\boldsymbol{I}(\boldsymbol{\theta})$ is given by $$I_{jk} = \operatorname{Cov}\left(\frac{\partial \log f(x;\boldsymbol{\theta})}{\partial \theta_j}, \frac{\partial \log f(x;\boldsymbol{\theta})}{\partial \theta_k} \right)$$
+
+### Properties
+
+- Show $$I_{jk} = -E\left(\frac{\partial^2 \log f(x;\boldsymbol{\theta})}{\partial \theta_j\partial\theta_k}\right)$$ and $$I_{jj} = -E\left(\frac{\partial^2 \log f(x;\boldsymbol{\theta})}{\partial \theta_j^2}\right)$$
+
+### Fisher information matrix of size $n$
+
+- Let $X_1, \ldots, X_n$ be a random sample from a pdf or pmf $f(x;\boldsymbol{\theta})$.
+
+- The Fisher information of size $n$ is $n\boldsymbol{I}(\boldsymbol{\theta})$.
+
+### Rao-Cramér lower bound
+
+::: {#thm-ch6-8}
+- Let $X_1, \ldots, X_n$ be a random sample from a distribution having pdf or pmf $f(x;\boldsymbol{\theta})$, for $\theta\in \Omega$.
+
+- Let $Y_j = u_j(X_1, \ldots, X_n)$ be a statistic with mean $E(Y_j) = E[u(X_1, \ldots, X_n)] = \theta_j$.
+
+- Then $$\operatorname{Var}(Y_j) \ge \frac{1}{n}[\boldsymbol{I}^{-1}(\boldsymbol{\theta})]_{jj}.$$
+:::
+
+### Example 14 — Normal distribution
+
+- Suppose $X_1, \ldots , X_n$ are iid from a $N(\mu, \sigma^2)$ distribution, where $-\infty<\mu<\infty$ and $\sigma^2>0$.
+
+- Find the Fisher information matrix for $(\mu, \sigma)$.
+
+### Example 15 — Location and scale model
+
+- Suppose $X_1, \ldots , X_n$ are iid from a location and scale distribution with pdf $$f_X(x) = b^{-1} f\left(\frac{x-a}{b} \right), x\in R$$ where $-\infty<a<\infty$ and $b>0$.
+
+- Find the Fisher information matrix for $(a, b)$.
+
+### Example 16 — Multinomial distribution
+
+- Consider a random trial which can result in one, and only one, of $k$ outcomes or categories.
+
+- Let $X_j$ be 1 or 0 depending on whether the $j$th outcome occurs or does not, for $j = 1, \ldots, k$.
+
+- Then $\boldsymbol{X} = (X_1, \ldots , X_{k-1})^{'}$ has a multinomial distribution with pmf $$f_{\boldsymbol{X}}(\boldsymbol{x}) = p_1^{x_1} \cdots p_{k-1}^{x_{k-1}} \times \left(1-\sum_{j=1}^{k-1}p_j\right)^{1-\sum_{j=1}^{k-1}x_j}$$ where $\Omega = \{\boldsymbol{p}: 0<p_j<1, j=1 , \ldots, k-1; \sum_{j=1}^{k-1} p_j<1\}$.
+
+- Find the Fisher information matrix for $\boldsymbol{p}$.
+
+### Asymptotic properties of MLE
+
+::: {#thm-ch6-9}
+- Assume $X_1,\ldots,X_n$ are iid with pdf $f(x;\boldsymbol{\theta})$ for $\boldsymbol{\theta}\in \Omega$ such that the regularity conditions are satisfied.
+
+- The likelihood equation $$\frac{\partial l(\boldsymbol{\theta})}{\partial\boldsymbol{\theta}} = \boldsymbol{0}$$ has a solution $\hat{\boldsymbol{\theta}}_n$ such that $\hat{\boldsymbol{\theta}}_n \stackrel{P}{\rightarrow} \boldsymbol{\theta}$.
+
+- Then any consistent sequence of solutions of the mle equations satisfies $$\sqrt{n}(\hat{\boldsymbol{\theta}}- \boldsymbol{\theta}) \stackrel{D}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{I}^{-1}(\boldsymbol{\theta}))$$
+:::
+
+### Asymptotic properties of MLE
+
+::: corollary
+- Assume $X_1,\ldots,X_n$ are iid with pdf $f(x;\boldsymbol{\theta})$ for $\boldsymbol{\theta}\in \Omega$ such that the regularity conditions are satisfied.
+
+- Let $\hat{\boldsymbol{\theta}}_n$ be a sequence of consistent solutions of the likelihood equation.
+
+- Then $\hat{\boldsymbol{\theta}}_n$ are asymptotically efficient estimates; that is, for $j = 1,\ldots, p$, $$\sqrt{n}(\hat{{\theta}}_{n,j}- {\theta}_j) \stackrel{D}{\rightarrow} N(0, [\boldsymbol{I}^{-1}(\boldsymbol{\theta})]_{jj})$$
+:::
+
+### Asymptotic properties of MLE
+
+::: corollary
+- Let $\boldsymbol{g}$ be a transformation $\boldsymbol{g}(\boldsymbol{\theta}) = (g_1(\boldsymbol{\theta}), \ldots, g_k(\boldsymbol{\theta}))^{'}$ such that $1\le k\le p$ and the $k\times p$ matrix of partial derivatives $$\boldsymbol{B} = \begin{bmatrix}
+  \frac{\partial g_i}{\partial \theta_j}, i = 1, 2, \ldots, k; j= 1, 2, \ldots, p,
+  \end{bmatrix}$$ has continuous elements and does not vanish in a neighborhood of $\boldsymbol{\theta}$.
+
+- Let $\hat{\boldsymbol{\eta}} = \boldsymbol{g}(\hat{\boldsymbol{\theta}})$.
+
+- Then $\hat{\boldsymbol{\eta}}$ is the mle of ${\boldsymbol{\eta}}$ and $$\sqrt{n}(\hat{\boldsymbol{\eta}}- \boldsymbol{\eta}) \stackrel{D}{\rightarrow} N_k(\boldsymbol{0}, \boldsymbol{B}[\boldsymbol{I}^{-1}(\boldsymbol{\theta})]\boldsymbol{B}^{'})$$
+:::
+
+## Multiparameter case: testing
+
+### Hypotheses
+
+- Let $X_1, \ldots, X_n$ be iid with pdf $f(x;\boldsymbol{\theta})$ for $\theta\in\Omega\in R^p$.
+
+- Consider a two-sided hypotheses $$\begin{array}{ccc}
+  H_0: \boldsymbol{\theta}\in \omega & \text{versus} & H_a: \boldsymbol{\theta}\in \omega^c \cap \Omega
+  \end{array}$$ where $\omega \in \Omega$ is defined in terms of $q$, $0 < q \le p$, independent constraits of $g_1(\boldsymbol{\theta}) = a_1, \ldots, g_q(\boldsymbol{\theta}) = a_q$.
+
+- The functions $g_1,\ldots, g_q$ must be continuously differentiable.
+
+- This implies that $\omega$ is a $(p-q)$-dimensional space.
+
+### Ratio of two likelihood functions
+
+- Consider the ratio of two likelihood function defined as $$\Lambda = \frac{\max_{\boldsymbol{\theta}\in\omega} L(\boldsymbol{\theta})}{\max_{\boldsymbol{\theta}\in\Omega}L(\boldsymbol{\theta})}$$
+
+- For a specified significance level $\alpha$, this leads to the intuitive decision rule $$\text{Reject }H_0\text{ in favor of }H_a\text{ if }\Lambda \le c\text{,}$$ where $c$ is such that $$\alpha = P[\Lambda \le c| \theta = \theta_0]$$
+
+- Call it the likelihood ratio test (LRT).
+
+### Example 17 — Normal distribution
+
+- Suppose $X_1, \ldots , X_n$ are iid from a $N(\theta, \sigma^2)$ distribution, where $-\infty<\theta<\infty$ and $\sigma^2>0$.
+
+- Consider a two-sided hypotheses $$\begin{array}{ccc}
+  H_0: \theta = \theta_0 & \text{versus} & H_a: \theta \ne \theta_0
+  \end{array}$$ where $\theta=\theta_0$ is a specified value.
+
+- Find the critical region based on LRT.
+
+### Asymptotic distribution of LRT
+
+::: {#thm-ch6-10}
+- Let $X_1, \ldots, X_n$ be iid with pdf $f(x;\boldsymbol{\theta})$ for $\boldsymbol{\theta}\in Omega \subset R^p$.
+
+- Assume the regularity conditions hold.
+
+- Let $\hat{\boldsymbol{\theta}}_n$ be a sequence of consistent solutions of the likelihood equation when the parameter space is the full space $\Omega$.
+
+- Let $\hat{\boldsymbol{\theta}}_{0,n}$ be a sequence of consistent solutions of the likelihood equation when the parameter space is the reduced space $\omega$.
+
+- Under the null hypothesis, $H_0$, $$-2\log \Lambda \stackrel{D}{\rightarrow} \chi^2(q).$$
+:::
+
+### Example 18 — Multinomial distribution
+
+- Consider a random trial which can result in one, and only one, of 3 outcomes or categories.
+
+- Then $\boldsymbol{X} = (X_1, X_2)^{'}$ has a multinomial distribution with pmf $$f_{\boldsymbol{X}}(\boldsymbol{x}) = p_1^{x_1} p_{2}^{x_{2}} \times \left(1-\sum_{j=1}^{2}p_j\right)^{1-\sum_{j=1}^{2}x_j}$$
+
+- Consider $H_0: p_1 = p_2$ versus $H_a: p_1 \ne p_2$.
+
+- Find the LRT.
+
+## The EM algorithm
+
+### Motivation
+
+- In practice, we are often in the situation where part of the data is missing.
+
+- For example, we may be observing lifetimes of mechanical parts that have been put on test and some of these parts are still functioning when the statistical analysis is carried out.
+
+### Notations
+
+- Suppose we consider a sample of $n$ items, where
+
+  - $n_1$ of the items are observed,
+
+  - $n_2 = n- n_1$ items are not observable.
+
+- Denote the observed items by $\boldsymbol{X}^{\prime}= (X_1, X_2, \ldots , X_{n_1})^{'}$ and unobserved items by $\boldsymbol{Z}^{\prime}= (X_1, X_2, \ldots , X_{n_2})^{'}$.
+
+- Assume that the $X_i$s are iid with pdf $f(x|\theta)$, where $\theta\in \Omega$.
+
+- Assume that the $Z_j$s and the $X_i$s are mutually independent.
+
+### Likelihood
+
+- Let $g(\boldsymbol{x}|\theta)$ denote the joint pdf of $\boldsymbol{X}$.
+
+- Let $h(\boldsymbol{x}, \boldsymbol{z}|\theta)$ denote the joint pdf of observed and unobserved items.
+
+- Let $k(\boldsymbol{z}|\theta, \boldsymbol{x})$ denote the conditional pdf of missing data given the observed data and $$k(\boldsymbol{z}|\theta, \boldsymbol{x}) = \frac{h(\boldsymbol{x}, \boldsymbol{z}|\theta)}{g(\boldsymbol{x}|\theta)}$$
+
+- Observed likelihood function is defined by $$L(\theta|\boldsymbol{x}) = g(\boldsymbol{x}|\theta)$$
+
+- Complete likelihood function is defined by $$L^{c}(\theta|\boldsymbol{x}, \boldsymbol{z}) = h(\boldsymbol{x}, \boldsymbol{z}|\theta)$$
+
+### Decomposition
+
+- Show $$\log L(\theta|\boldsymbol{x}) = E_{\theta_0}[\log L^{c}(\theta|\boldsymbol{x}, \boldsymbol{Z})|\theta_0, \boldsymbol{x}]
+  -E_{\theta_0}[\log k(\boldsymbol{Z}|\theta, \boldsymbol{x})|\theta_0, \boldsymbol{x}]$$
+
+### Expectation
+
+- Define $$Q(\theta|\theta_0, \boldsymbol)= E_{\theta_0}[\log L^{c}(\theta|\boldsymbol{x}, \boldsymbol{Z})|\theta_0, \boldsymbol{x}]$$
+
+- The expectation that defines the function Q is called the E step of the EM algorithm.
+
+### Maximization
+
+- Maximize $\log L(\theta|\boldsymbol{x})$.
+
+- Only need to maximize $Q(\theta|\theta_0, \boldsymbol{x})$
+
+### EM algorithm
+
+- Let $\hat{\theta}^{(m)}$ denote the estimate on the $m$th step.
+
+- To compute the estimate on the $(m + 1)$st step, do
+
+  1.  Expectation step: Compute $$Q(\theta|\hat{\theta}^{(m)}, \boldsymbol{x})= E_{\hat{\theta}^{(m)}}[\log L^{c}(\theta|\boldsymbol{x}, \boldsymbol{Z})|\hat{\theta}^{(m)}, \boldsymbol{x}]$$ where the expectation is taken under the conditional pdf $k(\boldsymbol{z}|\hat{\theta}^{(m)},\boldsymbol{x})$.
+
+  2.  Maximization step: Let $$\hat{\theta}^{(m+1)} = \text{Argmax} Q(\theta|\hat{\theta}^{(m)}, \boldsymbol{x}).$$
+
+### Monotonicity
+
+::: {#thm-ch6-11}
+- The sequence of estimates $Q(\theta|\hat{\theta}^{(m)}, \boldsymbol{x})$, defined by EM algorithm, sat-isfies $$L(\hat{\theta}^{(m+1)}|\boldsymbol{x}) \ge L(\hat{\theta}^{(m)}|\boldsymbol{x}).$$
+:::
+
+### Example 19 — Mixture distribution
+
+- Suppose $Y_1\sim N(\mu_1,\sigma_{1}^2)$ and $Y_2\sim N(\mu_2,\sigma_{2}^2)$.
+
+- Let $W$ be a Bernoulli random variable independent of $Y_1$ and $Y_2$ and with probability of success $\epsilon = P(W = 1)$.
+
+- The pdf of the mixture random variable $X$ is $$f(x) = (1 - \epsilon)f_1(x) + \epsilon f_2(x), -\infty < x < \infty,$$ where $f_j (x) = \sigma_j^{-1}\phi[(x - \mu_j )/\sigma_j ]$, $j = 1, 2$, and $\phi(z)$ is the pdf of a standard normal $j$ random variable.
+
+- Suppose we observe a random sample $\boldsymbol{X}^{'} = (X_1, X_2, \cdots , X_n)$ from this mixture distribution with pdf $f(x)$.
+
+## 本章摘要
+
+本章以似然為核心統一估計與檢定，並延伸至效率、多參數模型及含隱藏資料的 EM 計算。
+
+## 常見錯誤
+
+- 忽略支持集是否依賴參數
+- 只解 score equation 而未驗證最大值
+- 混淆觀察到的資訊與期望 Fisher information
+- 使用漸近卡方結果時未檢查正則條件
+
+## 章末練習
+
+1. 從本章選出三個關鍵定義，分別寫出數學形式、成立條件及一個例子。
+2. 選擇一個主要定理或方法，重做推導並標記每一步使用的假設。
+3. 從原講義例題挑選一題，完整寫出解題目標、方法選擇、計算與結果解釋。
+4. 設計一個會違反本章方法條件的反例，說明錯誤會出現在哪一步。
+
+::: {.callout-note title="待逐章補強"}
+建議後續為本章補入：中文概念導讀、完整解答、課堂練習難度標記，以及與下一章的銜接說明。
+:::
