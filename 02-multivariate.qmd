@@ -3,7 +3,15 @@ title: "多變量分配與變數轉換"
 ---
 
 ::: {.callout-tip title="本章定位"}
-本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
+本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語、公式與例題，並整理為可連續閱讀的教學形式。
+
+學生在大二已使用 Hogg, Tanis & Zimmerman 的 *Probability and Statistical Inference* 學過雙變量分配。該書 Chapter 4 已涵蓋 joint、marginal 與 conditional distributions、independence、covariance 與 correlation，Chapter 5.2 亦已介紹雙變量變數轉換。因此本章不將所有內容等量重教，而採取
+
+$$
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+$$
+
+的三階段安排：先快速喚醒二維隨機變數的基本工具，再推廣到 $n$ 維隨機向量、共變異矩陣與多維變數轉換，最後連接線性組合、random sample、sample mean 與 sample variance。標題依 Hogg, McKean & Craig Chapter 2 的內容順序安排，各節不採等比例講解。
 :::
 
 ## 學習目標
@@ -14,13 +22,25 @@ title: "多變量分配與變數轉換"
 - 處理二維與多維隨機變數轉換
 - 計算共變異數、相關係數與共變異矩陣
 - 判斷隨機變數的獨立性
-- 推導隨機變數線性組合的分配
+- 使用向量與矩陣表示多維隨機變數的平均與共變異結構
+- 計算隨機變數線性組合的期望、變異數與共變異數
+- 說明 random sample、sample mean 與 sample variance 如何連接後續統計推論
 
 ## 必備的先備知識
 
-第 1 章的分配函數、期望與單變量變數轉換。
+第 1 章的分配函數、期望與單變量變數轉換，以及偏微分與基本矩陣運算。joint pmf / pdf、marginal distribution、conditional distribution、independence、covariance、correlation 與二維 Jacobian 視為大二已學內容，課堂中以診斷題與代表性例題快速喚醒。
 
-以下依原講義順序整理核心定義、定理、公式與例題。
+::: {.callout-note title="教學節奏"}
+- **Stage 1 — Recall（快速）**：Sections 2.1--2.5，對照大二課本 Chapter 4 與 Section 5.2，以 60--90 分鐘的 example-driven review 喚醒 joint、marginal、conditional、independence、covariance、correlation 與二維 transformation；不重走完整的 Definition--Theorem--Proof 流程。
+- **Stage 2 — Deepen（主體）**：Sections 2.6--2.7。把二維概念推廣到 $n$ 維 random vector，深入處理 covariance matrix、線性代數表示、多維 Jacobian，以及 one-to-one / many-to-one transformations。
+- **Stage 3 — Connect（橋接）**：Section 2.8。以線性組合、random sample、$\bar X$ 與 $S^2$ 連接後續的 sampling distributions、sufficiency、likelihood 與 statistical inference。
+:::
+
+## Stage 1 — Recall：二維基本款快速喚醒 {.unnumbered}
+
+> **大二學過的，先確認能辨認、能設支持集、能完成積分；忘記的，再由代表性例題補回。**
+
+本階段的重點不是重複所有計算，而是確認學生能在離散與連續情形中，從 joint distribution 正確取得 marginal 與 conditional distributions，判斷 independence，計算 covariance / correlation，並在變數轉換時同時處理 Jacobian 與轉換後的支持集。
 
 ## Distributions of two random variables
 
@@ -46,13 +66,13 @@ title: "多變量分配與變數轉換"
 
 - Denote the probability of the event $A$ as $P_{X_1, X_2}[A]$.
 
-- $P_{X_1, X_2}[A]$ is uniquely determined by the cumulative distribution function (cdf), which is given by $$F_{X_1,X_2}(x_1,x_2)=P[\{X_1 \le x_1\} \cap \{X_2 \le x_2\}],$$ for all $(x_1, x_2)\in R^2$.
+- $P_{X_1, X_2}[A]$ is uniquely determined by the cumulative distribution function (cdf), which is given by $$F_{X_1,X_2}(x_1,x_2)=P[\{X_1 \le x_1\} \cap \{X_2 \le x_2\}],$$ for all $(x_1, x_2)\in \mathbb{R}^2$.
 
 ### Properties of cdf
 
 - For all $a_1<b_1$ and $a_2<b_2$, show that $$\begin{aligned}
-  \lefteqn{P[a_1 < X_1 \le b_1,a_2 <X_2 \le b_2] }\\
-  & = F_{X_1,X_2}(b_1,b_2) -
+  P[a_1 < X_1 \le b_1,\ a_2 <X_2 \le b_2]
+  &= F_{X_1,X_2}(b_1,b_2) -
   F_{X_1,X_2}(a_1,b_2) - F_{X_1,X_2}(b_1,a_2) + F_{X_1,X_2}(a_1,a_2)
   \end{aligned}$$
 
@@ -74,7 +94,7 @@ title: "多變量分配與變數轉換"
 
 - $P[(X,Y)\in A]=\sum\sum_{(x_1,x_2)\in A} p_{X_1, X_2}(x_1,x_2)$.
 
-### Example 1
+### Supplementary Example 2.1-A
 
 - Roll a pair of fair dice.
 
@@ -84,7 +104,7 @@ title: "多變量分配與變數轉換"
 
 ### Note
 
-- The support of a discrete random vector $(X_1, X_2)$ is defined as the space that $$\{(x_1, x_2)| p_{X_1, X_2}(x_1,x_2)>0 \}.$$
+- The support of a discrete random vector $(X_1, X_2)$ is defined as $$\{(x_1, x_2) : p_{X_1, X_2}(x_1,x_2)>0 \}.$$
 
 - The definition of a pmf is extended to a convenient set by using zero elsewhere.
 
@@ -111,43 +131,9 @@ title: "多變量分配與變數轉換"
 
 - For an event $A$, $$P[(X,Y)\in A]=\int\int_{(x_1,x_2)\in A} f_{X_1, X_2}(x_1,x_2)dx_1dx_2.$$
 
-### Example 2
-
-- Consider a continuous random vector $(X, Y)$ which is uniformly distributed over the unit circle in $R^2$.
-
-- Since the area of the unit circle is $\pi$, the joint pdf is $$f(x,y) = \left\{\begin{array}{ll}
-  \frac{1}{\pi} & -1<y<1, -\sqrt{1-y^2}<x<\sqrt{1-y^2}\\
-  0 & \text{elsewhere}
-  \end{array}\right..$$
-
-- Let $A$ be the interior of the circle with radius 1/2.
-
-- Let $B$ be the ring formed by the concentric circles with the respective radii of $1/2$ and $\sqrt{2}/2$.
-
-- Find $P[A]$ and $P[B]$.
-
-### Example 3
-
-- Suppose an electrical component has two batteries.
-
-- Let $X$ and $Y$ denote the lifetimes in standard units of the respective batteries.
-
-- Assume the joint pdf is $$f(x,y) = \left\{\begin{array}{ll}
-  4xye^{-(x^2+y^2)} & x>0, y>0\\
-  0 & \text{elsewhere}
-  \end{array}\right..$$
-
-- Find $P[X>\frac{\sqrt{2}}{2}, Y>\frac{\sqrt{2}}{2}]$.\[$f(x,y)$ has a maximum at $(\frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2})$.\]
-
-- Let $B = \{(x,y): |x-2|<0.3, |y-2|<0.3\}$. Find $P[B]$.
-
-### Example 4 — Joint pdf
-
-![](assets/graph/fig2-1-1.png)
-
 ### Note
 
-- The support of a continuous random vector $(X_1, X_2)$ is defined as the space that $$\{(x_1, x_2)| f_{X_1, X_2}(x_1,x_2)>0 \}.$$
+- The support of a continuous random vector $(X_1, X_2)$ is defined as $$\{(x_1, x_2) : f_{X_1, X_2}(x_1,x_2)>0 \}.$$
 
 - The support is denoted as ${\mathcal{S}}$.
 
@@ -161,7 +147,7 @@ title: "多變量分配與變數轉換"
 
 - We have $$\{X_1\le x_1\} = \{X_1\le x_1\} \cap \{-\infty<X_2<\infty\}$$
 
-- The probability of this event is $$F_{X_1}(x_1) = P[X_1\le x_1, -\infty<X_2<\infty]$$ for all $x_1\in R$.
+- The probability of this event is $$F_{X_1}(x_1) = P[X_1\le x_1, -\infty<X_2<\infty]$$ for all $x_1\in \mathbb{R}$.
 
 ### Marginal pmf
 
@@ -169,7 +155,7 @@ title: "多變量分配與變數轉換"
 
 - Find the probability of $\{X_1\le x_1\}$ and the pmf of $X_1$.
 
-### Example 5
+### Supplementary Example 2.1-B
 
 - Let the joint pmf of $X$ and $Y$ be defined by $$f(x,y)=\frac{x+y}{21}, x=1, 2, 3; y=1, 2.$$
 
@@ -181,20 +167,7 @@ title: "多變量分配與變數轉換"
 
 - Find the probability of $\{X_1\le x_1\}$ and the pdf of $X_1$.
 
-### Example 6
-
-- Suppose an electrical component has two batteries.
-
-- Let $X$ and $Y$ denote the lifetimes in standard units of the respective batteries.
-
-- Assume the joint pdf is $$f(x,y) = \left\{\begin{array}{ll}
-  4xye^{-(x^2+y^2)} & x>0, y>0\\
-  0 & \text{elsewhere}
-  \end{array}\right..$$
-
-- Find the marginal pdf of $X$ and the find the medium of $X$.
-
-### Example 7
+### Example 2.1.4
 
 - Let $X$ and $Y$ have the joint pdf$$f(x,y) = \left\{\begin{array}{ll}
   x+y & 0<x<1, 0<y<1\\
@@ -235,17 +208,6 @@ title: "多變量分配與變數轉換"
 - For all real numbers $k_1$ and $k_2$, we have $$E[k_1Y_1 + k_2Y_2] = k_1E[Y_1] + k_2E[Y_2].$$
 :::
 
-### Example 8
-
-- Let $X$ and $Y$ have the joint pdf$$f(x,y) = \left\{\begin{array}{ll}
-  8xy & 0<x<y\\
-  0 & \text{elsewhere}
-  \end{array}\right..$$
-
-- Let $Z = X/Y$.
-
-- Find $E[Z]$.
-
 ### Moment generating function
 
 ::: {#def-ch2-4}
@@ -264,7 +226,7 @@ title: "多變量分配與變數轉換"
 
 - The mgfs of $X_1$ and $X_2$ are immediately seen to be $M_{X_1,X_2} (t_1, 0)$ and $M_{X_1,X_2} (0, t_2)$.
 
-### Example 9
+### Example 2.1.7
 
 - Let $X$ and $Y$ have the joint pdf$$f(x,y) = \left\{\begin{array}{ll}
   e^{-y} & 0<x<y<\infty\\
@@ -301,9 +263,9 @@ title: "多變量分配與變數轉換"
   \end{array}\right .
   \end{align*}$$ where $x_1 = \omega_1(y_1, y_2)$, $x_2=\omega_2(y_1, y_2)$ is the single-valued inverse of $y_1 = u_1(x_1,x_2)$ , $y_2 = u_2(x_1,x_2)$.
 
-### Example 10
+### Example 2.2.2
 
-- Consider an experiment in which a person chooses at random a point $(X_1,X_2)$ from the unit square ${\mathcal{S}} = {(x_1,x_2): 0 < x_1 < 1, 0 < x_2 < 1}$.
+- Consider an experiment in which a person chooses at random a point $(X_1,X_2)$ from the unit square ${\mathcal{S}} = \{(x_1,x_2): 0 < x_1 < 1, 0 < x_2 < 1\}$.
 
 - Suppose that our interest is not in $X_1$ or in $X_2$, but in $Z = X_1 +X_2$.
 
@@ -315,9 +277,9 @@ title: "多變量分配與變數轉換"
 
 - Consider the transformed random vector $(Y_1, Y_2) = T (X_1, X_2)$ where $T$ is a one-to-one continuous transformation.
 
-- Let $T = T({\mathcal{S}})$ denote the support of $(Y_1,Y_2)$.
+- Let ${\mathcal{T}} = T({\mathcal{S}})$ denote the support of $(Y_1,Y_2)$.
 
-- Rewrite the transformation in terms of its components as $$(Y_1, Y_2) = T (X_1, X_2) = (u_1(X_1, X_2), u2(X_1, X_2)),$$ where the functions $y_1 = u_1(x_1, x_2)$ and $y_2 = u_2(x_1, x_2)$ define $T$.
+- Rewrite the transformation in terms of its components as $$(Y_1, Y_2) = T(X_1, X_2) = (u_1(X_1, X_2), u_2(X_1, X_2)),$$ where the functions $y_1 = u_1(x_1, x_2)$ and $y_2 = u_2(x_1, x_2)$ define $T$.
 
 ### Continuous transformation
 
@@ -335,12 +297,12 @@ title: "多變量分配與變數轉換"
 ### Continuous transformation
 
 ::: columns
-- Let $B$ be any region in ${T}$.
+- Let $B$ be any region in ${\mathcal{T}}$.
 
 - Let $A = T^{-1}(B)$.
 
 - Because the transformation $T$ is one-to-one, $$\begin{aligned}
-  \lefteqn{P[(X_1,X_2) \in A]}\\
+  P[(X_1,X_2) \in A]
    &= P[T(X_1,X_2) \in T(A)] \\
    &= P[(Y_1,Y_2) \in B].
   \end{aligned}$$
@@ -353,34 +315,23 @@ title: "多變量分配與變數轉換"
 - Based on the change-in-variable technique, we have $$\begin{aligned}
   P[(X_1,X_2)\in A] & = \int\int_A f_{X_1, X_2}(x_1, x_2) dx_1 dx_2\\
   &=\int\int_{T(A)} f_{X_1, X_2}(T^{-1}(y_1, y_2)) |J|dy_1 dy_2\\
-  &=\int\int_B f_{X_1, X_2}(w_1(y_1,y_2), w_2(y_1, y_2)) dy_1 dy_2\\
+  &=\int\int_B f_{X_1, X_2}(w_1(y_1,y_2), w_2(y_1, y_2)) |J|\,dy_1\,dy_2
   \end{aligned}$$
 
 - The pdf of $(Y_1, Y_2)$ is $$f_{Y_1, Y_2}(y_1, y_2) =
   \left\{
   \begin{array}{ll}
-  f_{X_1, X_2}(w_1(y_1,y_2), w_2(y_1, y_2)) |J|, & (y_1, y_2) \in T\\
+  f_{X_1, X_2}(w_1(y_1,y_2), w_2(y_1, y_2)) |J|, & (y_1, y_2) \in \mathcal{T}\\
   0 & \text{elsewhere}
   \end{array}\right .$$
 
-### Example 11
+### Example 2.2.3
 
 - Consider an experiment in which a person chooses at random a point $(X_1,X_2)$ from the unit square ${\mathcal{S}} = \{(x_1,x_2) : 0 < x_1 < 1, 0 < x_2 < 1\}$.
 
 - Find the joint pdf of $Y_1 = X_1+X_2$ and $Y_2 = X_1-X_2$.
 
-### Example 12
-
-- Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
-  \left\{
-  \begin{array}{ll}
-  \frac{1}{4}\exp\left(-\frac{x_1+x_2}{2}\right) & 0<x_1, x_2<\infty\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
-
-- Find the pdf of $Y_1 = \frac{1}{2}(X_1-X_2)$.
-
-### Example 13
+### Example 2.2.5
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -390,17 +341,6 @@ title: "多變量分配與變數轉換"
   \end{array}\right .$$
 
 - Find the pdf of $Y_1 = X_1/X_2$.
-
-### Example 14
-
-- Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
-  \left\{
-  \begin{array}{ll}
-  \frac{1}{4}\exp\left(-\frac{x_1+x_2}{2}\right), & 0<x_1, x_2<\infty\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
-
-- Use the mgf to find the pdf of $Y_1 = \frac{1}{2}(X_1-X_2)$.
 
 ## Conditional Distributions and Expectations
 
@@ -415,8 +355,11 @@ title: "多變量分配與變數轉換"
 - Let $x_1$ be a point in the support of $X_1$, i.e., $p_{X_1} (x_1) > 0$.
 
 - Using the definition of conditional probability, we have $$\begin{aligned}
-  p_{X_2|X_1}(x_2|x_1) =P[X_2=x_2|X_1=x_2] =& \frac{P[X_1=x_1, X_2=x_2]}{P[X_1=x_1]} \\=& \frac{p_{X_1, X_2}(x_1, x_2)}{p_{X_1}(x_1)}
-  \end{aligned}$$ for all $x_1\in {\mathcal{S}}_{X_2}$.
+  p_{X_2\mid X_1}(x_2\mid x_1)
+  &= P[X_2=x_2\mid X_1=x_1] \\
+  &= \frac{P[X_1=x_1, X_2=x_2]}{P[X_1=x_1]} \\
+  &= \frac{p_{X_1, X_2}(x_1, x_2)}{p_{X_1}(x_1)}
+  \end{aligned}$$ for all $x_2\in {\mathcal{S}}_{X_2}$.
 
 ### Properties
 
@@ -432,17 +375,17 @@ title: "多變量分配與變數轉換"
 
 - Let the joint pdf be denoted as $f_{X_1,X_2}(x_1,x_2)$ that is positive on the support set ${\mathcal{S}}$ and is zero elsewhere.
 
-- Let $f_{X_1}(x_1)$ and $f_{X_2}(x_2)$ denote, respectively, the conditional probability density functions of $X_1$ and $X_2$.
+- Let $f_{X_1}(x_1)$ and $f_{X_2}(x_2)$ denote, respectively, the marginal probability density functions of $X_1$ and $X_2$.
 
 - When $f_{X_1} (x_1) > 0$, we define $$\begin{aligned}
-  f_{X_2|X_1}(x_2|x_1) =& \frac{f_{X_1, X_2}(x_1, x_2)}{f_{X_1}(x_1)}.
+  f_{X_2\mid X_1}(x_2\mid x_1) &= \frac{f_{X_1, X_2}(x_1, x_2)}{f_{X_1}(x_1)}.
   \end{aligned}$$
 
 ### Properties
 
 - $\int_{-\infty}^{\infty} f_{X_2|X_1}(x_2|x_1) dx_2=1$.
 
-- $f_{X_2|X_1}(x_2|x_1)>0$ for all $x_2\in {\mathcal{S}}_{X_2}$.
+- $f_{X_2\mid X_1}(x_2\mid x_1)\ge 0$ for all $x_2\in {\mathcal{S}}_{X_2}$.
 
 - $f_{X_2|X_1}(x_2|x_1)$ is called the conditional pdf of the continuous type of random variable.
 
@@ -463,21 +406,12 @@ title: "多變量分配與變數轉換"
   \end{align*}$$
 
 - The conditional variance of $X_2$, given that $X_1 = x_1$, if it exists, is given by $$\begin{align*}
-  \operatorname{Var}(X_2|x_1) =& E[(X_2 - E[X_2|x_1])^2|X_1=x_1] \\=& E[X_2^2|x_1] - (E[X_2|x_1])^2
+  \operatorname{Var}(X_2\mid X_1=x_1)
+  &= E\!\left[(X_2-E[X_2\mid X_1=x_1])^2\mid X_1=x_1\right] \\
+  &= E[X_2^2\mid X_1=x_1]-\left(E[X_2\mid X_1=x_1]\right)^2
   \end{align*}$$
 
-### Example 15
-
-- Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
-  \left\{
-  \begin{array}{ll}
-  2, & 0<x_1<x_2<1\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
-
-- Find $f_{X_1}(x_1)$ and $f_{X_2}(x_2)$.
-
-### Example 16
+### Example 2.3.1
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -488,7 +422,7 @@ title: "多變量分配與變數轉換"
 
 - Find $f_{X_1|X_2}(x_1|x_2)$ and $f_{X_2|X_1}(x_2|x_1)$.
 
-### Exampe
+### Example 2.3.1 (continued)
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -499,7 +433,7 @@ title: "多變量分配與變數轉換"
 
 - Find $E[X_1|x_2]$ and $\operatorname{Var}(X_1|x_2)$.
 
-### Example 17
+### Supplementary Example 2.3-A
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -542,24 +476,13 @@ title: "多變量分配與變數轉換"
 
 - There may be certain points $(x_1,x_2) \in {\mathcal{S}}$ at which $f(x_1,x_2) \ne f_1(x_1)f_2(x_2)$. However, if $A$ is the set of points $(x_1,x_2)$ at which the equality does not hold, then $P(A) = 0$.
 
-### Example 18
+### Supplementary Example 2.5-A
 
 - Suppose an urn contains 10 blue, 8 red, and 7 yellow balls that are the same except for color.
 
 - Suppose 4 balls are drawn without replacement.
 
 - Let $X$ and $Y$ be the number of red and blue balls drawn.
-
-- Are $X$ and $Y$ independent?
-
-### Example 19
-
-- Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
-  \left\{
-  \begin{array}{ll}
-  x_1+x_2, & 0<x_1, x_2<1\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
 
 - Are $X$ and $Y$ independent?
 
@@ -573,7 +496,7 @@ title: "多變量分配與變數轉換"
 - That is, $$f(x_1,x_2) ≡ g(x_1)h(x_2),$$ where $g(x_1) > 0$, $x_1\in {\mathcal{S}}_1$, zero elsewhere, and $h(x_2) > 0$, $x_2\in {\mathcal{S}}_2$, zero elsewhere.
 :::
 
-### Example 20
+### Class Example 2.5-A
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -584,7 +507,7 @@ title: "多變量分配與變數轉換"
 
 - Are $X_1$ and $X_2$ independent?
 
-### Example 21
+### Example 2.5.2
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -611,19 +534,6 @@ title: "多變量分配與變數轉換"
 - $X_1$ and $X_2$ are independent if and only if $$P[a<X_1\le b, c<X_2\le d] = P[a<X_1\le b]P[c<X_2\le d]$$ for every $a<b$ and $c<d$, where $a, b, c, d$ are constants.
 :::
 
-### Example 22
-
-- Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
-  \left\{
-  \begin{array}{ll}
-  x_1+x_2 & 0<x_1, x_2<1\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
-
-- Find $P[0<X_1\le \frac{1}{2}, 0<X_2\le \frac{1}{2}]$, $P[0<X_1\le \frac{1}{2}]$ and $P[0<X_2\le \frac{1}{2}]$.
-
-- Are $X$ and $Y$ independent?
-
 ### Independence
 
 ::: {#thm-ch2-6}
@@ -642,7 +552,7 @@ title: "多變量分配與變數轉換"
 - Then $X_1$ and $X_2$ are independent if and only if $$M(t_1, t_2) = M(t_1, 0) M(0, t_2).$$
 :::
 
-### Example 23
+### Example 2.5.5
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -681,22 +591,11 @@ title: "多變量分配與變數轉換"
 
 - The expected value of the product of two random variables is equal to the product of their expectations plus their covariance; $$E[XY] = \mu_1\mu_2 + \operatorname{Cov}(X, Y) = \mu_1\mu_2 + \rho\sigma_1\sigma_2.$$
 
-### Example 24
+### Supplementary Example 2.4-A
 
 - A fair coin is flipped three times.
 
 - $X_1$ is the number of heads on the first two flips while $X_2$ is the number of heads on all three flips.
-
-- Find the correlation coefficient of $(X_1,X_2)$.
-
-### Example 25
-
-- Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
-  \left\{
-  \begin{array}{ll}
-  x_1 + x_2, & 0<x_1, x_2<1\\
-  0, & \text{elsewhere}
-  \end{array}\right .$$
 
 - Find the correlation coefficient of $(X_1,X_2)$.
 
@@ -720,7 +619,7 @@ title: "多變量分配與變數轉換"
 - If $X$ and $Y$ are independent random variables, then $$\rho = 0.$$
 :::
 
-### Example 26
+### Class Example 2.4-A
 
 - Let $X$ and $Y$ be jointly discrete random variables whose distribution has mass 1/4 at each of the four points (-1, 0), (0, -1), (1, 0) and (0, 1).
 
@@ -740,37 +639,17 @@ title: "多變量分配與變數轉換"
 - If $E[Y|X]$ is linear in $X$ then $$E[Y|X] = \mu_2 + \rho\frac{\sigma_2}{\sigma_1}(X-\mu_1)$$ and $$E[\operatorname{Var}(Y|X)] = \sigma_2^2 (1-\rho^2).$$
 :::
 
-### Example 27
+### Example 2.4.2
 
 - Let the random variables X and Y have the linear conditional means $E(Y |x) = 4x + 3$ and $E(X|y) = \frac{1}{16} y - 3$.
 
 - Can $\mu_1$, $\mu_2$, $\rho$, $\sigma_1$ and $\sigma_2$ be obtained?
 
-### Example 28
+## Stage 2 — Deepen：由二維推廣到多維 {.unnumbered}
 
-- Let the random variables $X$ and $Y$ have a uniform distribution over the area.
+> **從兩個變數的逐項計算，提升為 random vector、matrix 與一般維度的表示。**
 
-- The joint pdf of $X$ and $Y$ is $$f_{X, Y}(x, y) =
-  \left\{
-  \begin{array}{ll}
-  \frac{1}{4ah} & -a+bx<y<a+bx, -h<x<h\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
-
-- Find $\rho$.
-
-![](assets/graph/fig2-5-1.png)
-
-### Example 29
-
-- Let the random variables $X$ and $Y$ have the joint pdf $$f_{X, Y}(x, y) =
-  \left\{
-  \begin{array}{ll}
-  e^{-y} & 0<x<y<\infty\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
-
-- Find $\rho$.
+大二教材主要集中在雙變量情形；本階段是本章的主要新內容。學習重點是用向量與矩陣統整平均數、變異數與共變異數，理解 covariance matrix 的結構，並將二維 transformation 的方法推廣到多維與 many-to-one 情形。
 
 ## Extension to several random variables
 
@@ -796,15 +675,15 @@ title: "多變量分配與變數轉換"
 
 - Denote the probability of the event $A$ as $P_{X_1, X_2, \ldots, X_n}[A]$.
 
-- $P_{X_1, X_2, \ldots, X_n}[A]$ is uniquely determined by the cumulative distribution function (cdf), which is given by $$F_{\boldsymbol X}(x_1,x_2, \ldots, x_n)=P[X_1 \le x_1, \ldots, X_n \le x_n],$$ for all $(x_1, x_2,\ldots, x_n)\in R^n$.
+- $P_{X_1, X_2, \ldots, X_n}[A]$ is uniquely determined by the cumulative distribution function (cdf), which is given by $$F_{\boldsymbol X}(x_1,x_2, \ldots, x_n)=P[X_1 \le x_1, \ldots, X_n \le x_n],$$ for all $(x_1, x_2,\ldots, x_n)\in \mathbb{R}^n$.
 
 ### Cumulative distribution function (cdf)
 
 - Discrete random vector $$F_{\boldsymbol X}(x_1,x_2, \ldots, x_n)=\sum\cdots\sum_{\omega_1\le x_1,\ldots,\omega_n\le x_n}p(\omega_1, \ldots, \omega_n)$$
 
-- Continuous random vector $$F_{\boldsymbol X}(x_1,x_2, \ldots, x_n)=\int_{-\infty}^{x_1}\cdots\int_{-\infty}^{x_n}f(\omega_1, \ldots, \omega_n)d\omega\cdots d\omega_n.$$ and $$\frac{\partial^n}{\partial x_1\cdots\partial x_n}F_{\boldsymbol X} ({\boldsymbol x}) = f({\boldsymbol x}).$$
+- Continuous random vector $$F_{\boldsymbol X}(x_1,x_2, \ldots, x_n)=\int_{-\infty}^{x_1}\cdots\int_{-\infty}^{x_n}f(\omega_1, \ldots, \omega_n)\,d\omega_1\cdots d\omega_n.$$ Moreover, $$\frac{\partial^n}{\partial x_1\cdots\partial x_n}F_{\boldsymbol X} ({\boldsymbol x}) = f({\boldsymbol x}).$$
 
-### Example 30
+### Example 2.6.1
 
 - Let the random variables $X$, $Y$ and $Z$ have the joint pdf defined as $$f(x, y, z) =
   \left\{
@@ -822,8 +701,8 @@ title: "多變量分配與變數轉換"
 - Let $Y = u(X_1, X_2, \ldots, X_n)$ for some function $u$.
 
 - Then $$\begin{aligned}
-  \lefteqn{E[u(X_1, X_2, \ldots, X_n)]}\\
-  & = \sum\cdots\sum_{(x_1,\ldots, x_n)\in {\mathcal{D}}} u(x_1, \ldots, x_n) f(x_1, \ldots, x_n),
+  E[u(X_1, X_2, \ldots, X_n)]
+  &= \sum\cdots\sum_{(x_1,\ldots, x_n)\in {\mathcal{D}}} u(x_1, \ldots, x_n) f(x_1, \ldots, x_n),
   \end{aligned}$$ if it exists, is called the mathematical expectation of $u(X_1, \ldots, X_n)$.
 
 ### Expectation for continuous random vector
@@ -833,7 +712,7 @@ title: "多變量分配與變數轉換"
 - Let $Y = u(X_1, X_2, \ldots, X_n)$ for some function $u$.
 
 - Then $$\begin{aligned}
-  &\lefteqn{E[u(X_1, \ldots, X_n)]}  \\
+  E[u(X_1, \ldots, X_n)]
   &= \int\cdots\int_{(x_1,\ldots, x_n)\in {\mathcal{D}}} u(x_1, \ldots, x_n) f(x_1, \ldots, x_n) dx_1\cdots dx_n,
   \end{aligned}$$ if it exists, is called the mathematical expectation of $u(X_1, \ldots, X_n)$.
 
@@ -872,7 +751,8 @@ title: "多變量分配與變數轉換"
 ### Conditional distribution for continuous type
 
 - When $f_{X_1} (x_1) > 0$, we define $$\begin{aligned}
-  f_{X_2, \ldots, X_n|X_1}(x_2, \cdots, x_n|x_1) =& \frac{f_{X_1, X_2}(x_1, x_2, \cdots, x_n)}{f_{X_1}(x_1)}.
+  f_{X_2, \ldots, X_n\mid X_1}(x_2, \ldots, x_n\mid x_1)
+  &= \frac{f_{\boldsymbol X}(x_1, x_2, \ldots, x_n)}{f_{X_1}(x_1)}.
   \end{aligned}$$
 
 - The joint conditional pdf of any $n - 1$ random variables, say $X_1,\cdots,X_{i-1},X_{i+1},\cdots,X_n$, given $X_i = x_i$, is defined as the joint pdf of $X_1,\cdots,X_n$ divided by the marginal pdf $f_{X_i}(x_i)$, provided that $f_{X_i}(x_i) > 0$.
@@ -881,21 +761,21 @@ title: "多變量分配與變數轉換"
 
 - If $u(X_2, \cdots, X_n)$ is a function of $X_2$, $\ldots$, $X_n$, the conditional expectation of $u(X_2, \cdots, X_n)$, given that $X_1 = x_1$, if it exists, is given by
 
-$$\begin{align*}
-\lefteqn{E[u(X_2, \cdots, X_n)|X_1=x_1] }\\
+$$\begin{aligned}
+E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 &=
 \sum\cdots\sum_{x_2, \cdots, x_n} u(x_2, \cdots, x_n) p_{X_2, \ldots, X_n|X_1}(x_2, \cdots, x_n|x_1),
-\end{align*}$$
+\end{aligned}$$
 
 ### Conditional expectation of a continuous random vector
 
 - If $u(X_2, \cdots, X_n)$ is a function of $X_2$, $\ldots$, $X_n$, the conditional expectation of $u(X_2, \cdots, X_n)$, given that $X_1 = x_1$, if it exists, is given by
 
-$$\begin{align*}
-\lefteqn{E[u(X_2, \cdots, X_n)|X_1=x_1] }\\
-&= 
-\int\cdots\int_{x_2, \cdots, x_n} u(x_2, \cdots, x_n) f_{X_2\ldots, X_n|X_1}(x_2, \cdots, x_n|x_1) dx_2\cdots dx_n,
-\end{align*}$$
+$$\begin{aligned}
+E[u(X_2, \ldots, X_n)\mid X_1=x_1]
+&=
+\int\cdots\int_{\mathcal{D}_{2:n}} u(x_2, \ldots, x_n) f_{X_2,\ldots,X_n\mid X_1}(x_2, \ldots, x_n\mid x_1)\,dx_2\cdots dx_n,
+\end{aligned}$$
 
 ### Independence
 
@@ -941,7 +821,7 @@ $$\begin{align*}
 - Then $T$ has the mgf given by $$M_T(t) = \prod_{i=1}^n M_i(k_it),$$ where $-\min_i (h_i) < t <\min_i{h_i}$.
 :::
 
-### Example 31
+### Supplementary Example 2.6-A
 
 - Let the random variables $X_1$, $X_2$ and $X_3$ be three mutually independent random variable and let each have the pdf $$f(x) =
   \left\{
@@ -1000,7 +880,7 @@ $$\begin{align*}
 
 - The mean of ${\boldsymbol X}$ is $\boldsymbol{\mu} = E[\boldsymbol{X}]$. and we define its variance-covariance matrix as $$\operatorname{Cov}({\boldsymbol X}) = E[({\boldsymbol X} - {\boldsymbol \mu})({\boldsymbol X} - {\boldsymbol \mu})^{'}] = [\sigma_{ij}]$$ whose the ($i$,$j$)th off diagonal entry is $\operatorname{Cov}(X_i,X_j)$ and the $(i, i)$th diagonal entry is $\sigma_i^2 = \operatorname{Var}(X_i)$.
 
-### Example 32
+### Example 2.6.3
 
 - Let the random variables $X$ and $Y$ have the joint pdf of $X$ and $Y$ is $$f_{X, Y}(x, y) =
   \left\{
@@ -1029,7 +909,7 @@ $$\begin{align*}
 
 ### Note
 
-- All variance-covariance matrices are positive semi-definite matrices; that is, $${\boldsymbol a}^{'}\operatorname{Cov}({\boldsymbol X}){\boldsymbol a} \ge 0,$$ for all vectors ${\boldsymbol a} \in R^n$.
+- All variance-covariance matrices are positive semidefinite; that is, $${\boldsymbol a}^{'}\operatorname{Cov}({\boldsymbol X}){\boldsymbol a} \ge 0,$$ for all vectors ${\boldsymbol a} \in \mathbb{R}^n$.
 
 - Let ${\boldsymbol X}$ be a random vector.
 
@@ -1072,13 +952,13 @@ $$\begin{align*}
 ### Continuous transformation
 
 - Based on the change-in-variable technique, we have $$\begin{aligned}
-  \lefteqn{\int\int_{A} f(x_1, x_2, \ldots, x_n) dx_1 dx_2\cdots dx_n}\\
-  &=\int\int_B f(w_1(y_1,y_2), w_2(y_1, y_2)) |J|dy_1 dy_2\cdots dy_n\\
+  \int\cdots\int_A f(x_1, x_2, \ldots, x_n)\,dx_1\cdots dx_n
+  &=\int\cdots\int_B f(w_1(\boldsymbol y),\ldots,w_n(\boldsymbol y))|J|\,dy_1\cdots dy_n
   \end{aligned}$$
 
 - The pdf of $(Y_1, Y_2, \ldots, Y_n)$ is $$\begin{aligned}
-  \lefteqn{f(y_1, y_2, \ldots, y_n)}\\
-  & =
+  f_{\boldsymbol Y}(y_1, y_2, \ldots, y_n)
+  &=
   \left\{
   \begin{array}{ll}
   f(w_1(y_1,y_2, \ldots, y_n), \ldots,  w_n(y_1,y_2, \ldots, y_n)) |J|, & {\boldsymbol y} \in {\mathcal{T}}\\
@@ -1086,7 +966,7 @@ $$\begin{align*}
   \end{array}\right .
   \end{aligned}$$
 
-### Example 33
+### Example 2.7.1
 
 - Let $X_1$, $X_2$ and $X_3$ have the joint pdf $$f(x_1, x_2, x_3) =
   \left\{
@@ -1099,26 +979,7 @@ $$\begin{align*}
 
 - Find the marginal pdf of $Y_1$ and that of $Y_2$.
 
-### Example 34
-
-- Let $X_1$, $X_2$ and $X_3$ be iid with common pdf $$f(x) =
-  \left\{
-  \begin{array}{ll}
-  e^{-x}, & 0<x\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
-
-- Let $$\begin{aligned}
-  Y_1 &= \frac{X_1}{X_1+X_2+X_3},\\
-  Y_2 &= \frac{X_2}{X_1+X_2+X_3},\\
-  Y_3 &= X_1+X_2+X_3.
-  \end{aligned}$$
-
-- Find the joint pdf of $Y_1$, $Y_2$ and $Y_3$.
-
-- Find the marginal pdf of $Y_1$ and that of $Y_2$.
-
-### Example 35 — Many to one
+### Class Example 2.7-A — Many to one
 
 - Let $X$ have the Cauchy pdf $$f(x) = 
   \left\{
@@ -1167,27 +1028,12 @@ $$\begin{align*}
 - $J_i$, $i=1, \ldots, k$, can not be identically zero in ${\mathcal{T}}$.
 
 - The pdf of $(Y_1, Y_2, \ldots, Y_n)$ is $$\begin{aligned}
-  \lefteqn{f(y_1, y_2, \ldots, y_n)}\\
-  & =
+  f_{\boldsymbol Y}(y_1, y_2, \ldots, y_n)
+  &=
   \sum_{i=1}^kf(w_{1i}(y_1,y_2, \ldots, y_n), \ldots,  w_{ni}(y_1,y_2, \ldots, y_n)) |J_i|
   \end{aligned}$$ provided ${\boldsymbol y} \in {\mathcal{T}}$.
 
-### Example 36
-
-- Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
-  \left\{
-  \begin{array}{ll}
-  \frac{1}{\pi}, & 0<x_1^2+x_2^2<1\\
-  0 & \text{elsewhere}
-  \end{array}\right .$$
-
-- Let $Y_1 = X_1^2 + X_2^2$ and $Y_2 = X_1^2/(X_1^2 + X_2^2)$
-
-- Find the joint pdf of $Y_1$ and $Y_2$ .
-
-- Find the marginal pdf of $Y_1$ and that of $Y_2$.
-
-### Example 37
+### Example 2.7.5
 
 - Let $X_1$, $X_2$, $X_3$, $X_4$ be independent random variables with com- mon pdf $$f(x) =
   \left\{
@@ -1197,6 +1043,12 @@ $$\begin{align*}
   \end{array}\right .$$
 
 - Find the distribution function of $Y = \sum_{i=1}^4X_i$ using the mgf technique.
+
+## Stage 3 — Connect：連接抽樣分配與統計推論 {.unnumbered}
+
+> **把 random vector 的工具放回樣本 $X_1,\ldots,X_n$，開始研究由樣本形成的統計量。**
+
+本階段以線性組合與 random sample 收束本章。學生應能計算線性統計量的期望、變異數與共變異數，辨認 $\bar X$ 與 $S^2$ 是樣本的函數，並理解 $E(S^2)=\sigma^2$ 為何是後續估計理論的重要起點。
 
 ## Linear combinations random variables
 
@@ -1233,7 +1085,7 @@ $$\begin{align*}
 - Abbreviate independent and identically distributed by iid.
 :::
 
-### Example 38
+### Example 2.8.2 — Sample Variance
 
 - Let $X_i$, $i=1, 2, \ldots, n$, be a random sample with mean $\mu$ and variance $\sigma^2$.
 

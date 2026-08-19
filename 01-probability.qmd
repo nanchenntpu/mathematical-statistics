@@ -3,7 +3,7 @@ title: "機率與單變量分配"
 ---
 
 ::: {.callout-tip title="本章定位"}
-本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語、公式與例題，並整理為可連續閱讀的教學形式。
+本章保留原有英文術語、公式與例題，並整理為可連續閱讀的教學形式。
 
 學生在大二已使用 Hogg, Tanis & Zimmerman 的 *Probability and Statistical Inference* 學過機率基礎，因此本章**不是重新教授機率論**，而是採取
 
@@ -138,7 +138,7 @@ $$
 ### Properties for set operations
 
 - Commutative law $$\begin{aligned}
-  A \cup B &= B \cup A\\
+  A \cup B &= B \cup A\\git diff -- '*.qmd'
   A \cap B &= B \cap A
   \end{aligned}$$
 
@@ -185,21 +185,13 @@ $$
 
   - $A_1 \cap A_2 \cap \cdots \cap A_n \cap \cdots$ = $\{x: x\in A_i,~\text{for all }i=1, 2, \ldots, n, \ldots\}$ = $\cap_{n=1}^\infty A_n$.
 
-### Example 1
+### Supplementary Example 1.2-A
 
 - Let $\mathcal{S}$ = {1, 2, 3, $\ldots$}.
 
 - Let $A_n = \{1, 3, \ldots, 2n-1\}$ and $B_n$ = {$n, n+1, \ldots,$} for $n=1, 2, 3, \ldots$.
 
 - Find $\cup_{n=1}^\infty A_n$, $\cap_{n=1}^\infty A_n$, $\cup_{n=1}^\infty B_n$, $\cap_{n=1}^\infty B_n$.
-
-### Example 2
-
-- Let $\mathcal{C}$ = (0, 5).
-
-- Let $C_n$ = $(1-n^{-1}, 2+n^{-1})$ and $D_n$ = $(n^{-1}, 3-n^{-1})$, $n = 1, 2, 3, \ldots$.
-
-- Find $\cup_{n=1}^\infty C_n$, $\cap_{n=1}^\infty C_n$, $\cup_{n=1}^\infty D_n$, $\cap_{n=1}^\infty D_n$.
 
 ### Monotone (nondecreasing) sets
 
@@ -215,37 +207,9 @@ $$
 
 ### Set functions
 
-- Set function
+- Set function（集合函數）
 
   - Is a function that map sets into real numbers.
-
-### Example 3
-
-- Let ${\mathcal{S}}$ = $R$ be a set of real numbers.
-
-- Consider a subset $A\in \mathcal{S}$.
-
-- Let $Q(A)$ be a set function of $A$ and be equal to = {the number of points in $A$ that correspond to positive integers}.
-
-- If $A = \{x: 0< x< 5\}$, find $Q(A)$.
-
-- If $A = \{x: -2< x< -1\}$, find $Q(A)$.
-
-- If $A = \{x: -\infty < x< 6\}$, find $Q(A)$.
-
-### Example 4
-
-- Let ${\mathcal{S}}$ = $R^2$ be a set of real numbers.
-
-- Consider a subset $A\in \mathcal{S}$.
-
-- Let $Q(A)$ be a set function of $A$ and be equal to = {the area of $A$} if $A$ has a finite area; otherwise, be undefined.
-
-- If $A = \{(x, y): x^2 + y^2 \le 1\}$, find $Q(A)$.
-
-- If $A = \{(0, 0), (1, 1), (0, 1)\}$, find $Q(A)$.
-
-- If $A = \{(x, y): 0\le x, 0\le y, x+y\le 1\}$, find $Q(A)$.
 
 ### Common set functions
 
@@ -261,23 +225,7 @@ $$
 
   - $Q(A) = \sum\sum_{(x, y) \in A} g(x, y)$
 
-### Example 5
-
-- Suppose $\mathcal{S}$ be a set of all nonnegative integers.
-
-- Let $A$ be a subset of $\mathcal{S}$.
-
-- Define
-
-  - $Q(A) = \sum_{n\in A} \left( \frac{2}{3}\right)^n$
-
-- Find $Q($$)$.
-
-- If $A = \{1, 2, 3\}$, find $Q(A)$.
-
-- If $B = \{1, 3, 5, \ldots\}$ is the set of all odd positive integers, find $Q(B)$.
-
-### Example 6
+### Supplementary Example 1.2-B
 
 - Suppose $\mathcal{S}$ be the interval of positive real numbers, i.e., $\mathcal{S}$ = $(0, \infty)$.
 
@@ -294,16 +242,6 @@ $$
 - Find $Q((1, 3) \cup [3, 5))$.
 
 - Find $Q(\mathcal{S})$.
-
-### Example 7
-
-- Let ${\mathcal{S}}$ = $R^n$.
-
-- Let $A = \{(x_1, x_2, \ldots, x_n): 0\le x_1\le x_2, 0\le x_i\le 1, \text{for }i = 1, 2, \ldots, n\}$.
-
-- Let $B = \{(x_1, x_2, \ldots, x_n): 0\le x_1\le x_2< \cdots \le x_n \le 1\}$.
-
-- Find $Q(A)$ and $Q(B)$.
 
 ## 1.3 Probability Set Function
 
@@ -400,7 +338,7 @@ P[A\cup B\cup C]=& P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 \end{aligned}$$
 :::
 
-### Example 8
+### Example 1.3.1
 
 - Consider one red die and one white die.
 
@@ -414,7 +352,7 @@ P[A\cup B\cup C]=& P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 
 - Find the sample space ${\mathcal{S}}$.
 
-### Example 8 (continued)
+### Example 1.3.1 (continued)
 
 - Assume the probability set function assigns a probability of 1/36 to each of the 36 points in ${\mathcal{S}}$.
 
@@ -460,17 +398,7 @@ P[A\cup B\cup C]=& P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 
 - Let $A\in {\mathcal{S}}$ and define $$P[A] = \sum_{x_i\in A} \frac{1}{m} = \frac{\#(A)}{m}.$$
 
-### Example 9
-
-- Suppose $A$ includes $h$ possible number of outcomes.
-
-- Define $$P[A]=\frac{h}{m}=\frac{N(A)}{N(S)}$$ where
-
-  - $N(A)$ = $h$ = the number of ways $A$ can occur.
-
-  - $N(S)$ = $m$ = the number of ways $S$ can occur.
-
-### Example 10
+### Example 1.3.2
 
 - Toss a fair coin twice
 
@@ -488,25 +416,13 @@ P[A\cup B\cup C]=& P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 
 - The composite experiment $E_1E_2$ consisting of performing $E_1$ and then $E_2$ has $n_1n_2$ possible outcomes.
 
-### Example 11
-
-- Let $E_1$ denote the selection of a rat from a cage containing one female ($F$) and one male ($M$) rate.
-
-- Let $E_2$ denote the administering of either drug $A$, drug $B$ or a placebo $P$ to the selected rate.
-
-- The outcome of the composite experiment is $$(F, A), (F, B), (F,P), (M, A), (M, B), (M,P)$$
-
-::: center
-![](assets/graph/fig1-2-1.png)
-:::
-
 ### More on multiplication Principle
 
 - Suppose experiment $E_i$ has $n_i$ outcomes, $i=1, 2, \cdots, m$.
 
 - The composite experiment $E_1E_2\cdots E_m$ has $n_1n_2\cdots n_m$ possible outcomes.
 
-### Example 12 — Dinner choices
+### Supplementary Example 1.3-A — Dinner choices
 
 - Choices of dinner
 
@@ -584,18 +500,6 @@ Each of the $$C_k^n = {n\choose k} =\frac{n!}{k!(n-k)!}$$ permutations of $n$ ob
 
 - It is called multinomial coefficients.
 
-### Monotone (nondecreasing) sets
-
-- Let $A_1,A_2,\ldots, A_n, \ldots$ be a sequence of nondecreasing sets, i.e., $$A_n \subset A_{n+1}, n = 1, 2, 3, \ldots$$
-
-- Define $$\lim_{n\rightarrow \infty} A_n = \cup_{n=1}^\infty A_n.$$
-
-### Monotone (nonincreasing) sets
-
-- Let $A_1,A_2,\ldots, A_n, \ldots$ be a sequence of nonincreasing sets, i.e., $$A_n \supset A_{n+1}, n = 1, 2, 3, \ldots$$
-
-- Define $$\lim_{n\rightarrow \infty} A_n = \cap_{n=1}^\infty A_n.$$
-
 ### Properties of probability
 
 ::: {#thm-ch1-8}
@@ -616,7 +520,7 @@ Each of the $$C_k^n = {n\choose k} =\frac{n!}{k!(n-k)!}$$ permutations of $n$ ob
 
 ## 1.4 Conditional Probability and Independence
 
-### Example 13
+### Example 1.4.7
 
 ::: center
                  Early (E)   Late (L)   Totals
@@ -634,16 +538,6 @@ Each of the $$C_k^n = {n\choose k} =\frac{n!}{k!(n-k)!}$$ permutations of $n$ ob
 The conditional probability of an event $A$, given that event $B$ has occurred, is defined by $$P[A|B]=\frac{P[A\cap B]}{P[B]}$$ provided that $P[B]>0$.
 :::
 
-### Example 14
-
-- A hand of 5 cards is to be dealt at random without replacement from an ordinary deck of 52 playing cards.
-
-- Let $C_1$ denote the event of at least 4 spades in the hand.
-
-- Let $C_2$ denote the event of an all-spade hand.
-
-- Find $P[C_2|C_1]$.
-
 ### Properties
 
 - $P[A|B]\ge 0$
@@ -656,21 +550,7 @@ The conditional probability of an event $A$, given that event $B$ has occurred, 
 
 - If $A_1, A_2, \cdots$ are mutually exclusive events, then $$P[\cup_{n=1}^{\infty} A_n|B] = \sum_{n=1}^\infty P[A_n|B]$$
 
-### Example 15
-
-- A bowl contains eight chips.
-
-- Three of the chips are red and the remaining five are blue.
-
-- Two chips are to be drawn successively, at random without replacement.
-
-- Let $A$ denote the event of the first draw results in a red chip.
-
-- Let $B$ denote the event of the second draw results in a blue chip.
-
-- Find $P[A\cap B]$.
-
-### Example 16
+### Example 1.4.4
 
 - Consider an ordinary deck of playing cards.
 
@@ -686,12 +566,6 @@ B &= \text{the event of a spade on the sixth draw}\\
 ### Remark
 
 - The probability that three events $A$, $B$ and $C$, all occur is given by the multiplication rule, $$P[A\cap B\cap C] = P[A]P[B|A]P[C|A\cap B]$$
-
-### Example 17
-
-- Four cards to be dealt successively at random and without replacement from an ordinary deck of playing cards.
-
-- What is the probability of receiving, in order, a spade, a heart, a diamond, and a club?
 
 ### Law of total probability
 
@@ -711,7 +585,7 @@ B &= \text{the event of a spade on the sixth draw}\\
 
 - Then $$P[C_j|C] = \frac{P[C_j]\times P[C|C_j]}{\sum_{i = 1}^k P[C_i]\times P[C|C_i]}.$$
 
-### Example 18
+### Example 1.4.5
 
 - The bowl $A_1$ contains three red and seven blue chips.
 
@@ -735,32 +609,6 @@ B &= \text{the event of a spade on the sixth draw}\\
 
 - The posterior probability -- the probability of $P[A_i|B]$.
 
-### Example 19
-
-- Three plants, $A_1$, $A_2$ and $A_3$, produce respectively, 10%, 50% and 40% of a company's output.
-
-- The percent of defective for $A_1$, $A_2$ and $A_3$ is 1%, 3% and 4%, respectively.
-
-- All products are sent to a central warehouse.
-
-- Let $B$ denote the event that one item is selected at random and observed to be defective.
-
-- Find $P[A_1|B]$, $P[A_2|B]$ and $P[A_3|B]$.
-
-### Example 20
-
-- Flip a fair coin twice and observe the sequence of heads and tails.
-
-- The sample space is $$S=\{HH, HT, TH, TT\}$$
-
-- Let $$\begin{aligned}
-  A &= \text{\{heads on the first flip\}}\\
-  B &=  \text{\{tails on the second flip\}}\\
-  C &=  \text{\{tails on both flips\}}\\
-  \end{aligned}$$
-
-- Find $P[B|A]$
-
 ### Definition
 
 ::: {#def-ch1-4}
@@ -773,7 +621,7 @@ Events $A$ and $B$ are independent if and only if $$P[A\cap B] = P[A]P[B]$$ Othe
 
 - The definition always holds If $P[A]=0$ or $P[B]=0$.
 
-### Example 21
+### Example 1.4.8
 
 - A red die and a white die are rolled.
 
@@ -783,7 +631,7 @@ Events $A$ and $B$ are independent if and only if $$P[A\cap B] = P[A]P[B]$$ Othe
 
 - Show that $A$ and $B$ are independent events.
 
-### Example 22
+### Example 1.4.9
 
 - A red die and a white die are rolled.
 
@@ -803,7 +651,7 @@ Events $A$ and $B$ are independent if and only if $$P[A\cap B] = P[A]P[B]$$ Othe
 
   3.  $A^{'}$ and $B^{'}$
 
-### Example 23
+### Supplementary Example 1.4-A
 
 - An urn contains four balls numbered 1, 2, 3, and 4.
 
@@ -843,7 +691,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - If $A_i$ is associated with the $i$th trials, $i=1, 2, \ldots, n$, then $$P[A_1\cap A_2\cap \cdots \cap A_n]=P[A_1]P[A_2]\cdots P[A_n]$$
 
-### Example 24
+### Example 1.4.11
 
 - A compute system is built so that if component $K_1$ fails, it is bypassed and $K_2$ is used.
 
@@ -891,7 +739,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - The probability of event $D$ is $$P_X(D) = \sum_{d_i\in D} p_X(d_i), D\subset {\mathcal{D}}.$$
 
-### Example 25
+### Example 1.5.1
 
 - Let $X$ be the sum of the upfaces on a roll of a pair of fair 6-sided dice, each with the numbers 1 through 6 on it.
 
@@ -899,7 +747,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - Find the pmf of $X$.
 
-### Example 25 (continued)
+### Example 1.5.1 (continued)
 
 - Let $B_1$ denote the event of 7 and 11.
 
@@ -917,7 +765,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - The function $f_X$ is formally defined as the probability density function (pdf) of $X$.
 
-### Example 26
+### Example 1.5.2
 
 - Let $X$ denote the outcome when a point is selected at random from an interval $[0,1]$.
 
@@ -932,7 +780,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - Find $P\left[\left\{X<\frac{1}{8}\right\} \cup \left\{X>\frac{7}{8}\right\}\right]$.
 
-### Example 26 (continued)
+### Example 1.5.2 (continued)
 
 - For any point $a$, $0<a<1$.
 
@@ -953,17 +801,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - Use cdf as an abbreviate.
 
-### Example 27
-
-- Suppose a fair die with the numbers 1 through 6 on it is rolled.
-
-- Let $X$ be the upface of the roll.
-
-- Then the space of $X$ is 1,2,\...,6 and its pmf is $$p_X(i)=1/6, i=1,2,...,6.$$
-
-- Find cdf of $X$.
-
-### Example 28
+### Example 1.5.4
 
 - Let $X$ denote the outcome when a point is selected at random from an interval $[0,1]$.
 
@@ -978,7 +816,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - Find cdf of $X$.
 
-### Example 28 (continued)
+### Example 1.5.4 (continued)
 
 - $F_X(x)$ and $f_X(x)$ are related, i.e., $$F_X(x) = \int_{-\infty}^{x} f_X(t) dt, ~\forall x\in R$$ and $$\frac{d}{dx} F_X(x) = f_X(x), \forall x\in R,~\text{except for }x=0\text{ and }x=1.$$
 
@@ -986,7 +824,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 
 - $X$ and $Y$ are equal in distribution and write $X \stackrel{D}{=} Y$ if and only if $F_X(x) = F_Y(x)$, for all $x \in R$.
 
-### Example 29
+### Supplementary Example 1.5-A
 
 - Let $X$ denote the outcome when a point is selected at random from an interval $[0,1]$.
 
@@ -1029,18 +867,6 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 - Then, for $a<b$, $$P[a< X \le b] = F_X(b) - F_X(a).$$
 :::
 
-### Example 30
-
-- Let $X$ be the lifetime in years of a mechanical part.
-
-- Assume that $X$ has the cdf $$F_X(x) = \left\{\begin{array}{cc}
-  0 & x<0\\
-  1-e^{-x} & 0\le x
-  \end{array}
-  \right ..$$
-
-- Find the pdf of $X$ and $P[1<X\le 3]$.
-
 ### Properties of cdf
 
 ::: {#thm-ch1-12}
@@ -1049,7 +875,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
 - Then, $$P[X=x] = F_X(x) - F_X(x-),$$ for all $x\in R$, where $F_X(x-) = \lim_{z\rightarrow x-} F_X(z).$
 :::
 
-### Example 31
+### Example 1.5.5
 
 - Let $X$ be the lifetime in years of a mechanical part.
 
@@ -1069,17 +895,7 @@ Events $A$, $B$ and $C$ are mutually independent if and only if the following tw
   \sum_{x\in {\mathcal{D}}} p_X(x) = 1 & \text{and} & \int_{\mathcal{D}} f_X(x)dx = 1,
   \end{array}$$ where ${\mathcal{D}}$ is the space of X.
 
-### Example 32
-
-- Let $X$ has the pmf $$f_X(x) = \left\{\begin{array}{cc}
-  cx & x = 1, 2, \ldots, 10\\
-  0 & \text{elsewhere},
-  \end{array}
-  \right .$$ for an appropriate constant $c$.
-
-- Find $c$.
-
-### Example 33
+### Example 1.5.8
 
 - Let $X$ has the pdf $$f_X(x) = \left\{\begin{array}{cc}
   cx^3 & 0<x<2\\
@@ -1112,18 +928,6 @@ $$
 ::: {#def-ch1-7}
 A random variable is a discrete random variable if its space is either finite or countable.
 :::
-
-### Example 34
-
-- Toss a fair coin twice.
-
-- Let $X$ be the number of heads.
-
-### Example 35
-
-- Toss a four-sided die twice.
-
-- Let $X$ be the sum of the dots on the two tosses.
 
 ### Probability mass function
 
@@ -1163,7 +967,7 @@ A random variable is a discrete random variable if its space is either finite or
 
 - Find the pmf of $X$.
 
-### Example 36 — Hypergeometric distribution
+### Supplementary Example 1.6-A — Hypergeometric distribution
 
 - There are 50 fishes in a small pond.
 
@@ -1181,7 +985,7 @@ A random variable is a discrete random variable if its space is either finite or
 
 - Find the pmf of $Y$
 
-### Example 37
+### Example 1.6.1
 
 - Consider a sequence of independent flips of a coin, each resulting in a head ($H$) or a tail ($T$).
 
@@ -1191,19 +995,7 @@ A random variable is a discrete random variable if its space is either finite or
 
 - Find the pmf of $Y$.
 
-### Example 38
-
-- Let $X$ have the pmf $$p_X(x) = \left\{
-  \begin{array}{ll}
-  \frac{3!}{x!(3-x)!}\left(\frac{2}{3}\right)^x \left(\frac{1}{3}\right)^{3-x}, x= 0, 1, 2, 3\\
-  0 & \text{elsewhere}
-  \end{array}\right ..$$
-
-- Let $Y=X^2$.
-
-- Find the pmf of $Y$.
-
-### Example 39
+### Example 1.6.3
 
 - Consider a sequence of independent flops of a coin, each resulting in a head ($H$) or a tail ($T$).
 
@@ -1216,16 +1008,6 @@ A random variable is a discrete random variable if its space is either finite or
 - The space of $Y$ is -1, 1
 
 - Find the pmf of $Y$.
-
-### Example 40
-
-- Consider a sequence of independent flops of a coin, each resulting in a head ($H$) or a tail ($T$).
-
-- Let $X$ be the flip number on which the first head appear.
-
-- Let $Z = (X-2)^2$.
-
-- Find the pmf of $Z$.
 
 ## 1.7 Continuous Random Variables
 
@@ -1269,7 +1051,7 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 
 - Denote $U(a,b)$.
 
-### Example 41
+### Example 1.7.1
 
 - Suppose a point is selected at random in the interior of a circle of radius 1.
 
@@ -1282,19 +1064,6 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 - Hence, the probability of the selected point lying in a set $A \subset {\mathcal{S}}$ is proportional to the area of A; i.e., $$P[A] = \frac{\text{area of A}}{\pi}$$
 
 - Find cdf and pdf of $X$.
-
-### Example 42
-
-- Let the random variable be the time in seconds between incoming telephone calls at a busy switchboard.
-
-- Suppose that a reasonable probability model for $X$ is given by the pdf $$f_X(x) = \left \{\begin{array}{ll}
-  \frac{1}{4}e^{-x/4} & 0<x<\infty\\
-  0 & \text{elsewhere}
-  \end{array}\right ..$$
-
-- Find cdf of $X$.
-
-- Find the probability that the time between successive phone calls exceeds 4 seconds.
 
 ### Quantiles
 
@@ -1336,7 +1105,7 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 
 - Then the pdf of $Y$ can be derived from $$G(y)=P[Y\le y] = P[u(X)\le y]$$
 
-### Example 43 — Log gamma distribution
+### Supplementary Example 1.7-A — Log gamma distribution
 
 - Let $X$ have a gamma distribution with pdf $$f(x)=\frac{1}{\Gamma(\alpha) \theta^\alpha} x^{\alpha-1} e^{-x/\theta}, 0<x<\infty,$$ where $\alpha>0$ and $\theta>0$.
 
@@ -1356,7 +1125,7 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 - Then the pdf of $Y$ is given by $$f_Y(y) = f_X(g^{-1}(y))|\frac{dx}{dy}|, \text{for }y\in S_Y,$$ where $S_Y$ is the support of $Y$ and $S_Y = \{y=g(x): x\in S_X\}$.
 :::
 
-### Example 44
+### Supplementary Example 1.7-A (continued)
 
 - Let $X$ have a gamma distribution with pdf $$f(x)=\frac{1}{\Gamma(\alpha) \theta^\alpha} x^{\alpha-1} e^{-x/\theta}, 0<x<\infty,$$ where $\alpha>0$ and $\theta>0$.
 
@@ -1364,15 +1133,7 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 
 - Find the pdf of $Y$.
 
-### Example 45 — Log gamma distribution
-
-- Let $X$ have pdf $$f(x)=3(1-x)^2, 0<x<1.$$
-
-- Let $Y=(1-X)^3$.
-
-- Find the pdf of $Y$.
-
-### Example 46 — Mixture type of distribution
+### Example 1.5.6 — Mixture type of distribution
 
 - Let $X$ have cdf $$F(x) = \left\{
   \begin{array}{ll}
@@ -1408,13 +1169,13 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 
 - When the mean designation is used, $E(X)$ is denoted by $\mu$; i.e, $\mu$ = $E(X)$.
 
-### Example 47
+### Supplementary Example 1.8-A
 
 - Let $X$ have a pmf $$f(x)=\frac{1}{3}, x\in S_X,$$ where $S_X = \{-1, 0, 1\}.$
 
 - Find $E[X]$.
 
-### Example 48
+### Example 1.8.3
 
 - Let $X$ have a pdf $$f(x)=\left\{
   \begin{array}{ll}
@@ -1441,7 +1202,7 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 - If $X$ with a pmf $p(x)$ and $$\sum_{x\in S_X} |g(x)|p(x)$$ then the expectation of $X$ is $$E[Y]=\sum_{x\in S_X} g(x) p(x).$$
 :::
 
-### Example 49
+### Supplementary Example 1.8-B
 
 - Consider a sequence of independent flips of a coin, each resulting in a head (H) or a tail (T).
 
@@ -1453,7 +1214,7 @@ A random variable is a continuous random variable if the cdf $F_X(x)$ is a conti
 
 - Find $E[Z]$.
 
-### Example 50
+### Supplementary Example 1.8-C
 
 - Let $X$ be a continuous random variable with the pdf $f(x) = 2x$ which has support on the interval (0, 1).
 
@@ -1477,7 +1238,7 @@ When the expectation exists, it satisfies the following properties:
 
 - If $c_1$, $\cdots$ and $c_k$ are constants and $u_1$, $u_2$, $\cdots$ and $u_k$ are functions, then $$E\left[\sum_{i=1}^kc_iu_i(X)\right]=\sum_{i=1}^kc_iE[u_i(X)].$$
 
-### Example 51
+### Example 1.8.4
 
 - Let $X$ have the pdf $$f(x) = \left\{\begin{array}{ll}
   2(1-x) & 0<x<1\\
@@ -1487,7 +1248,7 @@ When the expectation exists, it satisfies the following properties:
 
 - Find $E[X]$, $E[X^2]$ and $E[6X+3X^2]$.
 
-### Example 52
+### Example 1.8.5
 
 - Let $X$ have the pmf $$f(x) = \left\{\begin{array}{ll}
   \frac{x}{6} & x = 1, 2, 3\\
@@ -1497,7 +1258,7 @@ When the expectation exists, it satisfies the following properties:
 
 - Find $E[6X^3+X]$.
 
-### Example 53
+### Example 1.8.6
 
 - Let us divide, at random, a horizontal line segment of length 5 into two parts.
 
@@ -1537,7 +1298,7 @@ When the expectation exists, it satisfies the following properties:
 - It is usually denoted by $\sigma^2$ or by Var($X$).
 :::
 
-### Example 54
+### Supplementary Example 1.8-D
 
 - Consider a discrete random variable $X$ has a support $S_X=\{1, 2, 3\}$.
 
@@ -1551,7 +1312,7 @@ When the expectation exists, it satisfies the following properties:
 
 - The standard deviation of $X$ is the positive square root of variance and is denoted as $\sigma$.
 
-### Example 55
+### Class Example 1.9-A
 
 - Let $a$ and $b$ be constants.
 
@@ -1559,13 +1320,13 @@ When the expectation exists, it satisfies the following properties:
 
 - Find $E[Y]$ and $\operatorname{Var}(Y)$.
 
-### Example 56
+### Example 1.9.1
 
 - Suppose the random variable $X$ has a uniform distribution with pdf $$f_X(x) = 1/(2a), -a < x < a,$$ zero elsewhere.
 
 - Find $\mu$ and $\sigma^2$.
 
-### Example 57
+### Example 1.9.2
 
 - Let $X$ has the pdf $$f(x) = \left\{\begin{array}{ll}
   \frac{1}{2}(x+1) & -1<x<1\\
@@ -1575,7 +1336,7 @@ When the expectation exists, it satisfies the following properties:
 
 - Find $\mu$ and $\sigma^2$.
 
-### Example 58
+### Example 1.9.5
 
 - Let $X$ has the pdf $$f(x) = \left\{\begin{array}{ll}
   \frac{1}{x^2} & 1<x<\infty\\
@@ -1593,7 +1354,7 @@ When the expectation exists, it satisfies the following properties:
 
 - The $r$th factorial moment is defined as $$E[(X)_r]=E[X(X-1)\cdots (X-r+1)].$$
 
-### Example 59 — Hypergeometric distribution
+### Supplementary Example 1.9-A — Hypergeometric distribution
 
 - Let $X$ have a hypergeometric distribution where $n$ objects are selected from $N=N_1+N_2$.
 
@@ -1626,7 +1387,7 @@ When the expectation exists, it satisfies the following properties:
   &=e^{tb_1}g(b_1) +e^{tb_2}g(b_2)+e^{tb_3}g(b_3)+\cdots,
   \end{aligned}$$ for all $t$, $-h<t<h$, then $$f(b_i)=g(b_i), \forall i$$
 
-### Example 60
+### Example 1.9.3
 
 - Suppose we have a fair spinner with the numbers 1, 2, and 3 on it.
 
@@ -1644,13 +1405,13 @@ When the expectation exists, it satisfies the following properties:
 - Then $F_X (z) = F_Y (z)$ for all $z\in R$ if and only if $M_X(t) = M_Y (t)$ for all $t \in (-h,h)$ for some $h > 0$.
 :::
 
-### Example 61
+### Supplementary Example 1.9-B
 
 - Suppose $X$ has the mgf $$M(t)=e^t\left(\frac{1}{10}\right)+e^{2t}\left(\frac{2}{10}\right)+e^{3t}\left(\frac{3}{10}\right)+e^{4t}\left(\frac{4}{10}\right), ~-\infty<t<\infty$$
 
 - Find the pmf of $X$.
 
-### Example 62
+### Class Example 1.9-B
 
 - Show that $M^{'}(0)=\mu$ and $M^{''}(0)-[M^{'}(0)]^2=\sigma^2$.
 
@@ -1692,7 +1453,7 @@ When the expectation exists, it satisfies the following properties:
 - For every positive constant $k$, $$P[|X-\mu|\ge k\sigma]\le \frac{1}{k^2}.$$
 :::
 
-### Example 63
+### Example 1.10.1
 
 - Let $X$ has the pdf $$f(x) = \left\{\begin{array}{ll}
   \frac{1}{2\sqrt{3}} & -\sqrt{3}<x<\sqrt{3}\\
@@ -1702,7 +1463,7 @@ When the expectation exists, it satisfies the following properties:
 
 - Find $P[|X-\mu|\ge k\sigma]$ and the upper bound.
 
-### Example 64
+### Example 1.10.2
 
 - Let the random variable $X$ of the discrete type have probabilities 1/8, 6/8, 1/8 at the points $x=-1,0,1$, respectively.
 
@@ -1794,13 +1555,13 @@ $$
 - If $\phi$ is strictly convex, then the inequality is strict unless $X$ is a constant random variable.
 :::
 
-### Example 65
+### Example 1.10.3
 
 - Let $X$ be a nondegenerate random variable with mean $\mu$ and a finite second moment.
 
 - Show that $(E[X])^2\le E[X^2]$.
 
-### Example 66
+### Example 1.10.4
 
 - Let $\{a_1, . . . , a_n\}$ be a set of positive numbers.
 
