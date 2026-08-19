@@ -1,0 +1,19 @@
+{
+  "permission": {
+    "bash": {
+      "cd *": "allow",
+      "pdftotext *": "allow",
+      "head *": "allow"
+    },
+    "external_directory": {
+      "E:/Dropbox/50 course/51 statistics mathematical/上課參考書/Hogg, Tanis & Zimmerman - Probability and Statistical Inference/*": "allow"
+    },
+    "executeCode": {
+      "*": "allow"
+    },
+    "edit": {
+      "*.qmd": "allow",
+      "*.yml": "allow"
+    }
+  }
+}

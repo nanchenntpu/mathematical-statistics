@@ -9,7 +9,7 @@ book:
   chapters:
     - index.qmd
     - 01-probability.qmd
-    # - 02-multivariate.qmd
+    - 02-multivariate.qmd
     # - 03-special-distributions.qmd
     # - 04-sampling-inference.qmd
     # - 05-asymptotics.qmd
