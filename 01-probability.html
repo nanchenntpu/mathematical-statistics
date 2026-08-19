@@ -36,6 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./02-multivariate.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -157,6 +158,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">機率與單變量分配</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-multivariate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -169,15 +176,19 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#學習目標" id="toc-學習目標" class="nav-link active" data-scroll-target="#學習目標">學習目標</a></li>
   <li><a href="#必備的先備知識" id="toc-必備的先備知識" class="nav-link" data-scroll-target="#必備的先備知識">必備的先備知識</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#probability-set-function" id="toc-probability-set-function" class="nav-link" data-scroll-target="#probability-set-function">Probability set function</a></li>
-  <li><a href="#conditional-probability-and-independent" id="toc-conditional-probability-and-independent" class="nav-link" data-scroll-target="#conditional-probability-and-independent">Conditional probability and independent</a></li>
-  <li><a href="#random-variables" id="toc-random-variables" class="nav-link" data-scroll-target="#random-variables">Random variables</a></li>
-  <li><a href="#discrete-random-variables" id="toc-discrete-random-variables" class="nav-link" data-scroll-target="#discrete-random-variables">Discrete random variables</a></li>
-  <li><a href="#continuous-random-variables" id="toc-continuous-random-variables" class="nav-link" data-scroll-target="#continuous-random-variables">Continuous random variables</a></li>
-  <li><a href="#expectation-of-a-random-variable" id="toc-expectation-of-a-random-variable" class="nav-link" data-scroll-target="#expectation-of-a-random-variable">Expectation of a random variable</a></li>
-  <li><a href="#some-special-expectations" id="toc-some-special-expectations" class="nav-link" data-scroll-target="#some-special-expectations">Some special expectations</a></li>
-  <li><a href="#important-inequalities" id="toc-important-inequalities" class="nav-link" data-scroll-target="#important-inequalities">Important inequalities</a></li>
+  <li><a href="#stage-1-recall快速喚醒" id="toc-stage-1-recall快速喚醒" class="nav-link" data-scroll-target="#stage-1-recall快速喚醒">Stage 1 — Recall：快速喚醒</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">1.1 Introduction</a></li>
+  <li><a href="#sets" id="toc-sets" class="nav-link" data-scroll-target="#sets">1.2 Sets</a></li>
+  <li><a href="#probability-set-function" id="toc-probability-set-function" class="nav-link" data-scroll-target="#probability-set-function">1.3 Probability Set Function</a></li>
+  <li><a href="#conditional-probability-and-independence" id="toc-conditional-probability-and-independence" class="nav-link" data-scroll-target="#conditional-probability-and-independence">1.4 Conditional Probability and Independence</a></li>
+  <li><a href="#random-variables" id="toc-random-variables" class="nav-link" data-scroll-target="#random-variables">1.5 Random Variables</a></li>
+  <li><a href="#stage-2-deepen從會算到會推導" id="toc-stage-2-deepen從會算到會推導" class="nav-link" data-scroll-target="#stage-2-deepen從會算到會推導">Stage 2 — Deepen：從會算到會推導</a></li>
+  <li><a href="#discrete-random-variables" id="toc-discrete-random-variables" class="nav-link" data-scroll-target="#discrete-random-variables">1.6 Discrete Random Variables</a></li>
+  <li><a href="#continuous-random-variables" id="toc-continuous-random-variables" class="nav-link" data-scroll-target="#continuous-random-variables">1.7 Continuous Random Variables</a></li>
+  <li><a href="#expectation-of-a-random-variable" id="toc-expectation-of-a-random-variable" class="nav-link" data-scroll-target="#expectation-of-a-random-variable">1.8 Expectation of a Random Variable</a></li>
+  <li><a href="#some-special-expectations" id="toc-some-special-expectations" class="nav-link" data-scroll-target="#some-special-expectations">1.9 Some Special Expectations</a></li>
+  <li><a href="#stage-3-connect由機率工具走向數理統計" id="toc-stage-3-connect由機率工具走向數理統計" class="nav-link" data-scroll-target="#stage-3-connect由機率工具走向數理統計">Stage 3 — Connect：由機率工具走向數理統計</a></li>
+  <li><a href="#important-inequalities" id="toc-important-inequalities" class="nav-link" data-scroll-target="#important-inequalities">1.10 Important Inequalities</a></li>
   <li><a href="#本章摘要" id="toc-本章摘要" class="nav-link" data-scroll-target="#本章摘要">本章摘要</a></li>
   <li><a href="#常見錯誤" id="toc-常見錯誤" class="nav-link" data-scroll-target="#常見錯誤">常見錯誤</a></li>
   <li><a href="#章末練習" id="toc-章末練習" class="nav-link" data-scroll-target="#章末練習">章末練習</a></li>
@@ -216,7 +227,12 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。</p>
+<p>本章保留原有英文術語、公式與例題，並整理為可連續閱讀的教學形式。</p>
+<p>學生在大二已使用 Hogg, Tanis &amp; Zimmerman 的 <em>Probability and Statistical Inference</em> 學過機率基礎，因此本章<strong>不是重新教授機率論</strong>，而是採取</p>
+<p><span class="math display">\[
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+\]</span></p>
+<p>的三階段安排：先快速喚醒已學內容，再深化數理統計所需的推導工具，最後連接抽樣分配、收斂與後續推論。標題保留 Hogg, McKean &amp; Craig Chapter 1 的 section numbering，方便對照課本；各節不採等比例講解。</p>
 </div>
 </div>
 <section id="學習目標" class="level2">
@@ -228,15 +244,39 @@ window.Quarto = {
 <li>辨認離散與連續隨機變數的分配</li>
 <li>計算期望、變異數、動差與動差生成函數</li>
 <li>使用 Markov、Chebyshev 與 Jensen 不等式</li>
+<li>由 Chebyshev 不等式推導樣本平均數的依機率收斂</li>
 </ul>
 </section>
 <section id="必備的先備知識" class="level2">
 <h2 class="anchored" data-anchor-id="必備的先備知識">必備的先備知識</h2>
-<p>集合符號、基本微積分與有限和。</p>
-<p>以下依原講義順序整理核心定義、定理、公式與例題。</p>
+<p>集合符號、基本微積分與有限和。機率法則、條件機率、隨機變數及 pmf / pdf / cdf 視為大二已學內容，課堂中以診斷題與例題快速喚醒。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="教學節奏">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">註釋</span>教學節奏
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Stage 1 — Recall（快速）</strong>：Sections 1.1–1.5，以 60–90 分鐘的 example-driven review 喚醒基本概念；忘記的內容在例題中補回，不重走完整的 Definition–Theorem–Proof 流程。</li>
+<li><strong>Stage 2 — Deepen（主體）</strong>：Sections 1.6–1.9。1.6 與 1.7 的 pmf / pdf 基礎快速帶過，把時間放在 transformation；1.8 與 1.9 深入處理 <span class="math inline">\(E[g(X)]\)</span>、moments、variance 與 MGF 的推導。</li>
+<li><strong>Stage 3 — Connect（橋接）</strong>：Section 1.10。以重要不等式連接 sample mean、Chebyshev、convergence in probability 與後續 mathematical statistics。</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="stage-1-recall快速喚醒" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-1-recall快速喚醒">Stage 1 — Recall：快速喚醒</h2>
+<blockquote class="blockquote">
+<p><strong>學過的，快速喚醒；忘記的，在例題中補回來。</strong></p>
+</blockquote>
+<p>本階段以概念辨識與短例題為主。學生應能迅速回答 <span class="math inline">\(P(A\mid B)\)</span>、<span class="math inline">\(F_X(x)=P(X\le x)\)</span>、pmf / pdf 的差異及 cdf 的基本性質；細部證明可依診斷結果選講。</p>
 </section>
 <section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<h2 class="anchored" data-anchor-id="introduction">1.1 Introduction</h2>
 <section id="definition-of-experiment" class="level3">
 <h3 class="anchored" data-anchor-id="definition-of-experiment">Definition of experiment</h3>
 <ul>
@@ -297,6 +337,9 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
+</section>
+<section id="sets" class="level2">
+<h2 class="anchored" data-anchor-id="sets">1.2 Sets</h2>
 <section id="algebra-of-sets" class="level3">
 <h3 class="anchored" data-anchor-id="algebra-of-sets">Algebra of sets</h3>
 <ul>
@@ -343,7 +386,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="properties-for-set-operations">Properties for set operations</h3>
 <ul>
 <li><p>Commutative law <span class="math display">\[\begin{aligned}
-A \cup B &amp;= B \cup A\\
+A \cup B &amp;= B \cup A\\git diff -- '*.qmd'
 A \cap B &amp;= B \cap A
 \end{aligned}\]</span></p></li>
 <li><p>Associative law <span class="math display">\[\begin{aligned}
@@ -398,20 +441,12 @@ A \cup (B \cap C) &amp;= (A \cup B) \cap (A \cup C)\\
 </ul></li>
 </ul>
 </section>
-<section id="example-1" class="level3">
-<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<section id="supplementary-example-1.2-a" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.2-a">Supplementary Example 1.2-A</h3>
 <ul>
 <li><p>Let <span class="math inline">\(\mathcal{S}\)</span> = {1, 2, 3, <span class="math inline">\(\ldots\)</span>}.</p></li>
 <li><p>Let <span class="math inline">\(A_n = \{1, 3, \ldots, 2n-1\}\)</span> and <span class="math inline">\(B_n\)</span> = {<span class="math inline">\(n, n+1, \ldots,\)</span>} for <span class="math inline">\(n=1, 2, 3, \ldots\)</span>.</p></li>
 <li><p>Find <span class="math inline">\(\cup_{n=1}^\infty A_n\)</span>, <span class="math inline">\(\cap_{n=1}^\infty A_n\)</span>, <span class="math inline">\(\cup_{n=1}^\infty B_n\)</span>, <span class="math inline">\(\cap_{n=1}^\infty B_n\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-2" class="level3">
-<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
-<ul>
-<li><p>Let <span class="math inline">\(\mathcal{C}\)</span> = (0, 5).</p></li>
-<li><p>Let <span class="math inline">\(C_n\)</span> = <span class="math inline">\((1-n^{-1}, 2+n^{-1})\)</span> and <span class="math inline">\(D_n\)</span> = <span class="math inline">\((n^{-1}, 3-n^{-1})\)</span>, <span class="math inline">\(n = 1, 2, 3, \ldots\)</span>.</p></li>
-<li><p>Find <span class="math inline">\(\cup_{n=1}^\infty C_n\)</span>, <span class="math inline">\(\cap_{n=1}^\infty C_n\)</span>, <span class="math inline">\(\cup_{n=1}^\infty D_n\)</span>, <span class="math inline">\(\cap_{n=1}^\infty D_n\)</span>.</p></li>
 </ul>
 </section>
 <section id="monotone-nondecreasing-sets" class="level3">
@@ -431,32 +466,10 @@ A \cup (B \cap C) &amp;= (A \cup B) \cap (A \cup C)\\
 <section id="set-functions" class="level3">
 <h3 class="anchored" data-anchor-id="set-functions">Set functions</h3>
 <ul>
-<li><p>Set function</p>
+<li><p>Set function（集合函數）</p>
 <ul>
 <li>Is a function that map sets into real numbers.</li>
 </ul></li>
-</ul>
-</section>
-<section id="example-3" class="level3">
-<h3 class="anchored" data-anchor-id="example-3">Example 3</h3>
-<ul>
-<li><p>Let <span class="math inline">\({\mathcal{S}}\)</span> = <span class="math inline">\(R\)</span> be a set of real numbers.</p></li>
-<li><p>Consider a subset <span class="math inline">\(A\in \mathcal{S}\)</span>.</p></li>
-<li><p>Let <span class="math inline">\(Q(A)\)</span> be a set function of <span class="math inline">\(A\)</span> and be equal to = {the number of points in <span class="math inline">\(A\)</span> that correspond to positive integers}.</p></li>
-<li><p>If <span class="math inline">\(A = \{x: 0&lt; x&lt; 5\}\)</span>, find <span class="math inline">\(Q(A)\)</span>.</p></li>
-<li><p>If <span class="math inline">\(A = \{x: -2&lt; x&lt; -1\}\)</span>, find <span class="math inline">\(Q(A)\)</span>.</p></li>
-<li><p>If <span class="math inline">\(A = \{x: -\infty &lt; x&lt; 6\}\)</span>, find <span class="math inline">\(Q(A)\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-4" class="level3">
-<h3 class="anchored" data-anchor-id="example-4">Example 4</h3>
-<ul>
-<li><p>Let <span class="math inline">\({\mathcal{S}}\)</span> = <span class="math inline">\(R^2\)</span> be a set of real numbers.</p></li>
-<li><p>Consider a subset <span class="math inline">\(A\in \mathcal{S}\)</span>.</p></li>
-<li><p>Let <span class="math inline">\(Q(A)\)</span> be a set function of <span class="math inline">\(A\)</span> and be equal to = {the area of <span class="math inline">\(A\)</span>} if <span class="math inline">\(A\)</span> has a finite area; otherwise, be undefined.</p></li>
-<li><p>If <span class="math inline">\(A = \{(x, y): x^2 + y^2 \le 1\}\)</span>, find <span class="math inline">\(Q(A)\)</span>.</p></li>
-<li><p>If <span class="math inline">\(A = \{(0, 0), (1, 1), (0, 1)\}\)</span>, find <span class="math inline">\(Q(A)\)</span>.</p></li>
-<li><p>If <span class="math inline">\(A = \{(x, y): 0\le x, 0\le y, x+y\le 1\}\)</span>, find <span class="math inline">\(Q(A)\)</span>.</p></li>
 </ul>
 </section>
 <section id="common-set-functions" class="level3">
@@ -474,22 +487,8 @@ A \cup (B \cap C) &amp;= (A \cup B) \cap (A \cup C)\\
 </ul></li>
 </ul>
 </section>
-<section id="example-5" class="level3">
-<h3 class="anchored" data-anchor-id="example-5">Example 5</h3>
-<ul>
-<li><p>Suppose <span class="math inline">\(\mathcal{S}\)</span> be a set of all nonnegative integers.</p></li>
-<li><p>Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\mathcal{S}\)</span>.</p></li>
-<li><p>Define</p>
-<ul>
-<li><span class="math inline">\(Q(A) = \sum_{n\in A} \left( \frac{2}{3}\right)^n\)</span></li>
-</ul></li>
-<li><p>Find <span class="math inline">\(Q(\)</span><span class="math inline">\()\)</span>.</p></li>
-<li><p>If <span class="math inline">\(A = \{1, 2, 3\}\)</span>, find <span class="math inline">\(Q(A)\)</span>.</p></li>
-<li><p>If <span class="math inline">\(B = \{1, 3, 5, \ldots\}\)</span> is the set of all odd positive integers, find <span class="math inline">\(Q(B)\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-6" class="level3">
-<h3 class="anchored" data-anchor-id="example-6">Example 6</h3>
+<section id="supplementary-example-1.2-b" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.2-b">Supplementary Example 1.2-B</h3>
 <ul>
 <li><p>Suppose <span class="math inline">\(\mathcal{S}\)</span> be the interval of positive real numbers, i.e., <span class="math inline">\(\mathcal{S}\)</span> = <span class="math inline">\((0, \infty)\)</span>.</p></li>
 <li><p>Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\mathcal{S}\)</span>.</p></li>
@@ -503,18 +502,9 @@ A \cup (B \cap C) &amp;= (A \cup B) \cap (A \cup C)\\
 <li><p>Find <span class="math inline">\(Q(\mathcal{S})\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-7" class="level3">
-<h3 class="anchored" data-anchor-id="example-7">Example 7</h3>
-<ul>
-<li><p>Let <span class="math inline">\({\mathcal{S}}\)</span> = <span class="math inline">\(R^n\)</span>.</p></li>
-<li><p>Let <span class="math inline">\(A = \{(x_1, x_2, \ldots, x_n): 0\le x_1\le x_2, 0\le x_i\le 1, \text{for }i = 1, 2, \ldots, n\}\)</span>.</p></li>
-<li><p>Let <span class="math inline">\(B = \{(x_1, x_2, \ldots, x_n): 0\le x_1\le x_2&lt; \cdots \le x_n \le 1\}\)</span>.</p></li>
-<li><p>Find <span class="math inline">\(Q(A)\)</span> and <span class="math inline">\(Q(B)\)</span>.</p></li>
-</ul>
-</section>
 </section>
 <section id="probability-set-function" class="level2">
-<h2 class="anchored" data-anchor-id="probability-set-function">Probability set function</h2>
+<h2 class="anchored" data-anchor-id="probability-set-function">1.3 Probability Set Function</h2>
 <section id="recall-frequency" class="level3">
 <h3 class="anchored" data-anchor-id="recall-frequency">Recall frequency</h3>
 <ul>
@@ -607,8 +597,8 @@ P[A\cup B\cup C]=&amp; P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 \end{aligned}\]</span></p>
 </div>
 </section>
-<section id="example-8" class="level3">
-<h3 class="anchored" data-anchor-id="example-8">Example 8</h3>
+<section id="example-1.3.1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.3.1">Example 1.3.1</h3>
 <ul>
 <li><p>Consider one red die and one white die.</p></li>
 <li><p>Let the outcome be the ordered pair.</p></li>
@@ -618,8 +608,8 @@ P[A\cup B\cup C]=&amp; P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 <li><p>Find the sample space <span class="math inline">\({\mathcal{S}}\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-8-continued" class="level3">
-<h3 class="anchored" data-anchor-id="example-8-continued">Example 8 (continued)</h3>
+<section id="example-1.3.1-continued" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.3.1-continued">Example 1.3.1 (continued)</h3>
 <ul>
 <li><p>Assume the probability set function assigns a probability of 1/36 to each of the 36 points in <span class="math inline">\({\mathcal{S}}\)</span>.</p></li>
 <li><p>If <span class="math inline">\(C_1 = \{(1, 1), (2, 1), (3, 1), (4, 1), (5, 1)\}\)</span> and <span class="math inline">\(C_2 = \{(1, 2), (2, 2), (3,2), (4, 2), (5, 2)\}\)</span>.</p></li>
@@ -663,19 +653,8 @@ P[A\cup B\cup C]=&amp; P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 <li><p>Let <span class="math inline">\(A\in {\mathcal{S}}\)</span> and define <span class="math display">\[P[A] = \sum_{x_i\in A} \frac{1}{m} = \frac{\#(A)}{m}.\]</span></p></li>
 </ul>
 </section>
-<section id="example-9" class="level3">
-<h3 class="anchored" data-anchor-id="example-9">Example 9</h3>
-<ul>
-<li><p>Suppose <span class="math inline">\(A\)</span> includes <span class="math inline">\(h\)</span> possible number of outcomes.</p></li>
-<li><p>Define <span class="math display">\[P[A]=\frac{h}{m}=\frac{N(A)}{N(S)}\]</span> where</p>
-<ul>
-<li><p><span class="math inline">\(N(A)\)</span> = <span class="math inline">\(h\)</span> = the number of ways <span class="math inline">\(A\)</span> can occur.</p></li>
-<li><p><span class="math inline">\(N(S)\)</span> = <span class="math inline">\(m\)</span> = the number of ways <span class="math inline">\(S\)</span> can occur.</p></li>
-</ul></li>
-</ul>
-</section>
-<section id="example-10" class="level3">
-<h3 class="anchored" data-anchor-id="example-10">Example 10</h3>
+<section id="example-1.3.2" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.3.2">Example 1.3.2</h3>
 <ul>
 <li><p>Toss a fair coin twice</p></li>
 <li><p>Possible outcomes: <span class="math inline">\(TT, HT, TH, HH\)</span></p></li>
@@ -691,17 +670,6 @@ P[A\cup B\cup C]=&amp; P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 <li><p>The composite experiment <span class="math inline">\(E_1E_2\)</span> consisting of performing <span class="math inline">\(E_1\)</span> and then <span class="math inline">\(E_2\)</span> has <span class="math inline">\(n_1n_2\)</span> possible outcomes.</p></li>
 </ul>
 </section>
-<section id="example-11" class="level3">
-<h3 class="anchored" data-anchor-id="example-11">Example 11</h3>
-<ul>
-<li><p>Let <span class="math inline">\(E_1\)</span> denote the selection of a rat from a cage containing one female (<span class="math inline">\(F\)</span>) and one male (<span class="math inline">\(M\)</span>) rate.</p></li>
-<li><p>Let <span class="math inline">\(E_2\)</span> denote the administering of either drug <span class="math inline">\(A\)</span>, drug <span class="math inline">\(B\)</span> or a placebo <span class="math inline">\(P\)</span> to the selected rate.</p></li>
-<li><p>The outcome of the composite experiment is <span class="math display">\[(F, A), (F, B), (F,P), (M, A), (M, B), (M,P)\]</span></p></li>
-</ul>
-<div class="center">
-<p><img src="assets/graph/fig1-2-1.png" class="img-fluid"></p>
-</div>
-</section>
 <section id="more-on-multiplication-principle" class="level3">
 <h3 class="anchored" data-anchor-id="more-on-multiplication-principle">More on multiplication Principle</h3>
 <ul>
@@ -709,8 +677,8 @@ P[A\cup B\cup C]=&amp; P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 <li><p>The composite experiment <span class="math inline">\(E_1E_2\cdots E_m\)</span> has <span class="math inline">\(n_1n_2\cdots n_m\)</span> possible outcomes.</p></li>
 </ul>
 </section>
-<section id="example-12-dinner-choices" class="level3">
-<h3 class="anchored" data-anchor-id="example-12-dinner-choices">Example 12 — Dinner choices</h3>
+<section id="supplementary-example-1.3-a-dinner-choices" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.3-a-dinner-choices">Supplementary Example 1.3-A — Dinner choices</h3>
 <ul>
 <li><p>Choices of dinner</p>
 <ul>
@@ -777,20 +745,6 @@ P[A\cup B\cup C]=&amp; P[A]+P[B]+P[C]-P[A\cap B]-P[A\cap C]\\
 <li><p>It is called multinomial coefficients.</p></li>
 </ul>
 </section>
-<section id="monotone-nondecreasing-sets-1" class="level3">
-<h3 class="anchored" data-anchor-id="monotone-nondecreasing-sets-1">Monotone (nondecreasing) sets</h3>
-<ul>
-<li><p>Let <span class="math inline">\(A_1,A_2,\ldots, A_n, \ldots\)</span> be a sequence of nondecreasing sets, i.e., <span class="math display">\[A_n \subset A_{n+1}, n = 1, 2, 3, \ldots\]</span></p></li>
-<li><p>Define <span class="math display">\[\lim_{n\rightarrow \infty} A_n = \cup_{n=1}^\infty A_n.\]</span></p></li>
-</ul>
-</section>
-<section id="monotone-nonincreasing-sets-1" class="level3">
-<h3 class="anchored" data-anchor-id="monotone-nonincreasing-sets-1">Monotone (nonincreasing) sets</h3>
-<ul>
-<li><p>Let <span class="math inline">\(A_1,A_2,\ldots, A_n, \ldots\)</span> be a sequence of nonincreasing sets, i.e., <span class="math display">\[A_n \supset A_{n+1}, n = 1, 2, 3, \ldots\]</span></p></li>
-<li><p>Define <span class="math display">\[\lim_{n\rightarrow \infty} A_n = \cap_{n=1}^\infty A_n.\]</span></p></li>
-</ul>
-</section>
 <section id="properties-of-probability" class="level3">
 <h3 class="anchored" data-anchor-id="properties-of-probability">Properties of probability</h3>
 <div id="thm-ch1-8" class="theorem">
@@ -814,10 +768,10 @@ P\left[ \cap_{n=1}^{\infty} C_n \right].\]</span></p></li>
 </div>
 </section>
 </section>
-<section id="conditional-probability-and-independent" class="level2">
-<h2 class="anchored" data-anchor-id="conditional-probability-and-independent">Conditional probability and independent</h2>
-<section id="example-13" class="level3">
-<h3 class="anchored" data-anchor-id="example-13">Example 13</h3>
+<section id="conditional-probability-and-independence" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-probability-and-independence">1.4 Conditional Probability and Independence</h2>
+<section id="example-1.4.7" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.4.7">Example 1.4.7</h3>
 <div class="center">
 <table class="caption-top table">
 <thead>
@@ -860,15 +814,6 @@ P\left[ \cap_{n=1}^{\infty} C_n \right].\]</span></p></li>
 <p><span class="theorem-title"><strong>定義 2.3</strong></span> The conditional probability of an event <span class="math inline">\(A\)</span>, given that event <span class="math inline">\(B\)</span> has occurred, is defined by <span class="math display">\[P[A|B]=\frac{P[A\cap B]}{P[B]}\]</span> provided that <span class="math inline">\(P[B]&gt;0\)</span>.</p>
 </div>
 </section>
-<section id="example-14" class="level3">
-<h3 class="anchored" data-anchor-id="example-14">Example 14</h3>
-<ul>
-<li><p>A hand of 5 cards is to be dealt at random without replacement from an ordinary deck of 52 playing cards.</p></li>
-<li><p>Let <span class="math inline">\(C_1\)</span> denote the event of at least 4 spades in the hand.</p></li>
-<li><p>Let <span class="math inline">\(C_2\)</span> denote the event of an all-spade hand.</p></li>
-<li><p>Find <span class="math inline">\(P[C_2|C_1]\)</span>.</p></li>
-</ul>
-</section>
 <section id="properties" class="level3">
 <h3 class="anchored" data-anchor-id="properties">Properties</h3>
 <ul>
@@ -883,19 +828,8 @@ P\left[ \cap_{n=1}^{\infty} C_n \right].\]</span></p></li>
 <li>If <span class="math inline">\(A_1, A_2, \cdots\)</span> are mutually exclusive events, then <span class="math display">\[P[\cup_{n=1}^{\infty} A_n|B] = \sum_{n=1}^\infty P[A_n|B]\]</span></li>
 </ul>
 </section>
-<section id="example-15" class="level3">
-<h3 class="anchored" data-anchor-id="example-15">Example 15</h3>
-<ul>
-<li><p>A bowl contains eight chips.</p></li>
-<li><p>Three of the chips are red and the remaining five are blue.</p></li>
-<li><p>Two chips are to be drawn successively, at random without replacement.</p></li>
-<li><p>Let <span class="math inline">\(A\)</span> denote the event of the first draw results in a red chip.</p></li>
-<li><p>Let <span class="math inline">\(B\)</span> denote the event of the second draw results in a blue chip.</p></li>
-<li><p>Find <span class="math inline">\(P[A\cap B]\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-16" class="level3">
-<h3 class="anchored" data-anchor-id="example-16">Example 16</h3>
+<section id="example-1.4.4" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.4.4">Example 1.4.4</h3>
 <ul>
 <li><p>Consider an ordinary deck of playing cards.</p></li>
 <li><p>Cards are to be drawn successively at random without replacement.</p></li>
@@ -910,13 +844,6 @@ B &amp;= \text{the event of a spade on the sixth draw}\\
 <h3 class="anchored" data-anchor-id="remark-2">Remark</h3>
 <ul>
 <li>The probability that three events <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>, all occur is given by the multiplication rule, <span class="math display">\[P[A\cap B\cap C] = P[A]P[B|A]P[C|A\cap B]\]</span></li>
-</ul>
-</section>
-<section id="example-17" class="level3">
-<h3 class="anchored" data-anchor-id="example-17">Example 17</h3>
-<ul>
-<li><p>Four cards to be dealt successively at random and without replacement from an ordinary deck of playing cards.</p></li>
-<li><p>What is the probability of receiving, in order, a spade, a heart, a diamond, and a club?</p></li>
 </ul>
 </section>
 <section id="law-of-total-probability" class="level3">
@@ -936,8 +863,8 @@ B &amp;= \text{the event of a spade on the sixth draw}\\
 <li><p>Then <span class="math display">\[P[C_j|C] = \frac{P[C_j]\times P[C|C_j]}{\sum_{i = 1}^k P[C_i]\times P[C|C_i]}.\]</span></p></li>
 </ul>
 </section>
-<section id="example-18" class="level3">
-<h3 class="anchored" data-anchor-id="example-18">Example 18</h3>
+<section id="example-1.4.5" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.4.5">Example 1.4.5</h3>
 <ul>
 <li><p>The bowl <span class="math inline">\(A_1\)</span> contains three red and seven blue chips.</p></li>
 <li><p>The bowl <span class="math inline">\(A_2\)</span> contains eight red and two blue chips.</p></li>
@@ -956,29 +883,6 @@ B &amp;= \text{the event of a spade on the sixth draw}\\
 <li><p>The posterior probability – the probability of <span class="math inline">\(P[A_i|B]\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-19" class="level3">
-<h3 class="anchored" data-anchor-id="example-19">Example 19</h3>
-<ul>
-<li><p>Three plants, <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span> and <span class="math inline">\(A_3\)</span>, produce respectively, 10%, 50% and 40% of a company’s output.</p></li>
-<li><p>The percent of defective for <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span> and <span class="math inline">\(A_3\)</span> is 1%, 3% and 4%, respectively.</p></li>
-<li><p>All products are sent to a central warehouse.</p></li>
-<li><p>Let <span class="math inline">\(B\)</span> denote the event that one item is selected at random and observed to be defective.</p></li>
-<li><p>Find <span class="math inline">\(P[A_1|B]\)</span>, <span class="math inline">\(P[A_2|B]\)</span> and <span class="math inline">\(P[A_3|B]\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-20" class="level3">
-<h3 class="anchored" data-anchor-id="example-20">Example 20</h3>
-<ul>
-<li><p>Flip a fair coin twice and observe the sequence of heads and tails.</p></li>
-<li><p>The sample space is <span class="math display">\[S=\{HH, HT, TH, TT\}\]</span></p></li>
-<li><p>Let <span class="math display">\[\begin{aligned}
-A &amp;= \text{\{heads on the first flip\}}\\
-B &amp;=  \text{\{tails on the second flip\}}\\
-C &amp;=  \text{\{tails on both flips\}}\\
-\end{aligned}\]</span></p></li>
-<li><p>Find <span class="math inline">\(P[B|A]\)</span></p></li>
-</ul>
-</section>
 <section id="definition-2" class="level3">
 <h3 class="anchored" data-anchor-id="definition-2">Definition</h3>
 <div id="def-ch1-4" class="theorem definition">
@@ -992,8 +896,8 @@ C &amp;=  \text{\{tails on both flips\}}\\
 <li><p>The definition always holds If <span class="math inline">\(P[A]=0\)</span> or <span class="math inline">\(P[B]=0\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-21" class="level3">
-<h3 class="anchored" data-anchor-id="example-21">Example 21</h3>
+<section id="example-1.4.8" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.4.8">Example 1.4.8</h3>
 <ul>
 <li><p>A red die and a white die are rolled.</p></li>
 <li><p>Let <span class="math inline">\(A\)</span> = {4 on the red die}.</p></li>
@@ -1001,8 +905,8 @@ C &amp;=  \text{\{tails on both flips\}}\\
 <li><p>Show that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent events.</p></li>
 </ul>
 </section>
-<section id="example-22" class="level3">
-<h3 class="anchored" data-anchor-id="example-22">Example 22</h3>
+<section id="example-1.4.9" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.4.9">Example 1.4.9</h3>
 <ul>
 <li><p>A red die and a white die are rolled.</p></li>
 <li><p>Let <span class="math inline">\(A\)</span> = {5 one the red die}.</p></li>
@@ -1021,8 +925,8 @@ C &amp;=  \text{\{tails on both flips\}}\\
 </ol></li>
 </ul>
 </section>
-<section id="example-23" class="level3">
-<h3 class="anchored" data-anchor-id="example-23">Example 23</h3>
+<section id="supplementary-example-1.4-a" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.4-a">Supplementary Example 1.4-A</h3>
 <ul>
 <li><p>An urn contains four balls numbered 1, 2, 3, and 4.</p></li>
 <li><p>One ball is to be drawn at random from the urn.</p></li>
@@ -1060,8 +964,8 @@ C &amp;=  \text{\{tails on both flips\}}\\
 <li><p>If <span class="math inline">\(A_i\)</span> is associated with the <span class="math inline">\(i\)</span>th trials, <span class="math inline">\(i=1, 2, \ldots, n\)</span>, then <span class="math display">\[P[A_1\cap A_2\cap \cdots \cap A_n]=P[A_1]P[A_2]\cdots P[A_n]\]</span></p></li>
 </ul>
 </section>
-<section id="example-24" class="level3">
-<h3 class="anchored" data-anchor-id="example-24">Example 24</h3>
+<section id="example-1.4.11" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.4.11">Example 1.4.11</h3>
 <ul>
 <li><p>A compute system is built so that if component <span class="math inline">\(K_1\)</span> fails, it is bypassed and <span class="math inline">\(K_2\)</span> is used.</p></li>
 <li><p>If <span class="math inline">\(K_2\)</span> fails, then <span class="math inline">\(K_3\)</span> is used.</p></li>
@@ -1072,7 +976,7 @@ C &amp;=  \text{\{tails on both flips\}}\\
 </section>
 </section>
 <section id="random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="random-variables">Random variables</h2>
+<h2 class="anchored" data-anchor-id="random-variables">1.5 Random Variables</h2>
 <section id="definition-4" class="level3">
 <h3 class="anchored" data-anchor-id="definition-4">Definition</h3>
 <div id="def-ch1-6" class="theorem definition">
@@ -1110,16 +1014,16 @@ C &amp;=  \text{\{tails on both flips\}}\\
 <li><p>The probability of event <span class="math inline">\(D\)</span> is <span class="math display">\[P_X(D) = \sum_{d_i\in D} p_X(d_i), D\subset {\mathcal{D}}.\]</span></p></li>
 </ul>
 </section>
-<section id="example-25" class="level3">
-<h3 class="anchored" data-anchor-id="example-25">Example 25</h3>
+<section id="example-1.5.1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.1">Example 1.5.1</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> be the sum of the upfaces on a roll of a pair of fair 6-sided dice, each with the numbers 1 through 6 on it.</p></li>
 <li><p>The sample space is <span class="math inline">\({\mathcal{S}} = \{(i,j) : 1 ≤ i,j ≤ 6\}\)</span>.</p></li>
 <li><p>Find the pmf of <span class="math inline">\(X\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-25-continued" class="level3">
-<h3 class="anchored" data-anchor-id="example-25-continued">Example 25 (continued)</h3>
+<section id="example-1.5.1-continued" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.1-continued">Example 1.5.1 (continued)</h3>
 <ul>
 <li><p>Let <span class="math inline">\(B_1\)</span> denote the event of 7 and 11.</p></li>
 <li><p>Let <span class="math inline">\(B_2\)</span> denote the event of 2, 3 and 12.</p></li>
@@ -1135,8 +1039,8 @@ C &amp;=  \text{\{tails on both flips\}}\\
 <li><p>The function <span class="math inline">\(f_X\)</span> is formally defined as the probability density function (pdf) of <span class="math inline">\(X\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-26" class="level3">
-<h3 class="anchored" data-anchor-id="example-26">Example 26</h3>
+<section id="example-1.5.2" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.2">Example 1.5.2</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> denote the outcome when a point is selected at random from an interval <span class="math inline">\([0,1]\)</span>.</p></li>
 <li><p>If the experiment is performed in a fair manner.</p></li>
@@ -1148,8 +1052,8 @@ C &amp;=  \text{\{tails on both flips\}}\\
 <li><p>Find <span class="math inline">\(P\left[\left\{X&lt;\frac{1}{8}\right\} \cup \left\{X&gt;\frac{7}{8}\right\}\right]\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-26-continued" class="level3">
-<h3 class="anchored" data-anchor-id="example-26-continued">Example 26 (continued)</h3>
+<section id="example-1.5.2-continued" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.2-continued">Example 1.5.2 (continued)</h3>
 <ul>
 <li><p>For any point <span class="math inline">\(a\)</span>, <span class="math inline">\(0&lt;a&lt;1\)</span>.</p></li>
 <li><p>Choose <span class="math inline">\(n_0\)</span> such that <span class="math inline">\(0&lt;a-n_0^{-1}&lt;a&lt;a+n_0^{-1}&lt;1\)</span>.</p></li>
@@ -1168,17 +1072,8 @@ F_X(x) &amp;= P_X[ (-\infty, x)] = P[X\le x] \\
 <li><p>Use cdf as an abbreviate.</p></li>
 </ul>
 </section>
-<section id="example-27" class="level3">
-<h3 class="anchored" data-anchor-id="example-27">Example 27</h3>
-<ul>
-<li><p>Suppose a fair die with the numbers 1 through 6 on it is rolled.</p></li>
-<li><p>Let <span class="math inline">\(X\)</span> be the upface of the roll.</p></li>
-<li><p>Then the space of <span class="math inline">\(X\)</span> is 1,2,...,6 and its pmf is <span class="math display">\[p_X(i)=1/6, i=1,2,...,6.\]</span></p></li>
-<li><p>Find cdf of <span class="math inline">\(X\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-28" class="level3">
-<h3 class="anchored" data-anchor-id="example-28">Example 28</h3>
+<section id="example-1.5.4" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.4">Example 1.5.4</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> denote the outcome when a point is selected at random from an interval <span class="math inline">\([0,1]\)</span>.</p></li>
 <li><p>If the experiment is performed in a fair manner.</p></li>
@@ -1190,8 +1085,8 @@ F_X(x) &amp;= P_X[ (-\infty, x)] = P[X\le x] \\
 <li><p>Find cdf of <span class="math inline">\(X\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-28-continued" class="level3">
-<h3 class="anchored" data-anchor-id="example-28-continued">Example 28 (continued)</h3>
+<section id="example-1.5.4-continued" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.4-continued">Example 1.5.4 (continued)</h3>
 <ul>
 <li><span class="math inline">\(F_X(x)\)</span> and <span class="math inline">\(f_X(x)\)</span> are related, i.e., <span class="math display">\[F_X(x) = \int_{-\infty}^{x} f_X(t) dt, ~\forall x\in R\]</span> and <span class="math display">\[\frac{d}{dx} F_X(x) = f_X(x), \forall x\in R,~\text{except for }x=0\text{ and }x=1.\]</span></li>
 </ul>
@@ -1202,8 +1097,8 @@ F_X(x) &amp;= P_X[ (-\infty, x)] = P[X\le x] \\
 <li><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are equal in distribution and write <span class="math inline">\(X \stackrel{D}{=} Y\)</span> if and only if <span class="math inline">\(F_X(x) = F_Y(x)\)</span>, for all <span class="math inline">\(x \in R\)</span>.</li>
 </ul>
 </section>
-<section id="example-29" class="level3">
-<h3 class="anchored" data-anchor-id="example-29">Example 29</h3>
+<section id="supplementary-example-1.5-a" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.5-a">Supplementary Example 1.5-A</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> denote the outcome when a point is selected at random from an interval <span class="math inline">\([0,1]\)</span>.</p></li>
 <li><p>Define the random variable <span class="math inline">\(Y\)</span> as <span class="math inline">\(Y = 1-X\)</span>.</p></li>
@@ -1244,18 +1139,6 @@ P[Y\le y] =  1 - (1 - y) = y &amp; 0\le y&lt;1\\
 </ul>
 </div>
 </section>
-<section id="example-30" class="level3">
-<h3 class="anchored" data-anchor-id="example-30">Example 30</h3>
-<ul>
-<li><p>Let <span class="math inline">\(X\)</span> be the lifetime in years of a mechanical part.</p></li>
-<li><p>Assume that <span class="math inline">\(X\)</span> has the cdf <span class="math display">\[F_X(x) = \left\{\begin{array}{cc}
-0 &amp; x&lt;0\\
-1-e^{-x} &amp; 0\le x
-\end{array}
-\right ..\]</span></p></li>
-<li><p>Find the pdf of <span class="math inline">\(X\)</span> and <span class="math inline">\(P[1&lt;X\le 3]\)</span>.</p></li>
-</ul>
-</section>
 <section id="properties-of-cdf-2" class="level3">
 <h3 class="anchored" data-anchor-id="properties-of-cdf-2">Properties of cdf</h3>
 <div id="thm-ch1-12" class="theorem">
@@ -1266,8 +1149,8 @@ P[Y\le y] =  1 - (1 - y) = y &amp; 0\le y&lt;1\\
 </ul>
 </div>
 </section>
-<section id="example-31" class="level3">
-<h3 class="anchored" data-anchor-id="example-31">Example 31</h3>
+<section id="example-1.5.5" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.5">Example 1.5.5</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> be the lifetime in years of a mechanical part.</p></li>
 <li><p>Assume that <span class="math inline">\(X\)</span> has the cdf <span class="math display">\[F_X(x) = \left\{\begin{array}{cc}
@@ -1287,19 +1170,8 @@ P[Y\le y] =  1 - (1 - y) = y &amp; 0\le y&lt;1\\
 \end{array}\]</span> where <span class="math inline">\({\mathcal{D}}\)</span> is the space of X.</p></li>
 </ul>
 </section>
-<section id="example-32" class="level3">
-<h3 class="anchored" data-anchor-id="example-32">Example 32</h3>
-<ul>
-<li><p>Let <span class="math inline">\(X\)</span> has the pmf <span class="math display">\[f_X(x) = \left\{\begin{array}{cc}
-cx &amp; x = 1, 2, \ldots, 10\\
-0 &amp; \text{elsewhere},
-\end{array}
-\right .\]</span> for an appropriate constant <span class="math inline">\(c\)</span>.</p></li>
-<li><p>Find <span class="math inline">\(c\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-33" class="level3">
-<h3 class="anchored" data-anchor-id="example-33">Example 33</h3>
+<section id="example-1.5.8" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.8">Example 1.5.8</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> has the pdf <span class="math display">\[f_X(x) = \left\{\begin{array}{cc}
 cx^3 &amp; 0&lt;x&lt;2\\
@@ -1310,27 +1182,25 @@ cx^3 &amp; 0&lt;x&lt;2\\
 </ul>
 </section>
 </section>
+<section id="stage-2-deepen從會算到會推導" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-2-deepen從會算到會推導">Stage 2 — Deepen：從會算到會推導</h2>
+<p>本階段開始放慢。Sections 1.6–1.7 的前段定義是 Recall 與 Deepen 的橋接，課堂重點不是再次背誦 pmf / pdf，而是從</p>
+<p><span class="math display">\[
+X\longrightarrow g(X)\longrightarrow\text{distribution of }g(X)
+\]</span></p>
+<p>進一步走向</p>
+<p><span class="math display">\[
+X_1,\ldots,X_n\longrightarrow T(X_1,\ldots,X_n),
+\]</span></p>
+<p>為 sampling distribution 建立工具。接著以 Sections 1.8–1.9 深化 expectation、moments、variance 與 MGF。</p>
+</section>
 <section id="discrete-random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="discrete-random-variables">Discrete random variables</h2>
+<h2 class="anchored" data-anchor-id="discrete-random-variables">1.6 Discrete Random Variables</h2>
 <section id="discrete-random-variables-1" class="level3">
 <h3 class="anchored" data-anchor-id="discrete-random-variables-1">Discrete random variables</h3>
 <div id="def-ch1-7" class="theorem definition">
 <p><span class="theorem-title"><strong>定義 2.7</strong></span> A random variable is a discrete random variable if its space is either finite or countable.</p>
 </div>
-</section>
-<section id="example-34" class="level3">
-<h3 class="anchored" data-anchor-id="example-34">Example 34</h3>
-<ul>
-<li><p>Toss a fair coin twice.</p></li>
-<li><p>Let <span class="math inline">\(X\)</span> be the number of heads.</p></li>
-</ul>
-</section>
-<section id="example-35" class="level3">
-<h3 class="anchored" data-anchor-id="example-35">Example 35</h3>
-<ul>
-<li><p>Toss a four-sided die twice.</p></li>
-<li><p>Let <span class="math inline">\(X\)</span> be the sum of the dots on the two tosses.</p></li>
-</ul>
 </section>
 <section id="probability-mass-function" class="level3">
 <h3 class="anchored" data-anchor-id="probability-mass-function">Probability mass function</h3>
@@ -1371,8 +1241,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Find the pmf of <span class="math inline">\(X\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-36-hypergeometric-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="example-36-hypergeometric-distribution">Example 36 — Hypergeometric distribution</h3>
+<section id="supplementary-example-1.6-a-hypergeometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.6-a-hypergeometric-distribution">Supplementary Example 1.6-A — Hypergeometric distribution</h3>
 <ul>
 <li><p>There are 50 fishes in a small pond.</p></li>
 <li><p>10 of which have been tagged.</p></li>
@@ -1388,8 +1258,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Find the pmf of <span class="math inline">\(Y\)</span></p></li>
 </ul>
 </section>
-<section id="example-37" class="level3">
-<h3 class="anchored" data-anchor-id="example-37">Example 37</h3>
+<section id="example-1.6.1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.6.1">Example 1.6.1</h3>
 <ul>
 <li><p>Consider a sequence of independent flips of a coin, each resulting in a head (<span class="math inline">\(H\)</span>) or a tail (<span class="math inline">\(T\)</span>).</p></li>
 <li><p>Let <span class="math inline">\(X\)</span> be the flip number on which the first head appear.</p></li>
@@ -1397,20 +1267,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Find the pmf of <span class="math inline">\(Y\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-38" class="level3">
-<h3 class="anchored" data-anchor-id="example-38">Example 38</h3>
-<ul>
-<li><p>Let <span class="math inline">\(X\)</span> have the pmf <span class="math display">\[p_X(x) = \left\{
-\begin{array}{ll}
-\frac{3!}{x!(3-x)!}\left(\frac{2}{3}\right)^x \left(\frac{1}{3}\right)^{3-x}, x= 0, 1, 2, 3\\
-0 &amp; \text{elsewhere}
-\end{array}\right ..\]</span></p></li>
-<li><p>Let <span class="math inline">\(Y=X^2\)</span>.</p></li>
-<li><p>Find the pmf of <span class="math inline">\(Y\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-39" class="level3">
-<h3 class="anchored" data-anchor-id="example-39">Example 39</h3>
+<section id="example-1.6.3" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.6.3">Example 1.6.3</h3>
 <ul>
 <li><p>Consider a sequence of independent flops of a coin, each resulting in a head (<span class="math inline">\(H\)</span>) or a tail (<span class="math inline">\(T\)</span>).</p></li>
 <li><p>Let <span class="math inline">\(X\)</span> be the flip number on which the first head appear.</p></li>
@@ -1420,18 +1278,9 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Find the pmf of <span class="math inline">\(Y\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-40" class="level3">
-<h3 class="anchored" data-anchor-id="example-40">Example 40</h3>
-<ul>
-<li><p>Consider a sequence of independent flops of a coin, each resulting in a head (<span class="math inline">\(H\)</span>) or a tail (<span class="math inline">\(T\)</span>).</p></li>
-<li><p>Let <span class="math inline">\(X\)</span> be the flip number on which the first head appear.</p></li>
-<li><p>Let <span class="math inline">\(Z = (X-2)^2\)</span>.</p></li>
-<li><p>Find the pmf of <span class="math inline">\(Z\)</span>.</p></li>
-</ul>
-</section>
 </section>
 <section id="continuous-random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="continuous-random-variables">Continuous random variables</h2>
+<h2 class="anchored" data-anchor-id="continuous-random-variables">1.7 Continuous Random Variables</h2>
 <section id="continuous-random-variables-1" class="level3">
 <h3 class="anchored" data-anchor-id="continuous-random-variables-1">Continuous random variables</h3>
 <div id="def-ch1-9" class="theorem definition">
@@ -1473,8 +1322,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Denote <span class="math inline">\(U(a,b)\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-41" class="level3">
-<h3 class="anchored" data-anchor-id="example-41">Example 41</h3>
+<section id="example-1.7.1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.7.1">Example 1.7.1</h3>
 <ul>
 <li><p>Suppose a point is selected at random in the interior of a circle of radius 1.</p></li>
 <li><p>Let <span class="math inline">\(X\)</span> be the distance of the selected point from the origin.</p></li>
@@ -1482,18 +1331,6 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Assume subsets of <span class="math inline">\({\mathcal{S}}\)</span> which have equal area are equilikely.</p></li>
 <li><p>Hence, the probability of the selected point lying in a set <span class="math inline">\(A \subset {\mathcal{S}}\)</span> is proportional to the area of A; i.e., <span class="math display">\[P[A] = \frac{\text{area of A}}{\pi}\]</span></p></li>
 <li><p>Find cdf and pdf of <span class="math inline">\(X\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-42" class="level3">
-<h3 class="anchored" data-anchor-id="example-42">Example 42</h3>
-<ul>
-<li><p>Let the random variable be the time in seconds between incoming telephone calls at a busy switchboard.</p></li>
-<li><p>Suppose that a reasonable probability model for <span class="math inline">\(X\)</span> is given by the pdf <span class="math display">\[f_X(x) = \left \{\begin{array}{ll}
-\frac{1}{4}e^{-x/4} &amp; 0&lt;x&lt;\infty\\
-0 &amp; \text{elsewhere}
-\end{array}\right ..\]</span></p></li>
-<li><p>Find cdf of <span class="math inline">\(X\)</span>.</p></li>
-<li><p>Find the probability that the time between successive phone calls exceeds 4 seconds.</p></li>
 </ul>
 </section>
 <section id="quantiles" class="level3">
@@ -1542,8 +1379,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Then the pdf of <span class="math inline">\(Y\)</span> can be derived from <span class="math display">\[G(y)=P[Y\le y] = P[u(X)\le y]\]</span></p></li>
 </ul>
 </section>
-<section id="example-43-log-gamma-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="example-43-log-gamma-distribution">Example 43 — Log gamma distribution</h3>
+<section id="supplementary-example-1.7-a-log-gamma-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.7-a-log-gamma-distribution">Supplementary Example 1.7-A — Log gamma distribution</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> have a gamma distribution with pdf <span class="math display">\[f(x)=\frac{1}{\Gamma(\alpha) \theta^\alpha} x^{\alpha-1} e^{-x/\theta}, 0&lt;x&lt;\infty,\]</span> where <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>.</p></li>
 <li><p>Let <span class="math inline">\(Y=\ln(X)\)</span>.</p></li>
@@ -1562,24 +1399,16 @@ cx^3 &amp; 0&lt;x&lt;2\\
 </ul>
 </div>
 </section>
-<section id="example-44" class="level3">
-<h3 class="anchored" data-anchor-id="example-44">Example 44</h3>
+<section id="supplementary-example-1.7-a-continued" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.7-a-continued">Supplementary Example 1.7-A (continued)</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> have a gamma distribution with pdf <span class="math display">\[f(x)=\frac{1}{\Gamma(\alpha) \theta^\alpha} x^{\alpha-1} e^{-x/\theta}, 0&lt;x&lt;\infty,\]</span> where <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>.</p></li>
 <li><p>Let <span class="math inline">\(Y=\ln(X)\)</span>.</p></li>
 <li><p>Find the pdf of <span class="math inline">\(Y\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-45-log-gamma-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="example-45-log-gamma-distribution">Example 45 — Log gamma distribution</h3>
-<ul>
-<li><p>Let <span class="math inline">\(X\)</span> have pdf <span class="math display">\[f(x)=3(1-x)^2, 0&lt;x&lt;1.\]</span></p></li>
-<li><p>Let <span class="math inline">\(Y=(1-X)^3\)</span>.</p></li>
-<li><p>Find the pdf of <span class="math inline">\(Y\)</span>.</p></li>
-</ul>
-</section>
-<section id="example-46-mixture-type-of-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="example-46-mixture-type-of-distribution">Example 46 — Mixture type of distribution</h3>
+<section id="example-1.5.6-mixture-type-of-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.5.6-mixture-type-of-distribution">Example 1.5.6 — Mixture type of distribution</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> have cdf <span class="math display">\[F(x) = \left\{
 \begin{array}{ll}
@@ -1593,7 +1422,7 @@ cx^3 &amp; 0&lt;x&lt;2\\
 </section>
 </section>
 <section id="expectation-of-a-random-variable" class="level2">
-<h2 class="anchored" data-anchor-id="expectation-of-a-random-variable">Expectation of a random variable</h2>
+<h2 class="anchored" data-anchor-id="expectation-of-a-random-variable">1.8 Expectation of a Random Variable</h2>
 <section id="expectation-continuous" class="level3">
 <h3 class="anchored" data-anchor-id="expectation-continuous">Expectation – Continuous</h3>
 <div id="def-ch1-12" class="theorem definition">
@@ -1621,15 +1450,15 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>When the mean designation is used, <span class="math inline">\(E(X)\)</span> is denoted by <span class="math inline">\(\mu\)</span>; i.e, <span class="math inline">\(\mu\)</span> = <span class="math inline">\(E(X)\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-47" class="level3">
-<h3 class="anchored" data-anchor-id="example-47">Example 47</h3>
+<section id="supplementary-example-1.8-a" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.8-a">Supplementary Example 1.8-A</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> have a pmf <span class="math display">\[f(x)=\frac{1}{3}, x\in S_X,\]</span> where <span class="math inline">\(S_X = \{-1, 0, 1\}.\)</span></p></li>
 <li><p>Find <span class="math inline">\(E[X]\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-48" class="level3">
-<h3 class="anchored" data-anchor-id="example-48">Example 48</h3>
+<section id="example-1.8.3" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.8.3">Example 1.8.3</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> have a pdf <span class="math display">\[f(x)=\left\{
 \begin{array}{ll}
@@ -1660,8 +1489,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 </ul>
 </div>
 </section>
-<section id="example-49" class="level3">
-<h3 class="anchored" data-anchor-id="example-49">Example 49</h3>
+<section id="supplementary-example-1.8-b" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.8-b">Supplementary Example 1.8-B</h3>
 <ul>
 <li><p>Consider a sequence of independent flips of a coin, each resulting in a head (H) or a tail (T).</p></li>
 <li><p>Let <span class="math inline">\(X\)</span> was the flip number on which the first head appeared.</p></li>
@@ -1670,8 +1499,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Find <span class="math inline">\(E[Z]\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-50" class="level3">
-<h3 class="anchored" data-anchor-id="example-50">Example 50</h3>
+<section id="supplementary-example-1.8-c" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.8-c">Supplementary Example 1.8-C</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> be a continuous random variable with the pdf <span class="math inline">\(f(x) = 2x\)</span> which has support on the interval (0, 1).</p></li>
 <li><p>Let <span class="math inline">\(Y=1/(1+X)\)</span>.</p></li>
@@ -1695,8 +1524,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li>If <span class="math inline">\(c_1\)</span>, <span class="math inline">\(\cdots\)</span> and <span class="math inline">\(c_k\)</span> are constants and <span class="math inline">\(u_1\)</span>, <span class="math inline">\(u_2\)</span>, <span class="math inline">\(\cdots\)</span> and <span class="math inline">\(u_k\)</span> are functions, then <span class="math display">\[E\left[\sum_{i=1}^kc_iu_i(X)\right]=\sum_{i=1}^kc_iE[u_i(X)].\]</span></li>
 </ul>
 </section>
-<section id="example-51" class="level3">
-<h3 class="anchored" data-anchor-id="example-51">Example 51</h3>
+<section id="example-1.8.4" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.8.4">Example 1.8.4</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> have the pdf <span class="math display">\[f(x) = \left\{\begin{array}{ll}
 2(1-x) &amp; 0&lt;x&lt;1\\
@@ -1706,8 +1535,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Find <span class="math inline">\(E[X]\)</span>, <span class="math inline">\(E[X^2]\)</span> and <span class="math inline">\(E[6X+3X^2]\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-52" class="level3">
-<h3 class="anchored" data-anchor-id="example-52">Example 52</h3>
+<section id="example-1.8.5" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.8.5">Example 1.8.5</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> have the pmf <span class="math display">\[f(x) = \left\{\begin{array}{ll}
 \frac{x}{6} &amp; x = 1, 2, 3\\
@@ -1717,8 +1546,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Find <span class="math inline">\(E[6X^3+X]\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-53" class="level3">
-<h3 class="anchored" data-anchor-id="example-53">Example 53</h3>
+<section id="example-1.8.6" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.8.6">Example 1.8.6</h3>
 <ul>
 <li><p>Let us divide, at random, a horizontal line segment of length 5 into two parts.</p></li>
 <li><p>If <span class="math inline">\(X\)</span> is the length of the left-hand part, it is reasonable to assume <span class="math inline">\(X\)</span> has the pdf <span class="math display">\[f(x) = \left\{\begin{array}{ll}
@@ -1731,7 +1560,7 @@ cx^3 &amp; 0&lt;x&lt;2\\
 </section>
 </section>
 <section id="some-special-expectations" class="level2">
-<h2 class="anchored" data-anchor-id="some-special-expectations">Some special expectations</h2>
+<h2 class="anchored" data-anchor-id="some-special-expectations">1.9 Some Special Expectations</h2>
 <section id="settings" class="level3">
 <h3 class="anchored" data-anchor-id="settings">Settings</h3>
 <ul>
@@ -1761,8 +1590,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 </ul>
 </div>
 </section>
-<section id="example-54" class="level3">
-<h3 class="anchored" data-anchor-id="example-54">Example 54</h3>
+<section id="supplementary-example-1.8-d" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.8-d">Supplementary Example 1.8-D</h3>
 <ul>
 <li><p>Consider a discrete random variable <span class="math inline">\(X\)</span> has a support <span class="math inline">\(S_X=\{1, 2, 3\}\)</span>.</p></li>
 <li><p>Let <span class="math inline">\(f(1)=\frac{3}{6}\)</span>, <span class="math inline">\(f(2)=\frac{2}{6}\)</span>, <span class="math inline">\(f(3)=\frac{1}{6}\)</span>.</p></li>
@@ -1776,23 +1605,23 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>The standard deviation of <span class="math inline">\(X\)</span> is the positive square root of variance and is denoted as <span class="math inline">\(\sigma\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-55" class="level3">
-<h3 class="anchored" data-anchor-id="example-55">Example 55</h3>
+<section id="class-example-1.9-a" class="level3">
+<h3 class="anchored" data-anchor-id="class-example-1.9-a">Class Example 1.9-A</h3>
 <ul>
 <li><p>Let <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> be constants.</p></li>
 <li><p>Let <span class="math inline">\(Y=aX+b\)</span>.</p></li>
 <li><p>Find <span class="math inline">\(E[Y]\)</span> and <span class="math inline">\(\operatorname{Var}(Y)\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-56" class="level3">
-<h3 class="anchored" data-anchor-id="example-56">Example 56</h3>
+<section id="example-1.9.1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.9.1">Example 1.9.1</h3>
 <ul>
 <li><p>Suppose the random variable <span class="math inline">\(X\)</span> has a uniform distribution with pdf <span class="math display">\[f_X(x) = 1/(2a), -a &lt; x &lt; a,\]</span> zero elsewhere.</p></li>
 <li><p>Find <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-57" class="level3">
-<h3 class="anchored" data-anchor-id="example-57">Example 57</h3>
+<section id="example-1.9.2" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.9.2">Example 1.9.2</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> has the pdf <span class="math display">\[f(x) = \left\{\begin{array}{ll}
 \frac{1}{2}(x+1) &amp; -1&lt;x&lt;1\\
@@ -1802,8 +1631,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>Find <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-58" class="level3">
-<h3 class="anchored" data-anchor-id="example-58">Example 58</h3>
+<section id="example-1.9.5" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.9.5">Example 1.9.5</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> has the pdf <span class="math display">\[f(x) = \left\{\begin{array}{ll}
 \frac{1}{x^2} &amp; 1&lt;x&lt;\infty\\
@@ -1821,8 +1650,8 @@ cx^3 &amp; 0&lt;x&lt;2\\
 <li><p>The <span class="math inline">\(r\)</span>th factorial moment is defined as <span class="math display">\[E[(X)_r]=E[X(X-1)\cdots (X-r+1)].\]</span></p></li>
 </ul>
 </section>
-<section id="example-59-hypergeometric-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="example-59-hypergeometric-distribution">Example 59 — Hypergeometric distribution</h3>
+<section id="supplementary-example-1.9-a-hypergeometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.9-a-hypergeometric-distribution">Supplementary Example 1.9-A — Hypergeometric distribution</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> have a hypergeometric distribution where <span class="math inline">\(n\)</span> objects are selected from <span class="math inline">\(N=N_1+N_2\)</span>.</p></li>
 <li><p>Find <span class="math inline">\(\operatorname{Var}(X)\)</span>.</p></li>
@@ -1857,8 +1686,8 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
 \end{aligned}\]</span> for all <span class="math inline">\(t\)</span>, <span class="math inline">\(-h&lt;t&lt;h\)</span>, then <span class="math display">\[f(b_i)=g(b_i), \forall i\]</span></p></li>
 </ul>
 </section>
-<section id="example-60" class="level3">
-<h3 class="anchored" data-anchor-id="example-60">Example 60</h3>
+<section id="example-1.9.3" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.9.3">Example 1.9.3</h3>
 <ul>
 <li><p>Suppose we have a fair spinner with the numbers 1, 2, and 3 on it.</p></li>
 <li><p>Let <span class="math inline">\(X\)</span> be the number of spins until the first 3 occurs.</p></li>
@@ -1876,15 +1705,15 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
 </ul>
 </div>
 </section>
-<section id="example-61" class="level3">
-<h3 class="anchored" data-anchor-id="example-61">Example 61</h3>
+<section id="supplementary-example-1.9-b" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-1.9-b">Supplementary Example 1.9-B</h3>
 <ul>
 <li><p>Suppose <span class="math inline">\(X\)</span> has the mgf <span class="math display">\[M(t)=e^t\left(\frac{1}{10}\right)+e^{2t}\left(\frac{2}{10}\right)+e^{3t}\left(\frac{3}{10}\right)+e^{4t}\left(\frac{4}{10}\right), ~-\infty&lt;t&lt;\infty\]</span></p></li>
 <li><p>Find the pmf of <span class="math inline">\(X\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-62" class="level3">
-<h3 class="anchored" data-anchor-id="example-62">Example 62</h3>
+<section id="class-example-1.9-b" class="level3">
+<h3 class="anchored" data-anchor-id="class-example-1.9-b">Class Example 1.9-B</h3>
 <ul>
 <li>Show that <span class="math inline">\(M^{'}(0)=\mu\)</span> and <span class="math inline">\(M^{''}(0)-[M^{'}(0)]^2=\sigma^2\)</span>.</li>
 </ul>
@@ -1897,8 +1726,12 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
 </ul>
 </section>
 </section>
+<section id="stage-3-connect由機率工具走向數理統計" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-3-connect由機率工具走向數理統計">Stage 3 — Connect：由機率工具走向數理統計</h2>
+<p>本階段不把 inequalities 當作孤立公式。Markov、Chebyshev 與 Jensen 分別提供尾端機率控制、集中現象及凸性比較；其中 Chebyshev 不等式會直接連接樣本平均數與依機率收斂，為後續抽樣分配、漸近理論與統計推論鋪路。</p>
+</section>
 <section id="important-inequalities" class="level2">
-<h2 class="anchored" data-anchor-id="important-inequalities">Important inequalities</h2>
+<h2 class="anchored" data-anchor-id="important-inequalities">1.10 Important Inequalities</h2>
 <section id="existence-of-moments" class="level3">
 <h3 class="anchored" data-anchor-id="existence-of-moments">Existence of moments</h3>
 <ul>
@@ -1928,8 +1761,8 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
 </ul>
 </div>
 </section>
-<section id="example-63" class="level3">
-<h3 class="anchored" data-anchor-id="example-63">Example 63</h3>
+<section id="example-1.10.1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.10.1">Example 1.10.1</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> has the pdf <span class="math display">\[f(x) = \left\{\begin{array}{ll}
 \frac{1}{2\sqrt{3}} &amp; -\sqrt{3}&lt;x&lt;\sqrt{3}\\
@@ -1939,12 +1772,65 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
 <li><p>Find <span class="math inline">\(P[|X-\mu|\ge k\sigma]\)</span> and the upper bound.</p></li>
 </ul>
 </section>
-<section id="example-64" class="level3">
-<h3 class="anchored" data-anchor-id="example-64">Example 64</h3>
+<section id="example-1.10.2" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.10.2">Example 1.10.2</h3>
 <ul>
 <li><p>Let the random variable <span class="math inline">\(X\)</span> of the discrete type have probabilities 1/8, 6/8, 1/8 at the points <span class="math inline">\(x=-1,0,1\)</span>, respectively.</p></li>
 <li><p>Find <span class="math inline">\(P[|X-\mu|\ge k\sigma]\)</span> and the upper bound.</p></li>
 </ul>
+</section>
+<section id="connect-sample-mean-and-chebyshev" class="level3">
+<h3 class="anchored" data-anchor-id="connect-sample-mean-and-chebyshev">Connect: sample mean and Chebyshev</h3>
+<p>令 <span class="math inline">\(X_1,\ldots,X_n\)</span> 為獨立同分配（iid）的隨機變數，且</p>
+<p><span class="math display">\[
+E(X_i)=\mu,\qquad \operatorname{Var}(X_i)=\sigma^2&lt;\infty.
+\]</span></p>
+<p>樣本平均數為</p>
+<p><span class="math display">\[
+\overline X_n=\frac{1}{n}\sum_{i=1}^n X_i.
+\]</span></p>
+<p>由期望值與獨立性，</p>
+<p><span class="math display">\[
+E(\overline X_n)=\mu,
+\qquad
+\operatorname{Var}(\overline X_n)
+=\frac{1}{n^2}\sum_{i=1}^n\operatorname{Var}(X_i)
+=\frac{\sigma^2}{n}.
+\]</span></p>
+<p>因此對任意 <span class="math inline">\(\varepsilon&gt;0\)</span>，Chebyshev 不等式給出</p>
+<p><span class="math display">\[
+P\!\left(\left|\overline X_n-\mu\right|\ge\varepsilon\right)
+\le
+\frac{\operatorname{Var}(\overline X_n)}{\varepsilon^2}
+=\frac{\sigma^2}{n\varepsilon^2}
+\longrightarrow 0.
+\]</span></p>
+<p>這正是</p>
+<p><span class="math display">\[
+\overline X_n\xrightarrow{P}\mu,
+\]</span></p>
+<p>也就是樣本平均數<strong>依機率收斂</strong>到母體平均數；這個結果是弱大數法則的一個版本。</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="往後連接">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>往後連接
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>這裡的邏輯鏈是</p>
+<p><span class="math display">\[
+\operatorname{Var}(\overline X_n)=\frac{\sigma^2}{n}
+\Longrightarrow
+\text{Chebyshev bound}\to0
+\Longrightarrow
+\overline X_n\xrightarrow{P}\mu.
+\]</span></p>
+<p>後續將把 <span class="math inline">\(T(X_1,\ldots,X_n)\)</span> 視為 statistic，研究其 sampling distribution，並在漸近理論中系統整理 convergence in probability。參見 <a href="04-sampling-inference.qmd">Sampling and Inference</a> 與 <a href="05-asymptotics.qmd">Asymptotics</a>。</p>
+</div>
+</div>
 </section>
 <section id="convex-function" class="level3">
 <h3 class="anchored" data-anchor-id="convex-function">Convex function</h3>
@@ -1983,15 +1869,15 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
 </ul>
 </div>
 </section>
-<section id="example-65" class="level3">
-<h3 class="anchored" data-anchor-id="example-65">Example 65</h3>
+<section id="example-1.10.3" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.10.3">Example 1.10.3</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> be a nondegenerate random variable with mean <span class="math inline">\(\mu\)</span> and a finite second moment.</p></li>
 <li><p>Show that <span class="math inline">\((E[X])^2\le E[X^2]\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-66" class="level3">
-<h3 class="anchored" data-anchor-id="example-66">Example 66</h3>
+<section id="example-1.10.4" class="level3">
+<h3 class="anchored" data-anchor-id="example-1.10.4">Example 1.10.4</h3>
 <ul>
 <li><p>Let <span class="math inline">\(\{a_1, . . . , a_n\}\)</span> be a set of positive numbers.</p></li>
 <li><p>Create a distribution for a random variable <span class="math inline">\(X\)</span> by placing weight <span class="math inline">\(1/n\)</span> on each of the numbers <span class="math inline">\(a_1, . . . , a_n\)</span>.</p></li>
@@ -2004,7 +1890,7 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
 </section>
 <section id="本章摘要" class="level2">
 <h2 class="anchored" data-anchor-id="本章摘要">本章摘要</h2>
-<p>本章建立機率模型、隨機變數、分配與期望的共同語言，並以基本不等式連結後續的收斂與推論理論。</p>
+<p>本章依 <strong>Recall <span class="math inline">\(\to\)</span> Deepen <span class="math inline">\(\to\)</span> Connect</strong> 建立後續數理統計所需的共同語言。Stage 1 快速喚醒機率模型、條件機率、隨機變數與分配；Stage 2 深化 transformation、<span class="math inline">\(E[g(X)]\)</span>、moments、variance 與 MGF；Stage 3 以重要不等式連接樣本平均數、依機率收斂及後續推論理論。</p>
 </section>
 <section id="常見錯誤" class="level2">
 <h2 class="anchored" data-anchor-id="常見錯誤">常見錯誤</h2>
@@ -2023,17 +1909,17 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
 <li>從原講義例題挑選一題，完整寫出解題目標、方法選擇、計算與結果解釋。</li>
 <li>設計一個會違反本章方法條件的反例，說明錯誤會出現在哪一步。</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled" title="待逐章補強">
+<div class="callout callout-style-default callout-note callout-titled" title="授課提醒">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">註釋</span>待逐章補強
+<span class="screen-reader-only">註釋</span>授課提醒
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>建議後續為本章補入：中文概念導讀、完整解答、課堂練習難度標記，以及與下一章的銜接說明。</p>
+<p>本章保留完整材料供學生查閱，但「保留」不等於「逐頁等速講授」。Stage 1 可按班級診斷結果選題，Stage 2 應保留推導時間，Stage 3 則務必讓學生說明 Chebyshev 如何導出 <span class="math inline">\(\overline X_n\xrightarrow{P}\mu\)</span>。</p>
 </div>
 </div>
 
@@ -2448,6 +2334,9 @@ e^{tb_1}f(b_1) &amp;+e^{tb_2}f(b_2)+e^{tb_3}f(b_3)+\cdots\\
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./02-multivariate.html" class="pagination-link" aria-label="多變量分配與變數轉換">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
