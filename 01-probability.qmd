@@ -138,7 +138,7 @@ $$
 ### Properties for set operations
 
 - Commutative law $$\begin{aligned}
-  A \cup B &= B \cup A\\git diff -- '*.qmd'
+  A \cup B &= B \cup A
   A \cap B &= B \cap A
   \end{aligned}$$
 
@@ -204,6 +204,11 @@ $$
 - Let $A_1,A_2,\ldots, A_n, \ldots$ be a sequence of nonincreasing sets, i.e., $$A_n \supset A_{n+1}, n = 1, 2, 3, \ldots$$
 
 - Define $$\lim_{n\rightarrow \infty} A_n = \cap_{n=1}^\infty A_n.$$
+
+```{r}
+ds <- rnorm(100)
+hist(ds)
+```
 
 ### Set functions
 

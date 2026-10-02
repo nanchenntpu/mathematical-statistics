@@ -12,6 +12,10 @@ $$
 的三階段安排：先快速喚醒二維隨機變數的基本工具，再推廣到 $n$ 維隨機向量、共變異矩陣與多維變數轉換，最後連接線性組合、random sample、sample mean 與 sample variance。標題依 Hogg, McKean & Craig Chapter 2 的內容順序安排，各節不採等比例講解。
 :::
 
+::: {.callout-important title="第 8 版編號原則"}
+本章以 Hogg, McKean & Craig, *Introduction to Mathematical Statistics*, 8th Global Edition（以下簡稱 HMC8）Chapter 2, pp. 99--168 為主要對照。原書的 section、definition、theorem、corollary 與 example 編號均照錄；講義自行增加或延伸的內容標為 **Supplementary Example**，不占用課本編號。講義未選入的課本項目保留編號缺口，不重新連號。
+:::
+
 ## 學習目標
 
 完成本章後，學生應能：
@@ -40,11 +44,11 @@ $$
 
 本階段的重點不是重複所有計算，而是確認學生能在離散與連續情形中，從 joint distribution 正確取得 marginal 與 conditional distributions，判斷 independence，計算 covariance / correlation，並在變數轉換時同時處理 Jacobian 與轉換後的支持集。
 
-## Distributions of two random variables
+## 2.1 Distributions of Two Random Variables
 
-### Definition
+### Definition 2.1.1 — Random Vector
 
-::: {#def-ch2-1}
+::: {#def-hmc8-2-1-1}
 - Consider a random experiment with a sample space ${\mathcal{C}}$.
 
 - Define consider two random variables $X_1$ and $X_2$.
@@ -147,25 +151,27 @@ $$
 
 - The probability of this event is $$F_{X_1}(x_1) = P[X_1\le x_1, -\infty<X_2<\infty]$$ for all $x_1\in \mathbb{R}$.
 
-### Marginal pmf
+### 2.1.1 Marginal Distributions
+
+#### Marginal pmf
 
 - Let ($X_1$, $X_2$) be a discrete random vector.
 
 - Find the probability of $\{X_1\le x_1\}$ and the pmf of $X_1$.
 
-### Supplementary Example 2.1-B
+### Example 2.1.4 — Marginal pmfs
 
 - Let the joint pmf of $X$ and $Y$ be defined by $$f(x,y)=\frac{x+y}{21}, x=1, 2, 3; y=1, 2.$$
 
 - Find $f_X(x)$ and $f_Y(y)$.
 
-### Marginal pdf
+#### Marginal pdf
 
 - Let ($X_1$, $X_2$) be a continuous random vector.
 
 - Find the probability of $\{X_1\le x_1\}$ and the pdf of $X_1$.
 
-### Example 2.1.4
+### Supplementary Example 2.1-C — Marginal pdfs
 
 - Let $X$ and $Y$ have the joint pdf$$f(x,y) = \left\{\begin{array}{ll}
   x+y & 0<x<1, 0<y<1\\
@@ -176,29 +182,31 @@ $$
 
 - Find $P[X+Y\le 1]$.
 
-### Expectation -- Discrete type
+### 2.1.2 Expectation
+
+#### Expectation -- Discrete type
 
 - Let $X_1$ and $X_2$ be random variables of the discrete type with the joint pmf $f(x_1, x_2)$ on the space $S$.
 
 - If $u(X_1, X_2)$ is a function of $X_1$ and $X_2$, then $$E[u(X_1, X_2)] = \sum\sum_{(x_1,x_2)\in S} u(x_1, x_2) f(x_1, x_2),$$ if it exists, is called the mathematical expectation of $u(X_1, X_2)$.
 
-### Remark
+#### Remark
 
 - If $$\sum\sum_{(x_1,x_2)\in S} |u(x_1, x_2)| f(x_1, x_2),$$ converges, then $E[u(X_1, X_2)]$ exists.
 
-### Expectation -- Continuous type
+#### Expectation -- Continuous type
 
 - Let $X_1$ and $X_2$ be random variables of the discrete type with the joint pdf $f(x_1, x_2)$ on the space $S$.
 
 - If $u(X_1, X_2)$ is a function of $X_1$ and $X_2$, then $$E[u(X_1, X_2)] = \int\int_{(x_1,x_2)\in S} u(x_1, x_2) f(x_1, x_2) dx_1dx_2,$$ if it exists, is called the mathematical expectation of $u(X_1, X_2)$.
 
-### Remark
+#### Remark
 
 - If $$\int\int_{(x_1,x_2)\in S} |u(x_1, x_2)| f(x_1, x_2)dx_1dx_2<\infty,$$ converges, then $E[u(X_1, X_2)]$ exists.
 
-### Expectation
+### Theorem 2.1.1 — Linearity of Expectation
 
-::: {#thm-ch2-1}
+::: {#thm-hmc8-2-1-1}
 - Let $(X_1, X_2)$ be a random vector.
 
 - Let $Y_1 = g_1(X_1, X_2)$ and $Y_2 = g_2(X_1,X_2)$ be random variables whose expectations exist.
@@ -206,9 +214,9 @@ $$
 - For all real numbers $k_1$ and $k_2$, we have $$E[k_1Y_1 + k_2Y_2] = k_1E[Y_1] + k_2E[Y_2].$$
 :::
 
-### Moment generating function
+### Definition 2.1.2 — Moment Generating Function of a Random Vector
 
-::: {#def-ch2-4}
+::: {#def-hmc8-2-1-2}
 - Let ${\boldsymbol X} = (X_1,X_2)^{'}$ be a random vector.
 
 - If $E[e^{t_1X_1+t_2X_2}]$ exists for $|t_1| < h_1$ and $|t_2| < h_2$, where $h_1$ and $h_2$ are positive.
@@ -224,7 +232,7 @@ $$
 
 - The mgfs of $X_1$ and $X_2$ are immediately seen to be $M_{X_1,X_2} (t_1, 0)$ and $M_{X_1,X_2} (0, t_2)$.
 
-### Example 2.1.7
+### Example 2.1.10 — Joint MGF
 
 - Let $X$ and $Y$ have the joint pdf$$f(x,y) = \left\{\begin{array}{ll}
   e^{-y} & 0<x<y<\infty\\
@@ -233,9 +241,9 @@ $$
 
 - Find $M(t_1, t_2)$, $M(t_1,0)$ and $M(0, t_2)$.
 
-### Expected value
+### Definition 2.1.3 — Expected Value of a Random Vector
 
-::: {#def-ch2-5}
+::: {#def-hmc8-2-1-3}
 - Let ${\boldsymbol X} = (X_1,X_2)^{'}$ be a random vector.
 
 - Then the expected value of ${\boldsymbol X}$ exists if the expectations of $X_1$ and $X_2$ exist.
@@ -245,7 +253,7 @@ $$
   \end{bmatrix}$$
 :::
 
-## Transformations: Bivariate random variables
+## 2.2 Transformations: Bivariate Random Variables
 
 ### Transformations -- Discrete
 
@@ -340,7 +348,7 @@ $$
 
 - Find the pdf of $Y_1 = X_1/X_2$.
 
-## Conditional Distributions and Expectations
+## 2.3 Conditional Distributions and Expectations
 
 ### Conditional distribution for discrete r.v.
 
@@ -431,7 +439,7 @@ $$
 
 - Find $E[X_1|x_2]$ and $\operatorname{Var}(X_1|x_2)$.
 
-### Supplementary Example 2.3-A
+### Supplementary Example 2.3-A — Extension of Example 2.3.1
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -442,9 +450,9 @@ $$
 
 - Find $P[0<X_1<\frac{1}{2}|X_2 =\frac{3}{4}]$ and $P[0<X_1<\frac{1}{2}]$
 
-### Conditional variance and variance
+### Theorem 2.3.1 — Conditional Mean and Variance Identities
 
-::: {#thm-ch2-2}
+::: {#thm-hmc8-2-3-1}
 - Let $(X_1,X_2)$ be a random vector such that the variance of $X_2$ is finite.
 
 - We have
@@ -454,11 +462,11 @@ $$
   - $\operatorname{Var}(E[X_2|X_1]) \le \operatorname{Var}(X_2)$.
 :::
 
-## Independent random variables
+## 2.4 Independent Random Variables
 
-### Independence
+### Definition 2.4.1 — Independence
 
-::: {#def-ch2-6}
+::: {#def-hmc8-2-4-1}
 - Let the random variables $X_1$ and $X_2$ have the joint pdf $f(x_1,x_2)$ \[joint pmf $p(x_1,x_2)$\].
 
 - Let the marginal pdfs \[pmfs\] $f_1(x_1) [p_1(x_1)]$ and $f_2(x_2) [p_2(x_2)]$.
@@ -474,7 +482,7 @@ $$
 
 - There may be certain points $(x_1,x_2) \in {\mathcal{S}}$ at which $f(x_1,x_2) \ne f_1(x_1)f_2(x_2)$. However, if $A$ is the set of points $(x_1,x_2)$ at which the equality does not hold, then $P(A) = 0$.
 
-### Supplementary Example 2.5-A
+### Example 2.4.1 — Sampling Without Replacement
 
 - Suppose an urn contains 10 blue, 8 red, and 7 yellow balls that are the same except for color.
 
@@ -484,9 +492,9 @@ $$
 
 - Are $X$ and $Y$ independent?
 
-### Independence
+### Theorem 2.4.1 — Factorization Criterion
 
-::: {#thm-ch2-3}
+::: {#thm-hmc8-2-4-1}
 - Let the random variables $X_1$ and $X_2$ have supports ${\mathcal{S}}_1$ and ${\mathcal{S}}_2$, respectively, and have the joint pdf $f(x_1,x_2)$.
 
 - Then $X_1$ and $X_2$ are independent if and only if $f(x_1,x_2)$ can be written as a product of a nonnegative function of $x_1$ and a nonnegative function of $x_2$.
@@ -494,7 +502,7 @@ $$
 - That is, $$f(x_1,x_2) ≡ g(x_1)h(x_2),$$ where $g(x_1) > 0$, $x_1\in {\mathcal{S}}_1$, zero elsewhere, and $h(x_2) > 0$, $x_2\in {\mathcal{S}}_2$, zero elsewhere.
 :::
 
-### Class Example 2.5-A
+### Supplementary Example 2.4-A — Product-form Density
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -505,7 +513,7 @@ $$
 
 - Are $X_1$ and $X_2$ independent?
 
-### Example 2.5.2
+### Example 2.4.3 — A Non-product Support
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -516,9 +524,9 @@ $$
 
 - Are $X$ and $Y$ independent?
 
-### Independence
+### Theorem 2.4.2 — CDF Criterion
 
-::: {#thm-ch2-4}
+::: {#thm-hmc8-2-4-2}
 - Let $X_1$ and $X_2$ have the joint cdf $F(x_1,x_2)$.
 
 - Let $X_1$ and $X_2$ have the marginal cdfs $F_1(x_1)$ and $F_2(x_2)$.
@@ -526,15 +534,15 @@ $$
 - Then $X_1$ and $X_2$ are independent if and only if $$F(x_1,x_2) = F_1(x_1) F_2(x_2)$$ for all $(x_1, x_2) \in R^{2}$.
 :::
 
-### Independence
+### Theorem 2.4.3 — Rectangle Criterion
 
-::: {#thm-ch2-5}
+::: {#thm-hmc8-2-4-3}
 - $X_1$ and $X_2$ are independent if and only if $$P[a<X_1\le b, c<X_2\le d] = P[a<X_1\le b]P[c<X_2\le d]$$ for every $a<b$ and $c<d$, where $a, b, c, d$ are constants.
 :::
 
-### Independence
+### Theorem 2.4.4 — Products of Functions
 
-::: {#thm-ch2-6}
+::: {#thm-hmc8-2-4-4}
 - Suppose $X_1$ and $X_2$ are independent.
 
 - Suppose $E[u(X_1)]<\infty$ and $E[\nu(X_2)]<\infty$.
@@ -542,15 +550,15 @@ $$
 - We have $$E[u(X_1)\nu(X_2)] = E[u(X_1)]E[\nu(X_2)].$$
 :::
 
-### Independence
+### Theorem 2.4.5 — MGF Factorization
 
-::: {#thm-ch2-7}
+::: {#thm-hmc8-2-4-5}
 - Suppose $M(t_1, t_2)<\infty$.
 
 - Then $X_1$ and $X_2$ are independent if and only if $$M(t_1, t_2) = M(t_1, 0) M(0, t_2).$$
 :::
 
-### Example 2.5.5
+### Example 2.4.5 — Dependence from the Joint MGF
 
 - Let $X_1$ and $X_2$ have the joint pdf $$f_{X_1, X_2}(x_1, x_2) =
   \left\{
@@ -563,7 +571,7 @@ $$
 
 - Show that $M(t_1, t_2) \ne M(t_1, 0) M(0, t_2).$
 
-## The correlation coefficient
+## 2.5 The Correlation Coefficient
 
 ### Covariance
 
@@ -589,7 +597,7 @@ $$
 
 - The expected value of the product of two random variables is equal to the product of their expectations plus their covariance; $$E[XY] = \mu_1\mu_2 + \operatorname{Cov}(X, Y) = \mu_1\mu_2 + \rho\sigma_1\sigma_2.$$
 
-### Supplementary Example 2.4-A
+### Example 2.5.1 — Coin-flip Random Vector
 
 - A fair coin is flipped three times.
 
@@ -597,9 +605,9 @@ $$
 
 - Find the correlation coefficient of $(X_1,X_2)$.
 
-### Correlation coefficient[^1]
+### Theorem 2.5.1 — Bounds for Correlation[^1]
 
-::: {#thm-ch2-8}
+::: {#thm-hmc8-2-5-1}
 - For all jointly distributed random variables $(X,Y)$ whose correlation coefficient $\rho$ exists, $-1 \le \rho\le 1$.
 :::
 
@@ -611,13 +619,13 @@ $$
 
 - The discriminant is $b^2-4ac$.
 
-### Independence
+### Theorem 2.5.2 — Independence Implies Zero Covariance
 
-::: {#thm-ch2-9}
+::: {#thm-hmc8-2-5-2}
 - If $X$ and $Y$ are independent random variables, then $$\rho = 0.$$
 :::
 
-### Class Example 2.4-A
+### Example 2.5.3 — Uncorrelated but Dependent
 
 - Let $X$ and $Y$ be jointly discrete random variables whose distribution has mass 1/4 at each of the four points (-1, 0), (0, -1), (1, 0) and (0, 1).
 
@@ -625,9 +633,9 @@ $$
 
 - Are $X$ and $Y$ independent?
 
-### Linear function
+### Theorem 2.5.3 — Linear Conditional Means
 
-::: {#thm-ch2-10}
+::: {#thm-hmc8-2-5-3}
 - Suppose $(X, Y)$ have a joint distribution with the variances of $X$ and $Y$ finite and positive.
 
 - Denote the means and variances of $X$ and $Y$ by $\mu_1$, $\mu_2$ and $\sigma_1^2$, $\sigma_2^2$.
@@ -637,7 +645,7 @@ $$
 - If $E[Y|X]$ is linear in $X$ then $$E[Y|X] = \mu_2 + \rho\frac{\sigma_2}{\sigma_1}(X-\mu_1)$$ and $$E[\operatorname{Var}(Y|X)] = \sigma_2^2 (1-\rho^2).$$
 :::
 
-### Example 2.4.2
+### Example 2.5.4 — Linear Conditional Means
 
 - Let the random variables X and Y have the linear conditional means $E(Y |x) = 4x + 3$ and $E(X|y) = \frac{1}{16} y - 3$.
 
@@ -649,7 +657,7 @@ $$
 
 大二教材主要集中在雙變量情形；本階段是本章的主要新內容。學習重點是用向量與矩陣統整平均數、變異數與共變異數，理解 covariance matrix 的結構，並將二維 transformation 的方法推廣到多維與 many-to-one 情形。
 
-## Extension to several random variables
+## 2.6 Extension to Several Random Variables
 
 ### Random vector
 
@@ -787,9 +795,9 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 - Random variables that are not independent are said to be dependent.
 :::
 
-### Independence
+### Product Expectation for Independent Variables
 
-::: {#thm-ch2-11}
+::: {.callout-note title="HMC8 unnumbered result"}
 - Suppose $X_1, \cdots, X_n$ are independent.
 
 - Suppose $E[u(X_i)]<\infty$, $i=1,2, \ldots, n$.
@@ -807,9 +815,9 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 - It is denoted by $M_{\boldsymbol X}(t_1,\cdots, t_n)$ and is called the moment generating function (mgf) of ${\boldsymbol X}$.
 :::
 
-### Independence
+### Theorem 2.6.1 — MGF of a Linear Combination
 
-::: {#thm-ch2-12}
+::: {#thm-hmc8-2-6-1}
 - Suppose $X_1, X_2, \cdots, X_n$ are $n$ mutually independent random variables.
 
 - Suppose, for all $i = 1,2,\cdots,n$, $X_i$ has mgf $M_i(t)$, for $|t| < h_i$, where $h_i > 0$.
@@ -819,7 +827,7 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 - Then $T$ has the mgf given by $$M_T(t) = \prod_{i=1}^n M_i(k_it),$$ where $-\min_i (h_i) < t <\min_i{h_i}$.
 :::
 
-### Supplementary Example 2.6-A
+### Example 2.6.2 — Maximum of Independent Variables
 
 - Let the random variables $X_1$, $X_2$ and $X_3$ be three mutually independent random variable and let each have the pdf $$f(x) =
   \left\{
@@ -836,9 +844,9 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 
 - If several random variables are mutually independent and have the same distribution, we say that they are independent and identically distributed, which we abbreviate as iid.
 
-### Independence
+### Corollary 2.6.1 — MGF of an iid Sum
 
-::: corollary
+::: {#cor-hmc8-2-6-1}
 - Suppose $X_1, X_2, \cdots, X_n$ are iid random variable with the common mgf $M(t)$, for $|t| < h$, where $h > 0$.
 
 - Let $T = \sum_{i=1}^n X_i$.
@@ -846,7 +854,9 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 - Then $T$ has the mgf given by $$M_T(t) = [M(t)]^n,$$ where $|t| < h$.
 :::
 
-### Random matrix
+### 2.6.1 Multivariate Variance-Covariance Matrix
+
+#### Random matrix
 
 - Let ${\boldsymbol X} = (X_1, \ldots, X_n)^{'}$ be an $n$-dimensional random vector.
 
@@ -856,9 +866,9 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 
 - Define the expectation of a random matrix $$E[{\boldsymbol W}] = [E(W_{ij})].$$
 
-### Random matrix
+### Theorem 2.6.2 — Linearity for Random Matrices
 
-::: {#thm-ch2-13}
+::: {#thm-hmc8-2-6-2}
 - Let ${\boldsymbol W}_1$ and ${\boldsymbol W}_2$ be $m \times n$ matrices of random variables.
 
 - Let ${\boldsymbol A}_1$ and ${\boldsymbol A}_2$ be $k \times m$ matrices of constants.
@@ -872,7 +882,7 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
   - $E[{\boldsymbol A}_1{\boldsymbol W}_1{\boldsymbol B}] = {\boldsymbol A}_1E[{\boldsymbol W}_1]{\boldsymbol B}$
 :::
 
-### Random vector
+#### Variance-covariance matrix
 
 - Let ${\boldsymbol X} = (X_1,\ldots, X_n)^{'}$ be an $n$-dimensional random vector, such that $\sigma_i^2=\sigma_{ii}=\operatorname{Var}(X_i)<\infty$.
 
@@ -891,9 +901,9 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 
 - Find $E[{\boldsymbol Z}]$ and $\operatorname{Cov}({\boldsymbol Z})$.
 
-### Random vector
+### Theorem 2.6.3 — Covariance Matrix Identities
 
-::: {#thm-ch2-14}
+::: {#thm-hmc8-2-6-3}
 - Let ${\boldsymbol X} = (X_1,\ldots, X_n)^{'}$ be an $n$-dimensional random vector, such that $\sigma_i^2=\sigma_{ii}=\operatorname{Var}(X_i)<\infty$.
 
 - Let ${\boldsymbol A}$ be an $m \times n$ matrices of constants.
@@ -916,7 +926,7 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 - Then ${Y}$ = ${\boldsymbol a}^{'} {\boldsymbol X}$ is a random variable and, hence, has nonnegative variance; i.e., $$0\le \operatorname{Var}(Y) = \operatorname{Var}({\boldsymbol a}^{'}\boldsymbol{X}) =
   {\boldsymbol a}^{'}\operatorname{Cov}({\boldsymbol X}){\boldsymbol a}.$$
 
-## Transformations for several random variables
+## 2.7 Transformations for Several Random Variables
 
 ### Continuous transformation
 
@@ -1033,7 +1043,7 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 
 ### Example 2.7.5
 
-- Let $X_1$, $X_2$, $X_3$, $X_4$ be independent random variables with com- mon pdf $$f(x) =
+- Let $X_1$, $X_2$, $X_3$, $X_4$ be independent random variables with common pdf $$f(x) =
   \left\{
   \begin{array}{ll}
   e^{-x} & 0<x\\
@@ -1048,7 +1058,7 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 
 本階段以線性組合與 random sample 收束本章。學生應能計算線性統計量的期望、變異數與共變異數，辨認 $\bar X$ 與 $S^2$ 是樣本的函數，並理解 $E(S^2)=\sigma^2$ 為何是後續估計理論的重要起點。
 
-## Linear combinations random variables
+## 2.8 Linear Combinations of Random Variables
 
 ### Linear combination
 
@@ -1059,21 +1069,48 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
   W & = \sum_{i=1}^m b_iY_i
   \end{aligned}$$ for specified constants $a_i$ and $b_i$, $i = 1, 2, \ldots, n$.
 
-- Supoose $E[X_i] = \mu_{X_i}$, $i=1, 2, \ldots, n$ and $E[Y_i] = \mu_{Y_i}$, $i=1, 2, \ldots, m$.
+- Suppose $E[X_i] = \mu_{X_i}$, $i=1, 2, \ldots, n$ and $E[Y_i] = \mu_{Y_i}$, $i=1, 2, \ldots, m$.
 
-### Mean and variance of $T$
+### Theorem 2.8.1 — Mean of a Linear Combination
 
-::: {#thm-ch2-15}
-- $E[T] = \sum_{i=1}^n a_i \mu_{X_i}$ and $E[W] = \sum_{i=1}^n b_i \mu_{Y_i}$.
-
-- $\operatorname{Var}(T) = \sum_{i=1}^n a_i^2\operatorname{Var}(X_i) + 2\sum_{i<j} a_i a_j \operatorname{Cov}(X_i, X_j)$.
-
-- $Cov(T, W) = \sum_{i=1}^n\sum_{j=1}^ma_ib_j\operatorname{Cov}(X_i, Y_j)$.
+::: {#thm-hmc8-2-8-1}
+$$
+E[T] = \sum_{i=1}^n a_i\mu_{X_i}.
+$$
 :::
 
-### Random sample
+### Theorem 2.8.2 — Covariance of Linear Combinations
 
-::: {#def-ch2-12}
+::: {#thm-hmc8-2-8-2}
+$$
+\operatorname{Cov}(T,W)
+=\sum_{i=1}^n\sum_{j=1}^m a_i b_j\operatorname{Cov}(X_i,Y_j).
+$$
+:::
+
+### Corollary 2.8.1 — Variance of a Linear Combination
+
+::: {#cor-hmc8-2-8-1}
+$$
+\operatorname{Var}(T)
+=\sum_{i=1}^n a_i^2\operatorname{Var}(X_i)
++2\sum_{i<j}a_i a_j\operatorname{Cov}(X_i,X_j).
+$$
+:::
+
+### Corollary 2.8.2 — Independent Components
+
+::: {#cor-hmc8-2-8-2}
+If $X_1,\ldots,X_n$ are independent and $\operatorname{Var}(X_i)=\sigma_i^2$, then
+
+$$
+\operatorname{Var}(T)=\sum_{i=1}^n a_i^2\sigma_i^2.
+$$
+:::
+
+### Definition 2.8.1 — Random Sample
+
+::: {#def-hmc8-2-8-1}
 - If the random variables $X_1, X_2, \ldots, X_n$ are independent and identically distributed.
 
 - Each $X_i$ has the same distribution.
@@ -1082,6 +1119,22 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 
 - Abbreviate independent and identically distributed by iid.
 :::
+
+### Example 2.8.1 — Sample Mean
+
+Let $X_1,\ldots,X_n$ be iid with common mean $\mu$ and variance $\sigma^2$. For
+
+$$
+\overline X=\frac{1}{n}\sum_{i=1}^n X_i,
+$$
+
+Theorem 2.8.1 and Corollary 2.8.2 give
+
+$$
+E(\overline X)=\mu,
+\qquad
+\operatorname{Var}(\overline X)=\frac{\sigma^2}{n}.
+$$
 
 ### Example 2.8.2 — Sample Variance
 
