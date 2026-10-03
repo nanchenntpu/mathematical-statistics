@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; 最大概似方法 – 數理統計</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-sufficiency.html" rel="next">
+<link href="./05-asymptotics.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-631496449bf32ff9b0bb69a6bfd9195d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "沒有結果",
+    "search-matching-documents-text": "符合的文件",
+    "search-copy-link-title": "複製搜尋連結",
+    "search-hide-matches-text": "隱藏其他符合的結果",
+    "search-more-match-text": "更多符合結果",
+    "search-more-matches-text": "更多符合結果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "送出",
+    "search-label": "搜尋"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-likelihood.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">最大概似方法</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜尋" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">數理統計</a> 
+        <div class="sidebar-tools-main">
+    <a href="./數理統計.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜尋"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">數理統計講義</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">機率與單變量分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-multivariate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-special-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">常用機率分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-sampling-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">抽樣、統計量與信賴區間</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-asymptotics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">一致性與極限分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-likelihood.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">最大概似方法</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sufficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">充分性、完備性與估計量品質</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目錄</h2>
+   
+  <ul class="collapse">
+  <li><a href="#學習目標" id="toc-學習目標" class="nav-link active" data-scroll-target="#學習目標">學習目標</a></li>
+  <li><a href="#必備的先備知識" id="toc-必備的先備知識" class="nav-link" data-scroll-target="#必備的先備知識">必備的先備知識</a></li>
+  <li><a href="#stage-1-recalllikelihood-的基本語言" id="toc-stage-1-recalllikelihood-的基本語言" class="nav-link" data-scroll-target="#stage-1-recalllikelihood-的基本語言">Stage 1 — Recall：Likelihood 的基本語言</a></li>
+  <li><a href="#maximum-likelihood-estimation" id="toc-maximum-likelihood-estimation" class="nav-link" data-scroll-target="#maximum-likelihood-estimation">6.1 Maximum Likelihood Estimation</a></li>
+  <li><a href="#stage-2-deepen資訊量下界與效率" id="toc-stage-2-deepen資訊量下界與效率" class="nav-link" data-scroll-target="#stage-2-deepen資訊量下界與效率">Stage 2 — Deepen：資訊量、下界與效率</a></li>
+  <li><a href="#raocramér-lower-bound-and-efficiency" id="toc-raocramér-lower-bound-and-efficiency" class="nav-link" data-scroll-target="#raocramér-lower-bound-and-efficiency">6.2 Rao–Cramér Lower Bound and Efficiency</a></li>
+  <li><a href="#stage-3-connect估計檢定與計算方法" id="toc-stage-3-connect估計檢定與計算方法" class="nav-link" data-scroll-target="#stage-3-connect估計檢定與計算方法">Stage 3 — Connect：估計、檢定與計算方法</a></li>
+  <li><a href="#maximum-likelihood-tests" id="toc-maximum-likelihood-tests" class="nav-link" data-scroll-target="#maximum-likelihood-tests">6.3 Maximum Likelihood Tests</a></li>
+  <li><a href="#multiparameter-case-estimation" id="toc-multiparameter-case-estimation" class="nav-link" data-scroll-target="#multiparameter-case-estimation">6.4 Multiparameter Case: Estimation</a></li>
+  <li><a href="#multiparameter-case-testing" id="toc-multiparameter-case-testing" class="nav-link" data-scroll-target="#multiparameter-case-testing">6.5 Multiparameter Case: Testing</a></li>
+  <li><a href="#the-em-algorithm" id="toc-the-em-algorithm" class="nav-link" data-scroll-target="#the-em-algorithm">6.6 The EM Algorithm</a></li>
+  <li><a href="#本章摘要" id="toc-本章摘要" class="nav-link" data-scroll-target="#本章摘要">本章摘要</a></li>
+  <li><a href="#常見錯誤" id="toc-常見錯誤" class="nav-link" data-scroll-target="#常見錯誤">常見錯誤</a></li>
+  <li><a href="#章末練習" id="toc-章末練習" class="nav-link" data-scroll-target="#章末練習">章末練習</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">最大概似方法</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-important callout-titled" title="第 8 版對照與教學安排">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">重要</span>第 8 版對照與教學安排
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>本章以 HMC8 Chapter 6 為編號依據。由 likelihood 與 score 的基本概念起步，深入 MLE、Fisher information、Rao–Cramér lower bound，再連到 likelihood-ratio testing、多參數模型與 EM algorithm。</p>
+<p><span class="math display">\[
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="本章定位">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>本章定位
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。</p>
+</div>
+</div>
+<section id="學習目標" class="level2">
+<h2 class="anchored" data-anchor-id="學習目標">學習目標</h2>
+<p>完成本章後，學生應能：</p>
+<ul>
+<li>寫出似然與對數似然函數</li>
+<li>求最大概似估計量並檢查最大值</li>
+<li>計算 Fisher information 與 Cramér–Rao 下界</li>
+<li>使用概似比進行假設檢定</li>
+<li>處理多參數模型與 EM 演算法</li>
+</ul>
+</section>
+<section id="必備的先備知識" class="level2">
+<h2 class="anchored" data-anchor-id="必備的先備知識">必備的先備知識</h2>
+<p>抽樣分配、多變量微積分、矩陣與漸近常態性。</p>
+<p>以下依原講義順序整理核心定義、定理、公式與例題。</p>
+</section>
+<section id="stage-1-recalllikelihood-的基本語言" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-1-recalllikelihood-的基本語言">Stage 1 — Recall：Likelihood 的基本語言</h2>
+</section>
+<section id="maximum-likelihood-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="maximum-likelihood-estimation">6.1 Maximum Likelihood Estimation</h2>
+<section id="parametric-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="parametric-assumption">Parametric assumption</h3>
+<ul>
+<li><p>Consider a random variable <span class="math inline">\(X\)</span> whose pdf <span class="math inline">\(f(x;\theta)\)</span> depends on an unknown parameter <span class="math inline">\(\theta\)</span> which is in a set <span class="math inline">\(\Omega\in R^q\)</span>.</p></li>
+<li><p>The general discussion is for the continuous case, but the results extend to the discrete case also.</p></li>
+<li><p>For information, suppose that we have a random sample <span class="math inline">\(X_1,\ldots,X_n\)</span> on <span class="math inline">\(X\)</span>; i.e., <span class="math inline">\(X_1,\ldots,X_n\)</span> are iid random variables with common pdf <span class="math inline">\(f(x; \theta)\)</span>, <span class="math inline">\(\theta \in \Omega\)</span>.</p></li>
+</ul>
+</section>
+<section id="likelihood-function-for-a-single-parameter" class="level3">
+<h3 class="anchored" data-anchor-id="likelihood-function-for-a-single-parameter">Likelihood function for a single parameter</h3>
+<ul>
+<li><p>Assume <span class="math inline">\(\Omega\in R\)</span>.</p></li>
+<li><p>Define likelihood function as <span class="math display">\[L(\theta; \boldsymbol{x}) = \prod_{i=1}^n f(x_i; \theta), \theta\in \Omega,\]</span> where <span class="math inline">\(\boldsymbol{x} = (x_1, \ldots, x_n)^{'}\)</span>.</p></li>
+<li><p>Write it as <span class="math inline">\(L(\theta)\)</span>.</p></li>
+</ul>
+</section>
+<section id="log-likelihood-function-for-a-single-parameter" class="level3">
+<h3 class="anchored" data-anchor-id="log-likelihood-function-for-a-single-parameter">Log likelihood function for a single parameter</h3>
+<ul>
+<li><p>Log likelihood function is more convenient to use.</p></li>
+<li><p>Denote as <span class="math display">\[l(\theta; \boldsymbol{x}) = \log L(\theta) = \sum_{i=1}^n \log f(x_i; \theta), \theta\in \Omega,\]</span> where <span class="math inline">\(\boldsymbol{x} = (x_1, \ldots, x_n)^{'}\)</span>.</p></li>
+<li><p>Write it as <span class="math inline">\(l(\theta)\)</span>.</p></li>
+</ul>
+</section>
+<section id="assumptions-regularity-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions-regularity-conditions">Assumptions – Regularity conditions</h3>
+<ul>
+<li><p>(R0) The cdfs are distinct; i.e., <span class="math inline">\(\theta \ne \theta^{'}\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(F(x_i;\theta) \ne F(x_i;\theta^{'})\)</span>.</p></li>
+<li><p>(R1) The pdfs have common support for all <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>(R2) The point <span class="math inline">\(\theta_0\)</span> is an interior point in <span class="math inline">\(\Omega\)</span>.</p></li>
+</ul>
+</section>
+<section id="properties" class="level3">
+<h3 class="anchored" data-anchor-id="properties">Properties</h3>
+<div id="thm-ch6-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.1</strong></span> &nbsp;</p>
+<ul>
+<li><p>Assume that <span class="math inline">\(\theta_0\)</span> is the true parameter and that <span class="math display">\[E_{\theta_0}\left[\frac{f(X_i; \theta)}{f(X_i; \theta_0)}\right]\]</span> exists.</p></li>
+<li><p>Under assumptions (R0) and (R1), <span class="math display">\[lim_{n\rightarrow \infty} P_{\theta_0}[L(\theta_0, \boldsymbol{X}) &gt; L(\theta, \boldsymbol{X})] = 1,
+\forall \theta \ne \theta_0.\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="maximum-likelihood-estimator-mle" class="level3">
+<h3 class="anchored" data-anchor-id="maximum-likelihood-estimator-mle">Maximum likelihood estimator (MLE)</h3>
+<div id="def-ch6-1" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 6.1</strong></span> &nbsp;</p>
+<ul>
+<li><p>Point estimator of <span class="math inline">\(\theta\)</span> is <span class="math inline">\(\hat{\theta}\)</span> = <span class="math inline">\(\hat{\theta}(X_1,\ldots,X_n)\)</span>, where <span class="math inline">\(\hat{\theta}\)</span> maximizes the function <span class="math inline">\(L(\theta)\)</span>, i.e., <span class="math display">\[\hat{\theta} = \operatorname{argmax}_\theta L(\theta) = \operatorname{argmax}_\theta l(\theta).\]</span></p></li>
+<li><p><span class="math inline">\(\hat{\theta}\)</span> is called the maximum likelihood estimator (MLE) of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="example-1-laplace-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-laplace-distribution">Example 1 — Laplace distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be iid with density <span class="math display">\[f(x; \theta) = \frac{1}{2} e^{-|x-\theta|}, x\in R, \theta\in R.\]</span></p></li>
+<li><p>Find mle of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-2-logistic-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-2-logistic-distribution">Example 2 — Logistic distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be iid with density <span class="math display">\[f(x; \theta) = \frac{\exp\{-(x-\theta)\}}{(1+ \exp\{-(x-\theta)\})^2}, x\in R, \theta\in R.\]</span></p></li>
+<li><p>Find mle of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-3-bernoulli-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-3-bernoulli-distribution">Example 3 — Bernoulli distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be iid with pmf <span class="math display">\[f(x; \theta) = \theta^x (1 - \theta)^{1-x}, x= 0, 1, \theta\in [0, 1/3].\]</span></p></li>
+<li><p>Find mle of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="property-of-mle" class="level3">
+<h3 class="anchored" data-anchor-id="property-of-mle">Property of MLE</h3>
+<div id="thm-ch6-2" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.2</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1,\ldots,X_n\)</span> be iid with the pdf <span class="math inline">\(f(x;\theta)\)</span>, <span class="math inline">\(\theta\in\Omega\)</span>.</p></li>
+<li><p>For a specified function <span class="math inline">\(g\)</span>, let <span class="math inline">\(\eta = g(\theta)\)</span> be a parameter of interest.</p></li>
+<li><p>Suppose <span class="math inline">\(\hat{\theta}\)</span> is the mle of <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(g(\hat{\theta})\)</span> is the mle of <span class="math inline">\(\eta = g(\theta)\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="properties-1" class="level3">
+<h3 class="anchored" data-anchor-id="properties-1">Properties</h3>
+<div id="thm-ch6-3" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.3</strong></span> &nbsp;</p>
+<ul>
+<li><p>Assume that <span class="math inline">\(X_1, \ldots, X_n\)</span> satisfy regularity conditions (R0) through (R2), where <span class="math inline">\(\theta_0\)</span> is the true parameter.</p></li>
+<li><p>Assume <span class="math inline">\(f(x; \theta)\)</span> is differentiable with respect to <span class="math inline">\(\theta\in\Omega\)</span>,</p></li>
+<li><p>Then the likelihood equation <span class="math display">\[\frac{\partial}{\partial \theta} L(\theta) = 0\]</span> has a solution <span class="math inline">\(\hat{\theta}_n\)</span> such that <span class="math inline">\(\hat{\theta}_n \stackrel{P}{\rightarrow} \theta_0\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="properties-2" class="level3">
+<h3 class="anchored" data-anchor-id="properties-2">Properties</h3>
+<div class="corollary">
+<ul>
+<li><p>Assume that <span class="math inline">\(X_1, \ldots, X_n\)</span> satisfy regularity conditions (R0) through (R2), where <span class="math inline">\(\theta_0\)</span> is the true parameter.</p></li>
+<li><p>Assume <span class="math inline">\(f(x; \theta)\)</span> is differentiable with respect to <span class="math inline">\(\theta\in\Omega\)</span>,</p></li>
+<li><p>Suppose the likelihood equation has the unique solution <span class="math inline">\(\hat{\theta}_n\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\hat{\theta}_n \stackrel{P}{\rightarrow} \theta_0\)</span>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="stage-2-deepen資訊量下界與效率" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-2-deepen資訊量下界與效率">Stage 2 — Deepen：資訊量、下界與效率</h2>
+</section>
+<section id="raocramér-lower-bound-and-efficiency" class="level2">
+<h2 class="anchored" data-anchor-id="raocramér-lower-bound-and-efficiency">6.2 Rao–Cramér Lower Bound and Efficiency</h2>
+<section id="assumptions-regularity-conditions-1" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions-regularity-conditions-1">Assumptions – Regularity conditions</h3>
+<ul>
+<li><p>(R3) The pdf <span class="math inline">\(f(x;\theta)\)</span> is twice differentiable as a function of <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>(R4) The integral <span class="math inline">\(\int f(x;\theta) dx\)</span> can be differentiated twice under the integral sign as a function of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="score-function" class="level3">
+<h3 class="anchored" data-anchor-id="score-function">Score function</h3>
+<ul>
+<li>The score function is defined as <span class="math display">\[\frac{\partial \log f(x;\theta)}{\partial \theta}.\]</span></li>
+</ul>
+</section>
+<section id="fisher-information-of-a-sample-of-size-1" class="level3">
+<h3 class="anchored" data-anchor-id="fisher-information-of-a-sample-of-size-1">Fisher information of a sample of size 1</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> have a pdf or pmf <span class="math inline">\(f(x;\theta)\)</span>.</p></li>
+<li><p>The Fisher information is the variance of the score function and defined as <span class="math display">\[\begin{aligned}
+I(\theta) = &amp; \operatorname{Var}\left( \frac{\partial \log f(X;\theta)}{\partial \theta}  \right)
+=  E\left[\left(
+\frac{\partial \log f(X;\theta)}{\partial \theta} \right )^2 \right ].
+\end{aligned}\]</span></p></li>
+</ul>
+</section>
+<section id="example-4-bernoulli-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-4-bernoulli-distribution">Example 4 — Bernoulli distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> be Bernoulli <span class="math inline">\(b(1, \theta)\)</span> with pmf <span class="math display">\[f(x; \theta) = \theta^x (1 - \theta)^{1-x}, x= 0, 1, \theta\in [0, 1].\]</span></p></li>
+<li><p>Find the Fisher information.</p></li>
+</ul>
+</section>
+<section id="example-5-location-family" class="level3">
+<h3 class="anchored" data-anchor-id="example-5-location-family">Example 5 — Location family</h3>
+<ul>
+<li><p>Consider a random sample <span class="math inline">\(X_1, \ldots, X_n\)</span> such that <span class="math display">\[X_i = \theta + e_i, i= 1, \ldots, n,\]</span> where <span class="math inline">\(e_1, e_2, \ldots, e_n\)</span> are iid with common pdf <span class="math inline">\(f(x)\)</span> and with support <span class="math inline">\((-\infty, \infty)\)</span>.</p></li>
+<li><p>Find the Fisher information.</p></li>
+</ul>
+</section>
+<section id="fisher-information-of-a-sample-of-size-n" class="level3">
+<h3 class="anchored" data-anchor-id="fisher-information-of-a-sample-of-size-n">Fisher information of a sample of size <span class="math inline">\(n\)</span></h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be a random sample from a distribution having pdf or pmf <span class="math inline">\(f(x;\theta)\)</span>.</p></li>
+<li><p>The random variable whose variance is the information in the sample is given by <span class="math display">\[\frac{\partial \log L(\theta; {\boldsymbol X})}{\partial \theta} = \sum_{i=1}^n\frac{\partial \log L(\theta; X_i)}{\partial \theta}.\]</span></p></li>
+<li><p>Denote Fisher information in a random sample of size <span class="math inline">\(n\)</span> as <span class="math display">\[\begin{aligned}
+\operatorname{Var}\left( \frac{L(\theta; {\boldsymbol X})}{\partial \theta}  \right) =  nI(\theta).
+\end{aligned}\]</span></p></li>
+</ul>
+</section>
+<section id="rao-cramér-lower-bound" class="level3">
+<h3 class="anchored" data-anchor-id="rao-cramér-lower-bound">Rao-Cramér lower bound</h3>
+<div id="thm-ch6-4" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.4</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be a random sample from a distribution having pdf or pmf <span class="math inline">\(f(x;\theta)\)</span>, for <span class="math inline">\(\theta\in \Omega\)</span>.</p></li>
+<li><p>Assume that the regularity conditions (R0)–(R4) hold.</p></li>
+<li><p>Let <span class="math inline">\(Y = u(X_1, \ldots, X_n)\)</span> be a statistic with mean <span class="math inline">\(E(Y) = E[u(X_1, \ldots, X_n)] = k(\theta)\)</span>.</p></li>
+<li><p>Then <span class="math display">\[\operatorname{Var}(Y) \ge \frac{[k^{'}(\theta)]^2}{nI(\theta)}.\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="properties-3" class="level3">
+<h3 class="anchored" data-anchor-id="properties-3">Properties</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be a random sample from a distribution having pdf or pmf <span class="math inline">\(f(x;\theta)\)</span>, for <span class="math inline">\(\theta\in \Omega\)</span>.</p></li>
+<li><p>Assume that the regularity conditions (R0)–(R4) hold.</p></li>
+<li><p>Let <span class="math inline">\(Y = u(X_1, \ldots, X_n)\)</span> be a statistic with mean <span class="math inline">\(E(Y) = E[u(X_1, \ldots, X_n)] = \theta\)</span>.</p></li>
+<li><p>Then <span class="math display">\[\operatorname{Var}(Y) \ge \frac{1}{nI(\theta)}.\]</span></p></li>
+</ul>
+</section>
+<section id="efficient-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="efficient-estimator">Efficient estimator</h3>
+<div id="def-ch6-2" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 6.2</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(Y\)</span> be an unbiased estimator of a parameter <span class="math inline">\(\theta\)</span> in the case of point estimation.</p></li>
+<li><p>The statistic <span class="math inline">\(Y\)</span> is called an efficient estimator of <span class="math inline">\(\theta\)</span> if and only if the variance of <span class="math inline">\(Y\)</span> attains the Rao–Cramér lower bound.</p></li>
+</ul>
+</div>
+</section>
+<section id="efficiency" class="level3">
+<h3 class="anchored" data-anchor-id="efficiency">Efficiency</h3>
+<div id="def-ch6-3" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 6.3</strong></span> &nbsp;</p>
+<ul>
+<li><p>Suppose we can differentiate with respect to a parameter under an integral or summation symbol.</p></li>
+<li><p>The ratio of the Rao–Cramér lower bound to the actual variance of any unbiased estimator of a parameter is called the efficiency of that estimator.</p></li>
+</ul>
+</div>
+</section>
+<section id="example-6-poisson" class="level3">
+<h3 class="anchored" data-anchor-id="example-6-poisson">Example 6 — Poisson</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote a random sample from a Poisson distribution that has the mean <span class="math inline">\(\theta &gt; 0\)</span>.</p></li>
+<li><p>Show <span class="math inline">\(\bar{X}\)</span> is an efficient estimator of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="assumptions-regularity-conditions-2" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions-regularity-conditions-2">Assumptions – Regularity conditions</h3>
+<ul>
+<li>(R5) The pdf <span class="math inline">\(f(x;\theta)\)</span> is three times differentiable as a function of <span class="math inline">\(\theta\)</span>. Further, for all <span class="math inline">\(\theta\in \Omega\)</span>, there exist a constant c and a function <span class="math inline">\(M(x)\)</span> such that <span class="math display">\[|\frac{\partial^3}{\partial \theta^3}\log f(x;\theta)|\le M(x),\]</span> with <span class="math inline">\(E_{\theta_0}[M(X)]&lt;\infty\)</span>, for all <span class="math inline">\(\theta_0-c &lt; \theta &lt; \theta_0 + c\)</span> and all <span class="math inline">\(x\)</span> in the support of <span class="math inline">\(X\)</span>.</li>
+</ul>
+</section>
+<section id="asymptotic-distribution-of-mle" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-distribution-of-mle">Asymptotic distribution of MLE</h3>
+<div id="thm-ch6-5" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.5</strong></span> &nbsp;</p>
+<ul>
+<li><p>Assume <span class="math inline">\(X_1,\ldots,X_n\)</span> are iid with pdf <span class="math inline">\(f(x;\theta_0)\)</span> for <span class="math inline">\(\theta\in \Omega\)</span> such that the regularity conditions (R0)–(R5) are satisfied.</p></li>
+<li><p>Suppose further that the Fisher information satisfies <span class="math inline">\(0 &lt; I(\theta_0) &lt; \infty\)</span>.</p></li>
+<li><p>Then any consistent sequence of solutions of the mle equations satisfies <span class="math display">\[\sqrt{n}(\hat{\theta}- \theta_0) \stackrel{D}{\rightarrow} N(0, \frac{1}{I(\theta_0)}\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="example-7-beta-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-7-beta-distribution">Example 7 — Beta distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote a random sample from a Beta(<span class="math inline">\(\theta\)</span>, 1) distribution with pdf <span class="math display">\[f(x;\theta) = \left\{\begin{array}{ll}
+\theta x^{\theta-1} &amp; 0&lt;x&lt;1\\ 0 &amp; \text{elsewhere},
+\end{array}\right.\]</span> where <span class="math inline">\(\Omega = (0, \infty)\)</span>.</p></li>
+<li><p>Find an unbiased estimator of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="stage-3-connect估計檢定與計算方法" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-3-connect估計檢定與計算方法">Stage 3 — Connect：估計、檢定與計算方法</h2>
+</section>
+<section id="maximum-likelihood-tests" class="level2">
+<h2 class="anchored" data-anchor-id="maximum-likelihood-tests">6.3 Maximum Likelihood Tests</h2>
+<section id="hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="hypotheses">Hypotheses</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be iid with pdf <span class="math inline">\(f(x;\theta)\)</span> for <span class="math inline">\(\theta\in\Omega\)</span>.</p></li>
+<li><p>Assume <span class="math inline">\(\theta\)</span> is a scalar.</p></li>
+<li><p>Consider a two-sided hypotheses <span class="math display">\[\begin{array}{ccc}
+H_0: \theta = \theta_0 &amp; \text{versus} &amp; H_a: \theta \ne \theta_0
+\end{array}\]</span> where <span class="math inline">\(\theta=\theta_0\)</span> is a specified value.</p></li>
+</ul>
+</section>
+<section id="likelihood-function-and-log-likelihood-function-for-a-single-parameter" class="level3">
+<h3 class="anchored" data-anchor-id="likelihood-function-and-log-likelihood-function-for-a-single-parameter">Likelihood function and log likelihood function for a single parameter</h3>
+<ul>
+<li><p>Assume <span class="math inline">\(\Omega\in R\)</span>.</p></li>
+<li><p>Define likelihood function as <span class="math display">\[L(\theta) = L(\theta; \boldsymbol{x}) = \prod_{i=1}^n f(x_i; \theta), \theta\in \Omega,\]</span> where <span class="math inline">\(\boldsymbol{x} = (x_1, \ldots, x_n)^{'}\)</span>.</p></li>
+<li><p>Log likelihood function is more convenient to use.</p></li>
+<li><p>Denote as <span class="math display">\[l(\theta) = l(\theta; \boldsymbol{x}) = \log L(\theta) = \sum_{i=1}^n \log f(x_i; \theta), \theta\in \Omega,\]</span> where <span class="math inline">\(\boldsymbol{x} = (x_1, \ldots, x_n)^{'}\)</span>.</p></li>
+</ul>
+</section>
+<section id="ratio-of-two-likelihood-functions" class="level3">
+<h3 class="anchored" data-anchor-id="ratio-of-two-likelihood-functions">Ratio of two likelihood functions</h3>
+<ul>
+<li><p>If <span class="math inline">\(\theta_0\)</span> is the true value of <span class="math inline">\(\theta\)</span>, asymptotically <span class="math inline">\(L(\theta_0)\)</span> is the maximum value of <span class="math inline">\(L(\theta)\)</span>.</p></li>
+<li><p>Consider the ratio of two likelihood function defined as <span class="math display">\[\Lambda = \frac{L(\theta_0)}{L(\hat{\theta})}\]</span></p></li>
+<li><p>Note</p>
+<ul>
+<li><p><span class="math inline">\(\Lambda\le 1\)</span></p></li>
+<li><p>If <span class="math inline">\(H_0\)</span> is true, <span class="math inline">\(\Lambda\)</span> should be large (close to 1).</p></li>
+<li><p>If <span class="math inline">\(H_a\)</span> is true, <span class="math inline">\(\Lambda\)</span> should be small.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="likelihood-ratio-tests" class="level3">
+<h3 class="anchored" data-anchor-id="likelihood-ratio-tests">Likelihood ratio tests</h3>
+<ul>
+<li><p>For a specified significance level <span class="math inline">\(\alpha\)</span>, this leads to the intuitive decision rule <span class="math display">\[\text{Reject }H_0\text{ in favor of }H_a\text{ if }\Lambda \le c\text{,}\]</span> where <span class="math inline">\(c\)</span> is such that <span class="math display">\[\alpha = P[\Lambda \le c| \theta = \theta_0]\]</span></p></li>
+<li><p>Call it the likelihood ratio test (LRT).</p></li>
+</ul>
+</section>
+<section id="example-8-exponential-dsitribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-8-exponential-dsitribution">Example 8 — Exponential dsitribution</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, \ldots , X_n\)</span> are iid with pdf <span class="math inline">\(f(x; θ) = \theta^{-1} exp{(-x/\theta)}\)</span>, for <span class="math inline">\(x, \theta &gt; 0\)</span>.</p></li>
+<li><p>Consider a two-sided hypotheses <span class="math display">\[\begin{array}{ccc}
+H_0: \theta = \theta_0 &amp; \text{versus} &amp; H_a: \theta \ne \theta_0
+\end{array}\]</span> where <span class="math inline">\(\theta=\theta_0\)</span> is a specified value.</p></li>
+<li><p>Find the critical region based on LRT.</p></li>
+</ul>
+</section>
+<section id="example-9-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-9-normal-distribution">Example 9 — Normal distribution</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, \ldots , X_n\)</span> are iid from a <span class="math inline">\(N(\theta, \sigma^2)\)</span> distribution, where <span class="math inline">\(-\infty&lt;\theta&lt;\infty\)</span> and <span class="math inline">\(\sigma^2\)</span> is known.</p></li>
+<li><p>Consider a two-sided hypotheses <span class="math display">\[\begin{array}{ccc}
+H_0: \theta = \theta_0 &amp; \text{versus} &amp; H_a: \theta \ne \theta_0
+\end{array}\]</span> where <span class="math inline">\(\theta=\theta_0\)</span> is a specified value.</p></li>
+<li><p>Find the critical region based on LRT.</p></li>
+</ul>
+</section>
+<section id="asymptotic-distribution-of-lrt" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-distribution-of-lrt">Asymptotic distribution of LRT</h3>
+<div id="thm-ch6-6" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.6</strong></span> &nbsp;</p>
+<ul>
+<li><p>Assume the same regularity conditions as for Theorem 6.2.2.</p></li>
+<li><p>Under the null hypothesis, <span class="math inline">\(H_0: \theta = \theta_0\)</span>, <span class="math display">\[-2\log \Lambda \stackrel{D}{\rightarrow} \chi^2(1).\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="remarks-decision-rule" class="level3">
+<h3 class="anchored" data-anchor-id="remarks-decision-rule">Remarks – Decision rule</h3>
+<ul>
+<li><p>LRT <span class="math display">\[\text{Reject }H_0\text{ if }\chi_L^2\ge \chi^2_\alpha(1).\]</span> where <span class="math inline">\(\chi_L^2 = -2\log \Lambda\)</span>.</p></li>
+<li><p>Wald test <span class="math display">\[\text{Reject }H_0\text{ if }\chi_W^2\ge \chi^2_\alpha(1).\]</span> where <span class="math inline">\(\chi_W^2 = \Big\{ \sqrt{nI(\hat{\theta})}(\hat{\theta}-\theta_0)\Big\}^2\)</span>.</p></li>
+<li><p>Under <span class="math inline">\(H_0\)</span>, we have <span class="math display">\[\chi_W^2 - \chi_L^2 \stackrel{P}{\rightarrow} 0.\]</span></p></li>
+</ul>
+</section>
+<section id="score-test" class="level3">
+<h3 class="anchored" data-anchor-id="score-test">Score test</h3>
+<ul>
+<li><p>The scores are the components of the vector <span class="math display">\[\boldsymbol{S}(\theta) = \left(\frac{\partial\log f(X_1;\theta)}{\partial\theta}, \cdots, \frac{\partial\log f(X_n;\theta)}{\partial\theta} \right)^{'}.\]</span></p></li>
+<li><p>Define <span class="math display">\[\chi_R^2 = \left(\frac{l^{'}(\theta_0)}{\sqrt{nI(\theta_0}}\right)^2,\]</span> where <span class="math display">\[\frac{1}{\sqrt{n}}l^{'}(\theta_0) = \frac{1}{\sqrt{n}}\sum_{i=1}^n \frac{\partial\log f(X_i;\theta)}{\partial\theta}\]</span></p></li>
+</ul>
+</section>
+<section id="remark" class="level3">
+<h3 class="anchored" data-anchor-id="remark">Remark</h3>
+<ul>
+<li><p>Under <span class="math inline">\(H_0\)</span>, we have <span class="math display">\[\chi_R^2 = \chi_W^2 + R_{0n}\]</span> where <span class="math inline">\(R_{0n}\)</span> convergens to 0 in probability.</p></li>
+<li><p>Decision rule based on the score test <span class="math display">\[\text{Reject }H_0\text{ if }\chi_R^2\ge \chi^2_\alpha(1).\]</span></p></li>
+</ul>
+</section>
+<section id="example-10-beta-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-10-beta-distribution">Example 10 — Beta distribution</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, \ldots , X_n\)</span> are iid from beta(<span class="math inline">\(\theta\)</span>, 1), for <span class="math inline">\(x, \theta &gt; 0\)</span>.</p></li>
+<li><p>Consider a two-sided hypotheses <span class="math display">\[\begin{array}{ccc}
+H_0: \theta = 1 &amp; \text{versus} &amp; H_a: \theta \ne 1
+\end{array}\]</span> where <span class="math inline">\(\theta=\theta_0\)</span> is a specified value.</p></li>
+<li><p>Find the critical region based on LRT, Wald test and score test.</p></li>
+</ul>
+</section>
+<section id="example-11-laplace-location-model" class="level3">
+<h3 class="anchored" data-anchor-id="example-11-laplace-location-model">Example 11 — Laplace location model</h3>
+<ul>
+<li><p>Suppose the location model <span class="math display">\[X_i = \theta + e_i, i = 1, \dots, n,\]</span> where <span class="math inline">\(\theta\in R\)</span> and the random errors eis are iid each having the Laplace pdf, <span class="math display">\[f(x) = \frac{1}{2}e^{-|x|}, x\in R.\]</span></p></li>
+<li><p>Consider a two-sided hypotheses <span class="math display">\[\begin{array}{ccc}
+H_0: \theta = \theta_0 &amp; \text{versus} &amp; H_a: \theta \ne \theta_0
+\end{array}\]</span> where <span class="math inline">\(\theta=\theta_0\)</span> is a specified value.</p></li>
+<li><p>Find the critical region based on LRT, Wald test and score test.</p></li>
+</ul>
+</section>
+</section>
+<section id="multiparameter-case-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="multiparameter-case-estimation">6.4 Multiparameter Case: Estimation</h2>
+<section id="likelihood-function-and-log-likelihood-function-for-multiparameter" class="level3">
+<h3 class="anchored" data-anchor-id="likelihood-function-and-log-likelihood-function-for-multiparameter">Likelihood function and log likelihood function for multiparameter</h3>
+<ul>
+<li><p>Assume <span class="math inline">\(\Omega\in R^p\)</span>.</p></li>
+<li><p>Define likelihood function as <span class="math display">\[L(\boldsymbol{\theta}) = L(\theta; \boldsymbol{x}) = \prod_{i=1}^n f(x_i; \boldsymbol{\theta}), \boldsymbol{\theta}\in \Omega,\]</span> where <span class="math inline">\(\boldsymbol{x} = (x_1, \ldots, x_n)^{'}\)</span>.</p></li>
+<li><p>Log likelihood function is more convenient to use.</p></li>
+<li><p>Denote as <span class="math display">\[l(\boldsymbol{\theta}) = l(\theta; \boldsymbol{x}) = \log L(\boldsymbol{\theta}) = \sum_{i=1}^n \log f(x_i; \theta), \boldsymbol{\theta}\in \Omega,\]</span> where <span class="math inline">\(\boldsymbol{x} = (x_1, \ldots, x_n)^{'}\)</span>.</p></li>
+</ul>
+</section>
+<section id="maximum-likelihood-estimator-mle-1" class="level3">
+<h3 class="anchored" data-anchor-id="maximum-likelihood-estimator-mle-1">Maximum likelihood estimator (MLE)</h3>
+<div id="def-ch6-4" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 6.4</strong></span> &nbsp;</p>
+<ul>
+<li><p>Point estimator of <span class="math inline">\(\boldsymbol{\theta}\)</span> is <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> = <span class="math inline">\(\hat{\boldsymbol{\theta}}(X_1,\ldots,X_n)\)</span>, where <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> maximizes the function <span class="math inline">\(L(\boldsymbol{\theta})\)</span>, i.e., <span class="math display">\[\hat{\boldsymbol{\theta}} = \operatorname{argmax}_{\boldsymbol{\theta}} L(\boldsymbol{\theta}) = \operatorname{argmax}_{\boldsymbol{\theta}} l(\boldsymbol{\theta}).\]</span></p></li>
+<li><p><span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> is called the maximum likelihood estimator (mle) of <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="property-of-mle-1" class="level3">
+<h3 class="anchored" data-anchor-id="property-of-mle-1">Property of MLE</h3>
+<div id="thm-ch6-7" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.7</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1,\ldots,X_n\)</span> be iid with the pdf <span class="math inline">\(f(x;\boldsymbol{\theta})\)</span>, <span class="math inline">\(\boldsymbol{\theta}\in\Omega\)</span>.</p></li>
+<li><p>For a specified function <span class="math inline">\(g\)</span>, let <span class="math inline">\(\eta = g(\boldsymbol{\theta})\)</span> be a parameter of interest.</p></li>
+<li><p>Suppose <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> is the mle of <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(g(\hat{\boldsymbol{\theta}})\)</span> is the mle of <span class="math inline">\(\eta = g(\boldsymbol{\theta})\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="example-12-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-12-normal-distribution">Example 12 — Normal distribution</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, \ldots , X_n\)</span> are iid from a <span class="math inline">\(N(\mu, \sigma^2)\)</span> distribution, where <span class="math inline">\(-\infty&lt;\mu&lt;\infty\)</span> and <span class="math inline">\(\sigma^2&gt;0\)</span>.</p></li>
+<li><p>Find the MLE of <span class="math inline">\(\boldsymbol{\theta} = (\mu, \sigma^2)\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-13-laplace-location-model" class="level3">
+<h3 class="anchored" data-anchor-id="example-13-laplace-location-model">Example 13 — Laplace location model</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, \ldots , X_n\)</span> are iid from a general Laplace distribution with pdf <span class="math display">\[f(x) = \frac{1}{2b}e^{-|x-a|/b}, x\in R\]</span> where <span class="math inline">\(-\infty&lt;a&lt;\infty\)</span> and <span class="math inline">\(b&gt;0\)</span>.</p></li>
+<li><p>Find the MLE of <span class="math inline">\(\boldsymbol{\theta} = (a, b)\)</span>.</p></li>
+</ul>
+</section>
+<section id="score-vector" class="level3">
+<h3 class="anchored" data-anchor-id="score-vector">Score vector</h3>
+<ul>
+<li>The score vector is defined as <span class="math display">\[\Delta\log f(X;\boldsymbol{\theta}) = \left(\frac{\partial \log f(x;\boldsymbol{\theta})}{\partial \theta_1},
+\cdots, \frac{\partial \log f(x;\boldsymbol{\theta})}{\partial \theta_p}\right)^{'}.\]</span></li>
+</ul>
+</section>
+<section id="fisher-information-matrix-of-size-1" class="level3">
+<h3 class="anchored" data-anchor-id="fisher-information-matrix-of-size-1">Fisher information matrix of size 1</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> have a pdf or pmf <span class="math inline">\(f(x;\boldsymbol{\theta})\)</span>.</p></li>
+<li><p>The Fisher information is the variance of the score vector and defined as <span class="math display">\[\begin{aligned}
+\boldsymbol{I}(\boldsymbol{\theta}) = &amp; \operatorname{Cov}\left(\Delta\log f(X;\boldsymbol{\theta})\right).
+\end{aligned}\]</span> where the <span class="math inline">\(jk\)</span>th entry of <span class="math inline">\(\boldsymbol{I}(\boldsymbol{\theta})\)</span> is given by <span class="math display">\[I_{jk} = \operatorname{Cov}\left(\frac{\partial \log f(x;\boldsymbol{\theta})}{\partial \theta_j}, \frac{\partial \log f(x;\boldsymbol{\theta})}{\partial \theta_k} \right)\]</span></p></li>
+</ul>
+</section>
+<section id="properties-4" class="level3">
+<h3 class="anchored" data-anchor-id="properties-4">Properties</h3>
+<ul>
+<li>Show <span class="math display">\[I_{jk} = -E\left(\frac{\partial^2 \log f(x;\boldsymbol{\theta})}{\partial \theta_j\partial\theta_k}\right)\]</span> and <span class="math display">\[I_{jj} = -E\left(\frac{\partial^2 \log f(x;\boldsymbol{\theta})}{\partial \theta_j^2}\right)\]</span></li>
+</ul>
+</section>
+<section id="fisher-information-matrix-of-size-n" class="level3">
+<h3 class="anchored" data-anchor-id="fisher-information-matrix-of-size-n">Fisher information matrix of size <span class="math inline">\(n\)</span></h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be a random sample from a pdf or pmf <span class="math inline">\(f(x;\boldsymbol{\theta})\)</span>.</p></li>
+<li><p>The Fisher information of size <span class="math inline">\(n\)</span> is <span class="math inline">\(n\boldsymbol{I}(\boldsymbol{\theta})\)</span>.</p></li>
+</ul>
+</section>
+<section id="rao-cramér-lower-bound-1" class="level3">
+<h3 class="anchored" data-anchor-id="rao-cramér-lower-bound-1">Rao-Cramér lower bound</h3>
+<div id="thm-ch6-8" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.8</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be a random sample from a distribution having pdf or pmf <span class="math inline">\(f(x;\boldsymbol{\theta})\)</span>, for <span class="math inline">\(\theta\in \Omega\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(Y_j = u_j(X_1, \ldots, X_n)\)</span> be a statistic with mean <span class="math inline">\(E(Y_j) = E[u(X_1, \ldots, X_n)] = \theta_j\)</span>.</p></li>
+<li><p>Then <span class="math display">\[\operatorname{Var}(Y_j) \ge \frac{1}{n}[\boldsymbol{I}^{-1}(\boldsymbol{\theta})]_{jj}.\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="example-14-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-14-normal-distribution">Example 14 — Normal distribution</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, \ldots , X_n\)</span> are iid from a <span class="math inline">\(N(\mu, \sigma^2)\)</span> distribution, where <span class="math inline">\(-\infty&lt;\mu&lt;\infty\)</span> and <span class="math inline">\(\sigma^2&gt;0\)</span>.</p></li>
+<li><p>Find the Fisher information matrix for <span class="math inline">\((\mu, \sigma)\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-15-location-and-scale-model" class="level3">
+<h3 class="anchored" data-anchor-id="example-15-location-and-scale-model">Example 15 — Location and scale model</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, \ldots , X_n\)</span> are iid from a location and scale distribution with pdf <span class="math display">\[f_X(x) = b^{-1} f\left(\frac{x-a}{b} \right), x\in R\]</span> where <span class="math inline">\(-\infty&lt;a&lt;\infty\)</span> and <span class="math inline">\(b&gt;0\)</span>.</p></li>
+<li><p>Find the Fisher information matrix for <span class="math inline">\((a, b)\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-16-multinomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-16-multinomial-distribution">Example 16 — Multinomial distribution</h3>
+<ul>
+<li><p>Consider a random trial which can result in one, and only one, of <span class="math inline">\(k\)</span> outcomes or categories.</p></li>
+<li><p>Let <span class="math inline">\(X_j\)</span> be 1 or 0 depending on whether the <span class="math inline">\(j\)</span>th outcome occurs or does not, for <span class="math inline">\(j = 1, \ldots, k\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{X} = (X_1, \ldots , X_{k-1})^{'}\)</span> has a multinomial distribution with pmf <span class="math display">\[f_{\boldsymbol{X}}(\boldsymbol{x}) = p_1^{x_1} \cdots p_{k-1}^{x_{k-1}} \times \left(1-\sum_{j=1}^{k-1}p_j\right)^{1-\sum_{j=1}^{k-1}x_j}\]</span> where <span class="math inline">\(\Omega = \{\boldsymbol{p}: 0&lt;p_j&lt;1, j=1 , \ldots, k-1; \sum_{j=1}^{k-1} p_j&lt;1\}\)</span>.</p></li>
+<li><p>Find the Fisher information matrix for <span class="math inline">\(\boldsymbol{p}\)</span>.</p></li>
+</ul>
+</section>
+<section id="asymptotic-properties-of-mle" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-properties-of-mle">Asymptotic properties of MLE</h3>
+<div id="thm-ch6-9" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.9</strong></span> &nbsp;</p>
+<ul>
+<li><p>Assume <span class="math inline">\(X_1,\ldots,X_n\)</span> are iid with pdf <span class="math inline">\(f(x;\boldsymbol{\theta})\)</span> for <span class="math inline">\(\boldsymbol{\theta}\in \Omega\)</span> such that the regularity conditions are satisfied.</p></li>
+<li><p>The likelihood equation <span class="math display">\[\frac{\partial l(\boldsymbol{\theta})}{\partial\boldsymbol{\theta}} = \boldsymbol{0}\]</span> has a solution <span class="math inline">\(\hat{\boldsymbol{\theta}}_n\)</span> such that <span class="math inline">\(\hat{\boldsymbol{\theta}}_n \stackrel{P}{\rightarrow} \boldsymbol{\theta}\)</span>.</p></li>
+<li><p>Then any consistent sequence of solutions of the mle equations satisfies <span class="math display">\[\sqrt{n}(\hat{\boldsymbol{\theta}}- \boldsymbol{\theta}) \stackrel{D}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{I}^{-1}(\boldsymbol{\theta}))\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="asymptotic-properties-of-mle-1" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-properties-of-mle-1">Asymptotic properties of MLE</h3>
+<div class="corollary">
+<ul>
+<li><p>Assume <span class="math inline">\(X_1,\ldots,X_n\)</span> are iid with pdf <span class="math inline">\(f(x;\boldsymbol{\theta})\)</span> for <span class="math inline">\(\boldsymbol{\theta}\in \Omega\)</span> such that the regularity conditions are satisfied.</p></li>
+<li><p>Let <span class="math inline">\(\hat{\boldsymbol{\theta}}_n\)</span> be a sequence of consistent solutions of the likelihood equation.</p></li>
+<li><p>Then <span class="math inline">\(\hat{\boldsymbol{\theta}}_n\)</span> are asymptotically efficient estimates; that is, for <span class="math inline">\(j = 1,\ldots, p\)</span>, <span class="math display">\[\sqrt{n}(\hat{{\theta}}_{n,j}- {\theta}_j) \stackrel{D}{\rightarrow} N(0, [\boldsymbol{I}^{-1}(\boldsymbol{\theta})]_{jj})\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="asymptotic-properties-of-mle-2" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-properties-of-mle-2">Asymptotic properties of MLE</h3>
+<div class="corollary">
+<ul>
+<li><p>Let <span class="math inline">\(\boldsymbol{g}\)</span> be a transformation <span class="math inline">\(\boldsymbol{g}(\boldsymbol{\theta}) = (g_1(\boldsymbol{\theta}), \ldots, g_k(\boldsymbol{\theta}))^{'}\)</span> such that <span class="math inline">\(1\le k\le p\)</span> and the <span class="math inline">\(k\times p\)</span> matrix of partial derivatives <span class="math display">\[\boldsymbol{B} = \begin{bmatrix}
+\frac{\partial g_i}{\partial \theta_j}, i = 1, 2, \ldots, k; j= 1, 2, \ldots, p,
+\end{bmatrix}\]</span> has continuous elements and does not vanish in a neighborhood of <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\hat{\boldsymbol{\eta}} = \boldsymbol{g}(\hat{\boldsymbol{\theta}})\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\hat{\boldsymbol{\eta}}\)</span> is the mle of <span class="math inline">\({\boldsymbol{\eta}}\)</span> and <span class="math display">\[\sqrt{n}(\hat{\boldsymbol{\eta}}- \boldsymbol{\eta}) \stackrel{D}{\rightarrow} N_k(\boldsymbol{0}, \boldsymbol{B}[\boldsymbol{I}^{-1}(\boldsymbol{\theta})]\boldsymbol{B}^{'})\]</span></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="multiparameter-case-testing" class="level2">
+<h2 class="anchored" data-anchor-id="multiparameter-case-testing">6.5 Multiparameter Case: Testing</h2>
+<section id="hypotheses-1" class="level3">
+<h3 class="anchored" data-anchor-id="hypotheses-1">Hypotheses</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be iid with pdf <span class="math inline">\(f(x;\boldsymbol{\theta})\)</span> for <span class="math inline">\(\theta\in\Omega\in R^p\)</span>.</p></li>
+<li><p>Consider a two-sided hypotheses <span class="math display">\[\begin{array}{ccc}
+H_0: \boldsymbol{\theta}\in \omega &amp; \text{versus} &amp; H_a: \boldsymbol{\theta}\in \omega^c \cap \Omega
+\end{array}\]</span> where <span class="math inline">\(\omega \in \Omega\)</span> is defined in terms of <span class="math inline">\(q\)</span>, <span class="math inline">\(0 &lt; q \le p\)</span>, independent constraits of <span class="math inline">\(g_1(\boldsymbol{\theta}) = a_1, \ldots, g_q(\boldsymbol{\theta}) = a_q\)</span>.</p></li>
+<li><p>The functions <span class="math inline">\(g_1,\ldots, g_q\)</span> must be continuously differentiable.</p></li>
+<li><p>This implies that <span class="math inline">\(\omega\)</span> is a <span class="math inline">\((p-q)\)</span>-dimensional space.</p></li>
+</ul>
+</section>
+<section id="ratio-of-two-likelihood-functions-1" class="level3">
+<h3 class="anchored" data-anchor-id="ratio-of-two-likelihood-functions-1">Ratio of two likelihood functions</h3>
+<ul>
+<li><p>Consider the ratio of two likelihood function defined as <span class="math display">\[\Lambda = \frac{\max_{\boldsymbol{\theta}\in\omega} L(\boldsymbol{\theta})}{\max_{\boldsymbol{\theta}\in\Omega}L(\boldsymbol{\theta})}\]</span></p></li>
+<li><p>For a specified significance level <span class="math inline">\(\alpha\)</span>, this leads to the intuitive decision rule <span class="math display">\[\text{Reject }H_0\text{ in favor of }H_a\text{ if }\Lambda \le c\text{,}\]</span> where <span class="math inline">\(c\)</span> is such that <span class="math display">\[\alpha = P[\Lambda \le c| \theta = \theta_0]\]</span></p></li>
+<li><p>Call it the likelihood ratio test (LRT).</p></li>
+</ul>
+</section>
+<section id="example-17-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-17-normal-distribution">Example 17 — Normal distribution</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, \ldots , X_n\)</span> are iid from a <span class="math inline">\(N(\theta, \sigma^2)\)</span> distribution, where <span class="math inline">\(-\infty&lt;\theta&lt;\infty\)</span> and <span class="math inline">\(\sigma^2&gt;0\)</span>.</p></li>
+<li><p>Consider a two-sided hypotheses <span class="math display">\[\begin{array}{ccc}
+H_0: \theta = \theta_0 &amp; \text{versus} &amp; H_a: \theta \ne \theta_0
+\end{array}\]</span> where <span class="math inline">\(\theta=\theta_0\)</span> is a specified value.</p></li>
+<li><p>Find the critical region based on LRT.</p></li>
+</ul>
+</section>
+<section id="asymptotic-distribution-of-lrt-1" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-distribution-of-lrt-1">Asymptotic distribution of LRT</h3>
+<div id="thm-ch6-10" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.10</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be iid with pdf <span class="math inline">\(f(x;\boldsymbol{\theta})\)</span> for <span class="math inline">\(\boldsymbol{\theta}\in Omega \subset R^p\)</span>.</p></li>
+<li><p>Assume the regularity conditions hold.</p></li>
+<li><p>Let <span class="math inline">\(\hat{\boldsymbol{\theta}}_n\)</span> be a sequence of consistent solutions of the likelihood equation when the parameter space is the full space <span class="math inline">\(\Omega\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\hat{\boldsymbol{\theta}}_{0,n}\)</span> be a sequence of consistent solutions of the likelihood equation when the parameter space is the reduced space <span class="math inline">\(\omega\)</span>.</p></li>
+<li><p>Under the null hypothesis, <span class="math inline">\(H_0\)</span>, <span class="math display">\[-2\log \Lambda \stackrel{D}{\rightarrow} \chi^2(q).\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="example-18-multinomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-18-multinomial-distribution">Example 18 — Multinomial distribution</h3>
+<ul>
+<li><p>Consider a random trial which can result in one, and only one, of 3 outcomes or categories.</p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{X} = (X_1, X_2)^{'}\)</span> has a multinomial distribution with pmf <span class="math display">\[f_{\boldsymbol{X}}(\boldsymbol{x}) = p_1^{x_1} p_{2}^{x_{2}} \times \left(1-\sum_{j=1}^{2}p_j\right)^{1-\sum_{j=1}^{2}x_j}\]</span></p></li>
+<li><p>Consider <span class="math inline">\(H_0: p_1 = p_2\)</span> versus <span class="math inline">\(H_a: p_1 \ne p_2\)</span>.</p></li>
+<li><p>Find the LRT.</p></li>
+</ul>
+</section>
+</section>
+<section id="the-em-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="the-em-algorithm">6.6 The EM Algorithm</h2>
+<section id="motivation" class="level3">
+<h3 class="anchored" data-anchor-id="motivation">Motivation</h3>
+<ul>
+<li><p>In practice, we are often in the situation where part of the data is missing.</p></li>
+<li><p>For example, we may be observing lifetimes of mechanical parts that have been put on test and some of these parts are still functioning when the statistical analysis is carried out.</p></li>
+</ul>
+</section>
+<section id="notations" class="level3">
+<h3 class="anchored" data-anchor-id="notations">Notations</h3>
+<ul>
+<li><p>Suppose we consider a sample of <span class="math inline">\(n\)</span> items, where</p>
+<ul>
+<li><p><span class="math inline">\(n_1\)</span> of the items are observed,</p></li>
+<li><p><span class="math inline">\(n_2 = n- n_1\)</span> items are not observable.</p></li>
+</ul></li>
+<li><p>Denote the observed items by <span class="math inline">\(\boldsymbol{X}^{\prime}= (X_1, X_2, \ldots , X_{n_1})^{'}\)</span> and unobserved items by <span class="math inline">\(\boldsymbol{Z}^{\prime}= (X_1, X_2, \ldots , X_{n_2})^{'}\)</span>.</p></li>
+<li><p>Assume that the <span class="math inline">\(X_i\)</span>s are iid with pdf <span class="math inline">\(f(x|\theta)\)</span>, where <span class="math inline">\(\theta\in \Omega\)</span>.</p></li>
+<li><p>Assume that the <span class="math inline">\(Z_j\)</span>s and the <span class="math inline">\(X_i\)</span>s are mutually independent.</p></li>
+</ul>
+</section>
+<section id="likelihood" class="level3">
+<h3 class="anchored" data-anchor-id="likelihood">Likelihood</h3>
+<ul>
+<li><p>Let <span class="math inline">\(g(\boldsymbol{x}|\theta)\)</span> denote the joint pdf of <span class="math inline">\(\boldsymbol{X}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(h(\boldsymbol{x}, \boldsymbol{z}|\theta)\)</span> denote the joint pdf of observed and unobserved items.</p></li>
+<li><p>Let <span class="math inline">\(k(\boldsymbol{z}|\theta, \boldsymbol{x})\)</span> denote the conditional pdf of missing data given the observed data and <span class="math display">\[k(\boldsymbol{z}|\theta, \boldsymbol{x}) = \frac{h(\boldsymbol{x}, \boldsymbol{z}|\theta)}{g(\boldsymbol{x}|\theta)}\]</span></p></li>
+<li><p>Observed likelihood function is defined by <span class="math display">\[L(\theta|\boldsymbol{x}) = g(\boldsymbol{x}|\theta)\]</span></p></li>
+<li><p>Complete likelihood function is defined by <span class="math display">\[L^{c}(\theta|\boldsymbol{x}, \boldsymbol{z}) = h(\boldsymbol{x}, \boldsymbol{z}|\theta)\]</span></p></li>
+</ul>
+</section>
+<section id="decomposition" class="level3">
+<h3 class="anchored" data-anchor-id="decomposition">Decomposition</h3>
+<ul>
+<li>Show <span class="math display">\[\log L(\theta|\boldsymbol{x}) = E_{\theta_0}[\log L^{c}(\theta|\boldsymbol{x}, \boldsymbol{Z})|\theta_0, \boldsymbol{x}]
+-E_{\theta_0}[\log k(\boldsymbol{Z}|\theta, \boldsymbol{x})|\theta_0, \boldsymbol{x}]\]</span></li>
+</ul>
+</section>
+<section id="expectation" class="level3">
+<h3 class="anchored" data-anchor-id="expectation">Expectation</h3>
+<ul>
+<li><p>Define <span class="math display">\[Q(\theta|\theta_0, \boldsymbol)= E_{\theta_0}[\log L^{c}(\theta|\boldsymbol{x}, \boldsymbol{Z})|\theta_0, \boldsymbol{x}]\]</span></p></li>
+<li><p>The expectation that defines the function Q is called the E step of the EM algorithm.</p></li>
+</ul>
+</section>
+<section id="maximization" class="level3">
+<h3 class="anchored" data-anchor-id="maximization">Maximization</h3>
+<ul>
+<li><p>Maximize <span class="math inline">\(\log L(\theta|\boldsymbol{x})\)</span>.</p></li>
+<li><p>Only need to maximize <span class="math inline">\(Q(\theta|\theta_0, \boldsymbol{x})\)</span></p></li>
+</ul>
+</section>
+<section id="em-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="em-algorithm">EM algorithm</h3>
+<ul>
+<li><p>Let <span class="math inline">\(\hat{\theta}^{(m)}\)</span> denote the estimate on the <span class="math inline">\(m\)</span>th step.</p></li>
+<li><p>To compute the estimate on the <span class="math inline">\((m + 1)\)</span>st step, do</p>
+<ol type="1">
+<li><p>Expectation step: Compute <span class="math display">\[Q(\theta|\hat{\theta}^{(m)}, \boldsymbol{x})= E_{\hat{\theta}^{(m)}}[\log L^{c}(\theta|\boldsymbol{x}, \boldsymbol{Z})|\hat{\theta}^{(m)}, \boldsymbol{x}]\]</span> where the expectation is taken under the conditional pdf <span class="math inline">\(k(\boldsymbol{z}|\hat{\theta}^{(m)},\boldsymbol{x})\)</span>.</p></li>
+<li><p>Maximization step: Let <span class="math display">\[\hat{\theta}^{(m+1)} = \text{Argmax} Q(\theta|\hat{\theta}^{(m)}, \boldsymbol{x}).\]</span></p></li>
+</ol></li>
+</ul>
+</section>
+<section id="monotonicity" class="level3">
+<h3 class="anchored" data-anchor-id="monotonicity">Monotonicity</h3>
+<div id="thm-ch6-11" class="theorem">
+<p><span class="theorem-title"><strong>定理 6.11</strong></span> &nbsp;</p>
+<ul>
+<li>The sequence of estimates <span class="math inline">\(Q(\theta|\hat{\theta}^{(m)}, \boldsymbol{x})\)</span>, defined by EM algorithm, sat-isfies <span class="math display">\[L(\hat{\theta}^{(m+1)}|\boldsymbol{x}) \ge L(\hat{\theta}^{(m)}|\boldsymbol{x}).\]</span></li>
+</ul>
+</div>
+</section>
+<section id="example-19-mixture-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-19-mixture-distribution">Example 19 — Mixture distribution</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(Y_1\sim N(\mu_1,\sigma_{1}^2)\)</span> and <span class="math inline">\(Y_2\sim N(\mu_2,\sigma_{2}^2)\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(W\)</span> be a Bernoulli random variable independent of <span class="math inline">\(Y_1\)</span> and <span class="math inline">\(Y_2\)</span> and with probability of success <span class="math inline">\(\epsilon = P(W = 1)\)</span>.</p></li>
+<li><p>The pdf of the mixture random variable <span class="math inline">\(X\)</span> is <span class="math display">\[f(x) = (1 - \epsilon)f_1(x) + \epsilon f_2(x), -\infty &lt; x &lt; \infty,\]</span> where <span class="math inline">\(f_j (x) = \sigma_j^{-1}\phi[(x - \mu_j )/\sigma_j ]\)</span>, <span class="math inline">\(j = 1, 2\)</span>, and <span class="math inline">\(\phi(z)\)</span> is the pdf of a standard normal <span class="math inline">\(j\)</span> random variable.</p></li>
+<li><p>Suppose we observe a random sample <span class="math inline">\(\boldsymbol{X}^{'} = (X_1, X_2, \cdots , X_n)\)</span> from this mixture distribution with pdf <span class="math inline">\(f(x)\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="本章摘要" class="level2">
+<h2 class="anchored" data-anchor-id="本章摘要">本章摘要</h2>
+<p>本章以似然為核心統一估計與檢定，並延伸至效率、多參數模型及含隱藏資料的 EM 計算。</p>
+</section>
+<section id="常見錯誤" class="level2">
+<h2 class="anchored" data-anchor-id="常見錯誤">常見錯誤</h2>
+<ul>
+<li>忽略支持集是否依賴參數</li>
+<li>只解 score equation 而未驗證最大值</li>
+<li>混淆觀察到的資訊與期望 Fisher information</li>
+<li>使用漸近卡方結果時未檢查正則條件</li>
+</ul>
+</section>
+<section id="章末練習" class="level2">
+<h2 class="anchored" data-anchor-id="章末練習">章末練習</h2>
+<ol type="1">
+<li>從本章選出三個關鍵定義，分別寫出數學形式、成立條件及一個例子。</li>
+<li>選擇一個主要定理或方法，重做推導並標記每一步使用的假設。</li>
+<li>從原講義例題挑選一題，完整寫出解題目標、方法選擇、計算與結果解釋。</li>
+<li>設計一個會違反本章方法條件的反例，說明錯誤會出現在哪一步。</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="待逐章補強">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">註釋</span>待逐章補強
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>建議後續為本章補入：中文概念導讀、完整解答、課堂練習難度標記，以及與下一章的銜接說明。</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已複製");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已複製");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-asymptotics.html" class="pagination-link" aria-label="一致性與極限分配">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">一致性與極限分配</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-sufficiency.html" class="pagination-link" aria-label="充分性、完備性與估計量品質">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">充分性、完備性與估計量品質</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

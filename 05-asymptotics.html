@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; 一致性與極限分配 – 數理統計</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./06-likelihood.html" rel="next">
+<link href="./04-sampling-inference.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-631496449bf32ff9b0bb69a6bfd9195d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "沒有結果",
+    "search-matching-documents-text": "符合的文件",
+    "search-copy-link-title": "複製搜尋連結",
+    "search-hide-matches-text": "隱藏其他符合的結果",
+    "search-more-match-text": "更多符合結果",
+    "search-more-matches-text": "更多符合結果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "送出",
+    "search-label": "搜尋"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-asymptotics.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">一致性與極限分配</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜尋" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">數理統計</a> 
+        <div class="sidebar-tools-main">
+    <a href="./數理統計.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜尋"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">數理統計講義</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">機率與單變量分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-multivariate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-special-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">常用機率分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-sampling-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">抽樣、統計量與信賴區間</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-asymptotics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">一致性與極限分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-likelihood.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">最大概似方法</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sufficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">充分性、完備性與估計量品質</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目錄</h2>
+   
+  <ul class="collapse">
+  <li><a href="#學習目標" id="toc-學習目標" class="nav-link active" data-scroll-target="#學習目標">學習目標</a></li>
+  <li><a href="#必備的先備知識" id="toc-必備的先備知識" class="nav-link" data-scroll-target="#必備的先備知識">必備的先備知識</a></li>
+  <li><a href="#stage-1-recall樣本統計量與估計量" id="toc-stage-1-recall樣本統計量與估計量" class="nav-link" data-scroll-target="#stage-1-recall樣本統計量與估計量">Stage 1 — Recall：樣本、統計量與估計量</a></li>
+  <li><a href="#stage-2-deepen機率收斂與分配收斂" id="toc-stage-2-deepen機率收斂與分配收斂" class="nav-link" data-scroll-target="#stage-2-deepen機率收斂與分配收斂">Stage 2 — Deepen：機率收斂與分配收斂</a></li>
+  <li><a href="#convergence-in-probability" id="toc-convergence-in-probability" class="nav-link" data-scroll-target="#convergence-in-probability">5.1 Convergence in Probability</a></li>
+  <li><a href="#convergence-in-distribution" id="toc-convergence-in-distribution" class="nav-link" data-scroll-target="#convergence-in-distribution">5.2 Convergence in Distribution</a></li>
+  <li><a href="#stage-3-connect中央極限定理與漸近推論" id="toc-stage-3-connect中央極限定理與漸近推論" class="nav-link" data-scroll-target="#stage-3-connect中央極限定理與漸近推論">Stage 3 — Connect：中央極限定理與漸近推論</a></li>
+  <li><a href="#central-limit-theorem" id="toc-central-limit-theorem" class="nav-link" data-scroll-target="#central-limit-theorem">5.3 Central Limit Theorem</a></li>
+  <li><a href="#extensions-to-multivariate-distributions" id="toc-extensions-to-multivariate-distributions" class="nav-link" data-scroll-target="#extensions-to-multivariate-distributions">5.4 Extensions to Multivariate Distributions</a></li>
+  <li><a href="#本章摘要" id="toc-本章摘要" class="nav-link" data-scroll-target="#本章摘要">本章摘要</a></li>
+  <li><a href="#常見錯誤" id="toc-常見錯誤" class="nav-link" data-scroll-target="#常見錯誤">常見錯誤</a></li>
+  <li><a href="#章末練習" id="toc-章末練習" class="nav-link" data-scroll-target="#章末練習">章末練習</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">一致性與極限分配</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-important callout-titled" title="第 8 版對照與教學安排">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">重要</span>第 8 版對照與教學安排
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>本章以 HMC8 Chapter 5 為編號依據。先快速回顧 random sample、statistic 與 estimator，再深入兩種收斂、Slutsky-type 性質與 Delta method，最後以 CLT 和 multivariate extensions 銜接漸近推論。</p>
+<p><span class="math display">\[
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="本章定位">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>本章定位
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。</p>
+</div>
+</div>
+<section id="學習目標" class="level2">
+<h2 class="anchored" data-anchor-id="學習目標">學習目標</h2>
+<p>完成本章後，學生應能：</p>
+<ul>
+<li>區分機率收斂與分配收斂</li>
+<li>判斷序列是否有界於機率</li>
+<li>使用 Slutsky 定理與 Delta method</li>
+<li>運用動差生成函數推導極限分配</li>
+<li>以中央極限定理建立近似推論</li>
+</ul>
+</section>
+<section id="必備的先備知識" class="level2">
+<h2 class="anchored" data-anchor-id="必備的先備知識">必備的先備知識</h2>
+<p>期望、變異數、動差生成函數及基本微積分。</p>
+<p>以下依原講義順序整理核心定義、定理、公式與例題。</p>
+</section>
+<section id="stage-1-recall樣本統計量與估計量" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-1-recall樣本統計量與估計量">Stage 1 — Recall：樣本、統計量與估計量</h2>
+<section id="random-sample" class="level3">
+<h3 class="anchored" data-anchor-id="random-sample">Random sample</h3>
+<ul>
+<li><p>Consider the sample observations that have the same distribution as <span class="math inline">\(X\)</span>.</p></li>
+<li><p>Denote them as the random variables <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>, where <span class="math inline">\(n\)</span> denotes the sample size.</p></li>
+<li><p>Use lower case letters <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span> as the values or realizations of the sample.</p></li>
+<li><p>Assume the sample observations <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> are mutually independent.</p></li>
+<li><p>It is called the random sample.</p></li>
+</ul>
+</section>
+<section id="statistics" class="level3">
+<h3 class="anchored" data-anchor-id="statistics">Statistics</h3>
+<div id="def-ch5-1" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 5.1</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote a sample on a random variable <span class="math inline">\(X\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(T= T(X_1, X_2, \ldots, X_n)\)</span> be a function of the sample.</p></li>
+<li><p>Then <span class="math inline">\(T\)</span> is called a statistic.</p></li>
+</ul>
+</div>
+</section>
+<section id="pivot-random-variable" class="level3">
+<h3 class="anchored" data-anchor-id="pivot-random-variable">Pivot random variable</h3>
+<ul>
+<li><p>The pivot is usually a function of an estimator of <span class="math inline">\(\theta\)</span> .</p></li>
+<li><p>The distribution of the pivot is known.</p></li>
+<li><p>For example,</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_1, X_2, \ldots , X_n\)</span> is a random sample on a random variable <span class="math inline">\(X\)</span> which has a <span class="math inline">\(N(\mu,\sigma^2)\)</span> distribution.</p></li>
+<li><p>Denote the sample mean by <span class="math inline">\(\bar{X}_n = n^{-1}\sum_{i=1}^n X_i\)</span>.</p></li>
+<li><p>Then the pivot random variable of interest is <span class="math display">\[Z_n= \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \sim N(0, 1).\]</span></p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="stage-2-deepen機率收斂與分配收斂" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-2-deepen機率收斂與分配收斂">Stage 2 — Deepen：機率收斂與分配收斂</h2>
+</section>
+<section id="convergence-in-probability" class="level2">
+<h2 class="anchored" data-anchor-id="convergence-in-probability">5.1 Convergence in Probability</h2>
+<section id="convergence-in-probability-1" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-in-probability-1">Convergence in probability</h3>
+<div id="def-ch5-2" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 5.2</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{X_n\}\)</span> be a sequence of random variables.</p></li>
+<li><p>Let <span class="math inline">\(X\)</span> be a random variable defined on a sample space.</p></li>
+<li><p><span class="math inline">\(X_n\)</span> converges in probability to <span class="math inline">\(X\)</span> if, for all <span class="math inline">\(\epsilon&gt;0\)</span>, <span class="math display">\[\lim_{n\rightarrow \infty} [|X_n - X|\ge \epsilon] = 0,\]</span> or <span class="math display">\[\lim_{n\rightarrow \infty} [|X_n - X| &lt; \epsilon] = 1,\]</span></p></li>
+<li><p>Write <span class="math inline">\(X_n \stackrel{P}{\rightarrow} X\)</span></p></li>
+</ul>
+</div>
+</section>
+<section id="weak-law-of-large-numbers" class="level3">
+<h3 class="anchored" data-anchor-id="weak-law-of-large-numbers">Weak Law of Large Numbers</h3>
+<div id="thm-ch5-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.1</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{X_n\}\)</span> be a sequence of iid random variables having common mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2&lt;\infty\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\bar{X}_n = n^{-1}\sum_{i=1}^n X_i\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\bar{X}_n \stackrel{P}{\rightarrow} \mu\)</span></p></li>
+</ul>
+</div>
+</section>
+<section id="additive-properties" class="level3">
+<h3 class="anchored" data-anchor-id="additive-properties">Additive properties</h3>
+<div id="thm-ch5-2" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.2</strong></span> &nbsp;</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_n \stackrel{P}{\rightarrow} X\)</span> and <span class="math inline">\(Y_n \stackrel{P}{\rightarrow} Y\)</span>.</p></li>
+<li><p>Then <span class="math inline">\({X}_n + Y_n \stackrel{P}{\rightarrow} X + Y\)</span></p></li>
+</ul>
+</div>
+</section>
+<section id="constant" class="level3">
+<h3 class="anchored" data-anchor-id="constant">Constant</h3>
+<div id="thm-ch5-3" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.3</strong></span> &nbsp;</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_n \stackrel{P}{\rightarrow} X\)</span> and <span class="math inline">\(a\)</span> is a constant.</p></li>
+<li><p>Then <span class="math inline">\(a{X}_n \stackrel{P}{\rightarrow} aX\)</span></p></li>
+</ul>
+</div>
+</section>
+<section id="continuity" class="level3">
+<h3 class="anchored" data-anchor-id="continuity">Continuity</h3>
+<div id="thm-ch5-4" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.4</strong></span> &nbsp;</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_n \stackrel{P}{\rightarrow} a\)</span> and the real function <span class="math inline">\(g\)</span> is continuous at <span class="math inline">\(a\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(g({X}_n) \stackrel{P}{\rightarrow} g(a)\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="multiplicative-properties" class="level3">
+<h3 class="anchored" data-anchor-id="multiplicative-properties">Multiplicative properties</h3>
+<div id="thm-ch5-5" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.5</strong></span> &nbsp;</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(X_n \stackrel{P}{\rightarrow} X\)</span> and <span class="math inline">\(Y_n \stackrel{P}{\rightarrow} Y\)</span>.</p></li>
+<li><p>Then <span class="math inline">\({X}_n  Y_n \stackrel{P}{\rightarrow} X  Y\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="estimator-and-estimate" class="level3">
+<h3 class="anchored" data-anchor-id="estimator-and-estimate">Estimator and Estimate</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote a random sample on a random variable <span class="math inline">\(X\)</span> with a density or mass function of the form <span class="math inline">\(f(x; \theta)\)</span> or <span class="math inline">\(p(x; \theta)\)</span>, where <span class="math inline">\(\theta\in\Omega\)</span> for a specified set <span class="math inline">\(\Omega\)</span>.</p></li>
+<li><p>Consider a statistic <span class="math inline">\(T\)</span>, which is an estimator of <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p><span class="math inline">\(T\)</span> is formally called a point estimator of <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>Call its realization <span class="math inline">\(t\)</span> an estimate of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="estimator" class="level3">
+<h3 class="anchored" data-anchor-id="estimator">Estimator</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote a sample on a random variable <span class="math inline">\(X\)</span> with pdf <span class="math inline">\(f(x; \theta)\)</span>, <span class="math inline">\(\theta\in\Omega\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(T= T(X_1, X_2, \ldots, X_n)\)</span> be a statistic.</p></li>
+<li><p>Suppose <span class="math inline">\(T\)</span> is a point estimator of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="estimate" class="level3">
+<h3 class="anchored" data-anchor-id="estimate">Estimate</h3>
+<ul>
+<li><p>When the sample is drawn, let <span class="math inline">\(x_1, x_2, \ldots , x_n\)</span> denote the observed values of <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>.</p></li>
+<li><p>We call these values the realized values of the sample.</p></li>
+<li><p>Call the realized statistic <span class="math inline">\(t = t(x_1, x_2, \ldots , x_n)\)</span> a point estimate of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="properties-of-estimators" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-estimators">Properties of estimators</h3>
+<ul>
+<li><p>Unbiasedness</p>
+<ul>
+<li><span class="math inline">\(T\)</span> is an unbiased estimator of <span class="math inline">\(\theta\)</span> if <span class="math inline">\(E(T) = \theta\)</span>.</li>
+</ul></li>
+<li><p>Consistency</p></li>
+</ul>
+</section>
+<section id="consistent-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="consistent-estimator">Consistent estimator</h3>
+<div id="def-ch5-3" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 5.3</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> be a random variable with cdf <span class="math inline">\(F(x,\theta)\)</span>, <span class="math inline">\(\theta \in \Omega\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be a sample from the distribution of <span class="math inline">\(X\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(T_n\)</span> denote a statistic.</p></li>
+<li><p>We say <span class="math inline">\(T_n\)</span> is a consistent estimator of <span class="math inline">\(\theta\)</span> if <span class="math display">\[T_n \stackrel{P}{\rightarrow} \theta.\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="example-1-realizations-of-barx-from-n01" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-realizations-of-barx-from-n01">Example 1 — Realizations of <span class="math inline">\(\bar{X}\)</span> from <span class="math inline">\(N(0,1)\)</span></h3>
+<p><img src="assets/graph/fig5-1-1.png" class="img-fluid"></p>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be a sample from a distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p></li>
+<li><p>Assume that <span class="math inline">\(E[X_1^4]&lt;\infty\)</span>.</p></li>
+<li><p>Show the sample variance is a consistent estimator of <span class="math inline">\(\sigma^2\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-3" class="level3">
+<h3 class="anchored" data-anchor-id="example-3">Example 3</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be a sample from a uniform (0,<span class="math inline">\(\theta)\)</span> distribution.</p></li>
+<li><p>Assume <span class="math inline">\(\theta\)</span> is unknown.</p></li>
+<li><p>Let <span class="math inline">\(Y_n = \max(X_1, X_2, \ldots, X_n)\)</span>.</p></li>
+<li><p>Show <span class="math inline">\(Y_n\)</span> is a consistent estimator of <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="convergence-in-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="convergence-in-distribution">5.2 Convergence in Distribution</h2>
+<section id="convergence-in-distribution-1" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-in-distribution-1">Convergence in distribution</h3>
+<div id="def-ch5-4" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 5.4</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{X_n\}\)</span> be a sequence of random variables with distribution fuctions <span class="math inline">\(F_{X_n}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(X\)</span> be a random variable with cdf <span class="math inline">\(F(x,\theta)\)</span>, <span class="math inline">\(\theta \in \Omega\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(C(F_X)\)</span> denote the set of all points where <span class="math inline">\(F_X\)</span> is continuous.</p></li>
+<li><p>We say <span class="math inline">\(X_n\)</span> converges in distribution to <span class="math inline">\(X\)</span> if <span class="math display">\[\lim_{n\rightarrow \infty} F_{X_n}(x) = F_X(x), \forall x\in C(F_X).\]</span></p></li>
+<li><p>Denote <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="remark" class="level3">
+<h3 class="anchored" data-anchor-id="remark">Remark</h3>
+<ul>
+<li><p>This material on convergence in probability and in distribution comes under what statisticians refer to as asymptotic theory.</p></li>
+<li><p>We say that the distribution of <span class="math inline">\(X\)</span> is the asymptotic distribution or the limiting distribution of the sequence <span class="math inline">\(\{X_n\}\)</span>.</p></li>
+<li><p>Instead of saying <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span>, where <span class="math inline">\(X\)</span> has a standard normal distribution, we may write <span class="math inline">\(X_n \stackrel{D}{\rightarrow} N(0,1)\)</span>.</p></li>
+</ul>
+</section>
+<section id="remark-points-of-continuity" class="level3">
+<h3 class="anchored" data-anchor-id="remark-points-of-continuity">Remark – Points of continuity</h3>
+<p><img src="assets/graph/fig5-2-1.png" class="img-fluid"></p>
+</section>
+<section id="remark-convergence-in-probability-and-in-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="remark-convergence-in-probability-and-in-distribution">Remark – Convergence in probability and in distribution</h3>
+<ul>
+<li><p>Convergence in probability is a way of saying that a sequence of random variables <span class="math inline">\(X_n\)</span> is getting close to another random variable <span class="math inline">\(X\)</span>.</p></li>
+<li><p>Convergence in distribution is only concerned with the cdfs <span class="math inline">\(F_{X_n}\)</span> and <span class="math inline">\(F_X\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-4" class="level3">
+<h3 class="anchored" data-anchor-id="example-4">Example 4</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> be a continuous random variable with a pdf <span class="math inline">\(f_X(x)\)</span> that is symmetric about 0; i.e., <span class="math inline">\(f_X(-x) = f_X(x)\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(-X\)</span> also has a density function <span class="math inline">\(f_X(x)\)</span>.</p></li>
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(-X\)</span> have the sample distributions.</p></li>
+<li><p>Define the sequence of random variables <span class="math inline">\(X_n\)</span> as <span class="math display">\[X_n = \left\{\begin{array}{ll}
+X &amp; \text{if }n\text{ is odd}\\
+-X &amp; \text{if }n\text{ is even}\\
+\end{array}\right .\]</span></p></li>
+<li><p><span class="math inline">\(F_{X_n} (x) = F_X(x)\)</span> for all <span class="math inline">\(x\)</span> in the support of <span class="math inline">\(X\)</span>, so that <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span>.</p></li>
+<li><p><span class="math inline">\(X_n\)</span> does not get close to <span class="math inline">\(X\)</span>. In particular, <span class="math inline">\(X_n \nrightarrow X\)</span> in probability.</p></li>
+</ul>
+</section>
+<section id="example-5" class="level3">
+<h3 class="anchored" data-anchor-id="example-5">Example 5</h3>
+<ul>
+<li><p>Let <span class="math inline">\(\bar{X}_n\)</span> have the cdf <span class="math display">\[F_n(\bar{x}) = \int_{-\infty}^{\bar{x}} \frac{1}{\sqrt{1/n}\sqrt{2\pi}} e^{-nw^2/2}dw.\]</span></p></li>
+<li><p>Let <span class="math inline">\(X\)</span> have the cdf <span class="math display">\[F(\bar{x}) = \left\{\begin{array}{ll} 0 &amp; \text{if }\bar{x}&lt;0\\ 1 &amp; \text{if }\bar{x}\ge 0
+\end{array} \right .\]</span></p></li>
+<li><p>Show <span class="math inline">\(\bar{X}_n \stackrel{D}{\rightarrow} X\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-6" class="level3">
+<h3 class="anchored" data-anchor-id="example-6">Example 6</h3>
+<ul>
+<li><p>Let <span class="math inline">\(\bar{X}_n\)</span> have the cdf <span class="math display">\[F_n(\bar{x}) = \int_{-\infty}^{\bar{x}} \frac{1}{\sqrt{1/n}\sqrt{2\pi}} e^{-nw^2/2}dw.\]</span></p></li>
+<li><p>Let <span class="math inline">\(X\)</span> have the cdf <span class="math display">\[F(\bar{x}) = \left\{\begin{array}{ll} 0 &amp; \text{if }\bar{x}&lt;0\\ 1 &amp; \text{if }\bar{x}\ge 0
+\end{array} \right .\]</span></p></li>
+<li><p>Show <span class="math inline">\(\bar{X}_n \stackrel{D}{\rightarrow} X\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-7" class="level3">
+<h3 class="anchored" data-anchor-id="example-7">Example 7</h3>
+<ul>
+<li><p>Let <span class="math inline">\(\bar{X}_n\)</span> have the pmf <span class="math display">\[p_n(x) = \left \{
+\begin{array}{ll} 1 &amp; x = 2 + n^{-1}\\ 0 &amp; \text{elsewhere}
+\end{array}
+\right .\]</span></p></li>
+<li><p>Let <span class="math inline">\(X\)</span> have the cdf <span class="math display">\[F(x) = \left\{\begin{array}{ll} 0 &amp; \text{if }x&lt;2\\ 1 &amp; \text{if }x\ge 2
+\end{array} \right .\]</span></p></li>
+<li><p>Show <span class="math inline">\(\bar{X}_n \stackrel{D}{\rightarrow} X\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-8" class="level3">
+<h3 class="anchored" data-anchor-id="example-8">Example 8</h3>
+<ul>
+<li><p>Let <span class="math inline">\(T_n\)</span> have a <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n\)</span> degrees of freedom, <span class="math inline">\(n = 1, 2, 3, \ldots.\)</span></p></li>
+<li><p>Its cdf is <span class="math display">\[F_n(x) = \int_{-\infty}^{t} \frac{\Gamma((n+1)/2)}{\sqrt{\pi n}\Gamma(n/2)}
+\frac{1}{(1 + y^2/n)^{(n+1)/2}} dy.\]</span></p></li>
+<li><p>Show <span class="math inline">\(T_n \stackrel{D}{\rightarrow} N(0, 1)\)</span>.</p></li>
+</ul>
+</section>
+<section id="remark-stirlings-formula" class="level3">
+<h3 class="anchored" data-anchor-id="remark-stirlings-formula">Remark – Stirling’s formula</h3>
+<ul>
+<li>In advanced calculus the following approximation is derived: <span class="math display">\[\Gamma(k+1) \approx \sqrt{2\pi} j^{k+1/2} e^{-k}.\]</span></li>
+</ul>
+</section>
+<section id="example-9" class="level3">
+<h3 class="anchored" data-anchor-id="example-9">Example 9</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be a sample from a uniform (0,<span class="math inline">\(\theta)\)</span> distribution.</p></li>
+<li><p>Assume <span class="math inline">\(\theta\)</span> is unknown.</p></li>
+<li><p>Let <span class="math inline">\(Y_n = \max(X_1, X_2, \ldots, X_n)\)</span>.</p></li>
+<li><p>Show <span class="math inline">\(Z_n = n(\theta - Y_n)\)</span> converges in distribution to an exponential distribution with mean <span class="math inline">\(\theta\)</span>.</p></li>
+</ul>
+</section>
+<section id="properties-of-convergences" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-convergences">Properties of convergences</h3>
+<div id="thm-ch5-6" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.6</strong></span> &nbsp;</p>
+<ul>
+<li>If <span class="math inline">\(X_n \stackrel{P}{\rightarrow} X\)</span>, then <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="properties-of-convergences-1" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-convergences-1">Properties of convergences</h3>
+<div id="thm-ch5-7" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.7</strong></span> &nbsp;</p>
+<ul>
+<li>If <span class="math inline">\(X_n \stackrel{D}{\rightarrow} b\)</span>, then <span class="math inline">\(X_n \stackrel{p}{\rightarrow} b\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="properties-of-convergences-2" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-convergences-2">Properties of convergences</h3>
+<div id="thm-ch5-8" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.8</strong></span> &nbsp;</p>
+<ul>
+<li>If <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span> and <span class="math inline">\(X_n \stackrel{P}{\rightarrow} 0\)</span>, then <span class="math inline">\(X_n + Y_n\stackrel{D}{\rightarrow} X\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="properties-of-convergences-3" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-convergences-3">Properties of convergences</h3>
+<div id="thm-ch5-9" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.9</strong></span> &nbsp;</p>
+<ul>
+<li>If <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span> and <span class="math inline">\(g\)</span> is a continuous function on the support of <span class="math inline">\(X\)</span>, then <span class="math inline">\(g(X_n) \stackrel{D}{\rightarrow} g(X)\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="properties-of-convergences-4" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-convergences-4">Properties of convergences</h3>
+<div id="thm-ch5-10" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.10</strong></span> &nbsp;</p>
+<ul>
+<li>If <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span>, <span class="math inline">\(A_n \stackrel{P}{\rightarrow} a\)</span> and <span class="math inline">\(B_n \stackrel{P}{\rightarrow} b\)</span>, then <span class="math inline">\(A_n + B_n X_n \stackrel{D}{\rightarrow} a + bX\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="bounded-in-probability" class="level3">
+<h3 class="anchored" data-anchor-id="bounded-in-probability">Bounded in probability</h3>
+<div id="def-ch5-5" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 5.5</strong></span> &nbsp;</p>
+<ul>
+<li>The sequence of random variables <span class="math inline">\(\{X_n\}\)</span> is bounded in probability if, for all <span class="math inline">\(\epsilon &gt; 0\)</span>, there exist a constant <span class="math inline">\(B_{\epsilon} &gt; 0\)</span> and an integer <span class="math inline">\(N_\epsilon\)</span> such that <span class="math display">\[n \ge N_\epsilon \Rightarrow P[|X_n|≤B_\epsilon] \ge 1 - \epsilon.\]</span></li>
+</ul>
+</div>
+</section>
+<section id="properties" class="level3">
+<h3 class="anchored" data-anchor-id="properties">Properties</h3>
+<div id="thm-ch5-11" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.11</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{X_n\}\)</span> be a sequence of random variables.</p></li>
+<li><p>Let <span class="math inline">\(X\)</span> be a random variable.</p></li>
+<li><p>If <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span>, then <span class="math inline">\(X_n\)</span> is bounded in probability.</p></li>
+</ul>
+</div>
+</section>
+<section id="properties-1" class="level3">
+<h3 class="anchored" data-anchor-id="properties-1">Properties</h3>
+<div id="thm-ch5-12" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.12</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{X_n\}\)</span> be a sequence of random variables bounded in probability.</p></li>
+<li><p>Let <span class="math inline">\(\{Y_n\}\)</span> a sequence of random variables that converges to 0 in probability.</p></li>
+<li><p>Then <span class="math inline">\(X_nY_n \stackrel{P}{\rightarrow} 0\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="recall-youngs-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="recall-youngs-theorem">Recall Young’s Theorem</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(g(x)\)</span> is differentiable at <span class="math inline">\(x\)</span>.</p></li>
+<li><p>Write <span class="math inline">\(g(y) = g(x) + g^{'}(x)(y - x) + o(|y - x|)\)</span>, where the notation <span class="math inline">\(o\)</span> means <span class="math display">\[a = o(b) \text{if and only if }\frac{a}{b} \rightarrow 0\text{,as }b\rightarrow 0\text{.}\]</span></p></li>
+</ul>
+</section>
+<section id="recall" class="level3">
+<h3 class="anchored" data-anchor-id="recall">Recall</h3>
+<ul>
+<li><p>Write <span class="math inline">\(o_p(X_n)\)</span>, which means <span class="math display">\[Y_n =o_p(X_n)\Longleftrightarrow \frac{Y_n}{X_n} \stackrel{P}{\rightarrow} 0, \text{as }n\rightarrow \infty\text{.}\]</span></p></li>
+<li><p>Write <span class="math inline">\(O_p(X_n)\)</span>, which means <span class="math display">\[Y_n = O_p(X_n) \Longleftrightarrow \frac{Y_n}{X_n} \text{is bounded in probability, as }n\rightarrow \infty\text{.}\]</span></p></li>
+</ul>
+</section>
+<section id="properties-2" class="level3">
+<h3 class="anchored" data-anchor-id="properties-2">Properties</h3>
+<div id="thm-ch5-13" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.13</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{Y_n\}\)</span> be a sequence of random variables bounded in probability.</p></li>
+<li><p>Suppose <span class="math inline">\(X_n = o_p(Y_n)\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(X_n \stackrel{P}{\rightarrow} 0\)</span>, as <span class="math inline">\(n\rightarrow \infty\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="delta-method" class="level3">
+<h3 class="anchored" data-anchor-id="delta-method"><span class="math inline">\(\Delta\)</span> method</h3>
+<div id="thm-ch5-14" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.14</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{X_n\}\)</span> be a sequence of random variables such that <span class="math display">\[\sqrt{n}(X_n - \theta) \stackrel{D}{\rightarrow} N(0, \sigma^2)\]</span></p></li>
+<li><p>Suppose <span class="math inline">\(g(x)\)</span> is differentiable at <span class="math inline">\(\theta\)</span> and <span class="math inline">\(g^{'}(\theta) \ne 0\)</span>.</p></li>
+<li><p>Then <span class="math display">\[\sqrt{n} (g(X_n) - g(\theta)) \stackrel{D}{\rightarrow} N(0, \sigma^2 (g^{'}(\theta))^2).\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="convergence-in-distribution-2" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-in-distribution-2">Convergence in distribution</h3>
+<div id="thm-ch5-15" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.15</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{X_n\}\)</span> be a sequence of random variables with mgf <span class="math inline">\(M_{X_n}(t)\)</span> that exists for <span class="math inline">\(-h &lt; t &lt; h\)</span> for all <span class="math inline">\(n\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(X\)</span> be a random variable with mgf <span class="math inline">\(M(t)\)</span>, which exists for <span class="math inline">\(|t| ≤ h_1 ≤ h\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\lim_{n\rightarrow\infty} M_{X_n}(t) = M(t)\)</span> for <span class="math inline">\(|t|\le h_1\)</span>, then <span class="math inline">\(X_n \stackrel{D}{\rightarrow} X\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="example-10" class="level3">
+<h3 class="anchored" data-anchor-id="example-10">Example 10</h3>
+<ul>
+<li><p>Let <span class="math inline">\(Y_n\)</span> have a distribution that is <span class="math inline">\(b(n, p)\)</span>.</p></li>
+<li><p>Suppose <span class="math inline">\(\mu = np\)</span>, <span class="math inline">\(\forall n\)</span>.</p></li>
+<li><p>Show <span class="math inline">\(Y_n \stackrel{D}{\rightarrow} Poisson (\mu)\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-11" class="level3">
+<h3 class="anchored" data-anchor-id="example-11">Example 11</h3>
+<ul>
+<li><p>Let <span class="math inline">\(Z_n \sim \chi_n^2\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(Y_n = \frac{Z_n - n}{\sqrt{2n}}\)</span>.</p></li>
+<li><p>Show that <span class="math inline">\(Y_n \stackrel{D}{\rightarrow} N(0, 1)\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-12-chi2-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-12-chi2-distribution">Example 12 — <span class="math inline">\(\chi^2\)</span> distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(Z_n\sim \chi^2(n)\)</span>.</p></li>
+<li><p>Show that <span class="math display">\[Y_n = \frac{Z_n - n}{\sqrt{2n}} \stackrel{D}{\rightarrow} N(0,1).\]</span></p></li>
+</ul>
+</section>
+<section id="histogram-plot-of-1000-generated-values" class="level3">
+<h3 class="anchored" data-anchor-id="histogram-plot-of-1000-generated-values">Histogram plot of 1000 generated values</h3>
+<p><img src="assets/graph/fig5-2-2.png" class="img-fluid"></p>
+</section>
+<section id="example-13-more-chi2-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-13-more-chi2-distribution">Example 13 — More <span class="math inline">\(\chi^2\)</span> distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(Z_n\sim \chi^2(n)\)</span>.</p></li>
+<li><p>We have <span class="math display">\[Y_n = \frac{Z_n - n}{\sqrt{2n}} \stackrel{D}{\rightarrow} N(0,1).\]</span></p></li>
+<li><p>Show that <span class="math display">\[W_n = \left(\frac{Z_n}{\sqrt{2}n}\right)^{1/2} \stackrel{D}{\rightarrow} N(0, 1).\]</span></p></li>
+</ul>
+</section>
+</section>
+<section id="stage-3-connect中央極限定理與漸近推論" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-3-connect中央極限定理與漸近推論">Stage 3 — Connect：中央極限定理與漸近推論</h2>
+</section>
+<section id="central-limit-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="central-limit-theorem">5.3 Central Limit Theorem</h2>
+<section id="central-limit-theorem-1" class="level3">
+<h3 class="anchored" data-anchor-id="central-limit-theorem-1">Central limit theorem</h3>
+<div id="thm-ch5-16" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.16</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote the observations of a random sample from a distribution that has mean <span class="math inline">\(\mu\)</span> and positive variance <span class="math inline">\(\sigma^2\)</span>.</p></li>
+<li><p>Show that <span class="math display">\[Y_n = \frac{\sum_{i=1}^n X_i - n\mu}{\sqrt{n}\sigma} = \frac{\sqrt{n}(\bar{X}_n - \mu}{\sigma} \stackrel{D}{\rightarrow} N(0,1).\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="example-14" class="level3">
+<h3 class="anchored" data-anchor-id="example-14">Example 14</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote the observations of a random sample from a distribution that has mean <span class="math inline">\(\mu\)</span> and positive variance <span class="math inline">\(\sigma^2\)</span>, where <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> are unknown.</p></li>
+<li><p>Let <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(S\)</span> denote the sample mean and sample standard deviation.</p></li>
+<li><p>Show that <span class="math display">\[\frac{\bar{X} - \mu}{S/\sqrt{n}} \stackrel{D}{\rightarrow} N(0,1).\]</span></p></li>
+</ul>
+</section>
+<section id="example-15-binomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-15-binomial-distribution">Example 15 — Binomial distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote the observations of a random sample from a Bernoulli distribution <span class="math inline">\(b(1,p)\)</span>.</p></li>
+<li><p>Show that <span class="math display">\[\frac{\sum_{i=1}^n X_i - np}{\sqrt{np(1-p)}} \stackrel{D}{\rightarrow} N(0,1).\]</span></p></li>
+</ul>
+</section>
+<section id="example-16-proportion" class="level3">
+<h3 class="anchored" data-anchor-id="example-16-proportion">Example 16 — Proportion</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> denote the observations of a random sample from a Bernoulli distribution <span class="math inline">\(b(1,p)\)</span>.</p></li>
+<li><p>Show that <span class="math display">\[\frac{\hat{p} - p}{\sqrt{\hat{p}(1-\hat{p})/n}} \stackrel{D}{\rightarrow} N(0,1).\]</span></p></li>
+</ul>
+</section>
+</section>
+<section id="extensions-to-multivariate-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="extensions-to-multivariate-distributions">5.4 Extensions to Multivariate Distributions</h2>
+<section id="recall-1" class="level3">
+<h3 class="anchored" data-anchor-id="recall-1">Recall</h3>
+<ul>
+<li><p>For a vector <span class="math inline">\(\boldsymbol{v} \in R^p\)</span>, recall the Euclidean norm of <span class="math inline">\(\boldsymbol{v}\)</span> is defined to be <span class="math display">\[\parallel \boldsymbol{v} \parallel = \sqrt{\sum_{i=1}^p v_i^2}\]</span></p></li>
+<li><p>Properties - <span class="math inline">\(\forall \boldsymbol{v}, \boldsymbol{u} \in R^p\)</span></p>
+<ul>
+<li><p><span class="math inline">\(\parallel \boldsymbol{v} \parallel \ge 0\)</span></p></li>
+<li><p><span class="math inline">\(\parallel \boldsymbol{v} \parallel = 0\)</span> <span class="math inline">\(\Longleftrightarrow\)</span> <span class="math inline">\(\boldsymbol{v} = \boldsymbol{0}\)</span></p></li>
+<li><p><span class="math inline">\(a \in R\)</span>, <span class="math inline">\(\parallel a\boldsymbol{v} \parallel = |a|\parallel \boldsymbol{v} \parallel\)</span></p></li>
+<li><p><span class="math inline">\(\parallel \boldsymbol{v} + \boldsymbol{u} \parallel \le \parallel \boldsymbol{v} \parallel +
+\parallel \boldsymbol{u} \parallel\)</span></p></li>
+</ul></li>
+</ul>
+</section>
+<section id="recall-2" class="level3">
+<h3 class="anchored" data-anchor-id="recall-2">Recall</h3>
+<ul>
+<li><p>Consider a standard basis of <span class="math inline">\(R^P\)</span> and denote as <span class="math inline">\(\boldsymbol{e}_1, \ldots, \boldsymbol{e}_p\)</span>, where all the components of <span class="math inline">\(\boldsymbol{e}_i\)</span> are 0 except for the ith component, which is 1.</p></li>
+<li><p>Write any vector <span class="math inline">\(\boldsymbol{v}^{'} = (v_1, \ldots, v_p)\)</span> as <span class="math display">\[\boldsymbol{v} = \sum_{i=1}^p v_i \boldsymbol{e}_i\]</span></p></li>
+</ul>
+</section>
+<section id="properties-of-vector" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-vector">Properties of vector</h3>
+<div class="lemma">
+<ul>
+<li><p>Let <span class="math inline">\(\boldsymbol{v}^{'} = (v_1, \ldots, v_p) \in R^p\)</span>.</p></li>
+<li><p>Then <span class="math display">\[|v_j| \le \parallel \boldsymbol{v} \parallel \le \sum_{i=1}^n |v_i|, \forall j = 1,\ldots,p.\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="convergence-in-probability-2" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-in-probability-2">Convergence in probability</h3>
+<div id="def-ch5-6" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 5.6</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> be a sequence of <span class="math inline">\(p\)</span>-dimensional vectors.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}\)</span> be a <span class="math inline">\(p\)</span>-dimensional vectors.</p></li>
+<li><p><span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span> are defined on the same sample space.</p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{X}_n \stackrel{P}{\rightarrow} \boldsymbol{X}\)</span> if <span class="math display">\[\lim_{n\rightarrow\infty} P[\parallel \boldsymbol{X}_n - \boldsymbol{X} \parallel \ge \epsilon] = 0, \forall \epsilon &gt; 0.\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="convergence-in-probability-3" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-in-probability-3">Convergence in probability</h3>
+<div id="thm-ch5-17" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.17</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> be a sequence of <span class="math inline">\(p\)</span>-dimensional vectors.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}\)</span> be a random vector, all defined on the same sample space.</p></li>
+<li><p>Then <span class="math display">\[\boldsymbol{X}_n \stackrel{P}{\rightarrow} \boldsymbol{X}
+\Longleftrightarrow X_{nj} \stackrel{P}{\rightarrow} X_j \forall j=1,...,p.\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="example-17" class="level3">
+<h3 class="anchored" data-anchor-id="example-17">Example 17</h3>
+<ul>
+<li><p>Let <span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> be a sequence of iid random vectors with common mean vector <span class="math inline">\(\boldsymbol{\mu}\)</span> and variance-covariance matrix <span class="math inline">\(\boldsymbol{\Sigma}\)</span>.</p></li>
+<li><p>Denote the vector of means by <span class="math display">\[\bar{\boldsymbol{X}}_n = \frac{1}{n} \sum_{i=1}^n \boldsymbol{X}_i\]</span></p></li>
+<li><p>Show <span class="math inline">\(\bar{\boldsymbol{X}}_n \stackrel{P}{\rightarrow} \boldsymbol{\mu}\)</span></p></li>
+</ul>
+</section>
+<section id="example-18" class="level3">
+<h3 class="anchored" data-anchor-id="example-18">Example 18</h3>
+<ul>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}_i = (X_{i1}, \ldots, X_{ip})^{'}\)</span>.</p></li>
+<li><p>Define the sample variance-covariance matrix by <span class="math display">\[\begin{aligned}
+S_{n, j}^2 = \frac{1}{n-1} \sum_{i=1}^n (X_{ij} - \bar{X}_j)^2, j = 1, 2, \ldots, p,\\
+S_{n, jk} = \frac{1}{n-1} \sum_{i=1}^n (X_{ij} - \bar{X}_j)(X_{ik} - \bar{X}_k), j \ne k = 1, 2, \ldots, p,\\
+\end{aligned}\]</span></p></li>
+<li><p>Assume finite fourth moments.</p></li>
+<li><p>Show <span class="math inline">\(\boldsymbol{S} \stackrel{P}{\rightarrow} \boldsymbol{\Sigma}\)</span>, where the p × p matrix <span class="math inline">\({\boldsymbol S}\)</span> is the matrix with the jth diagonal entry <span class="math inline">\(S_{n, j}^2\)</span> and <span class="math inline">\((j,k)\)</span>th entry <span class="math inline">\(S_{n,jk}\)</span>.</p></li>
+</ul>
+</section>
+<section id="convergence-in-probability-4" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-in-probability-4">Convergence in probability</h3>
+<div id="def-ch5-7" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 5.7</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> be a sequence of <span class="math inline">\(p\)</span>-dimensional vectors.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}\)</span> be a <span class="math inline">\(p\)</span>-dimensional vectors.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}_n\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span> have distribution functions <span class="math inline">\(F_n(\boldsymbol{x})\)</span> and <span class="math inline">\(F(\boldsymbol{x})\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{X}_n \stackrel{D}{\rightarrow} \boldsymbol{X}\)</span> if <span class="math display">\[\lim_{n\rightarrow\infty} F_n(\boldsymbol{x}) =  F(\boldsymbol{x}),\]</span> for all points <span class="math inline">\({\boldsymbol x}\)</span> at which <span class="math inline">\(F(\boldsymbol{x})\)</span> is continuous.</p></li>
+</ul>
+</div>
+</section>
+<section id="convergence-in-distribution-3" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-in-distribution-3">Convergence in distribution</h3>
+<div id="thm-ch5-18" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.18</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}_n \stackrel{P}{\rightarrow} \boldsymbol{X}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(g(\boldsymbol{x})\)</span> be a function that is continuous on the support of <span class="math inline">\(\boldsymbol{X}\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(g(\boldsymbol{X}_n)\)</span> converges in distribution to <span class="math inline">\(g(X)\)</span>.</p></li>
+<li><p>Then <span class="math display">\[g(\boldsymbol{X}_n) \stackrel{D}{\rightarrow} g(\boldsymbol{X}).\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="convergence-in-distribution-4" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-in-distribution-4">Convergence in distribution</h3>
+<div id="thm-ch5-19" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.19</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> be a sequence of <span class="math inline">\(p\)</span>-dimensional vectors.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}\)</span> be a <span class="math inline">\(p\)</span>-dimensional vectors.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}_n\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span> have distribution functions <span class="math inline">\(F_n(\boldsymbol{x})\)</span> and <span class="math inline">\(F(\boldsymbol{x})\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{X}_n\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span> have moment generating functions <span class="math inline">\(M_n(\boldsymbol{t})\)</span> and <span class="math inline">\(M(\boldsymbol{t})\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{X}_n \stackrel{D}{\rightarrow} \boldsymbol{X}\)</span> if for some <span class="math inline">\(h&gt;0\)</span>, <span class="math display">\[\lim_{n\rightarrow\infty} M_n(\boldsymbol{t}) =  M(\boldsymbol{t}),\]</span> for all <span class="math inline">\(\boldsymbol{t}\)</span> such that <span class="math inline">\(\parallel t\parallel &lt; h\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="central-limit-theorem-2" class="level3">
+<h3 class="anchored" data-anchor-id="central-limit-theorem-2">Central Limit Theorem</h3>
+<div id="thm-ch5-20" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.20</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> be a sequence of iid random vectors with common mean vector <span class="math inline">\(\boldsymbol{\mu}\)</span> and variance-covariance matrix <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, which is positive definite.</p></li>
+<li><p>Assume that the common moment generating function <span class="math inline">\(M(\boldsymbol{t})\)</span> exists in an open neighborhood of <span class="math inline">\(\boldsymbol{0}\)</span>.</p></li>
+<li><p>Let <span class="math display">\[\boldsymbol{Y}_n = \frac{1}{\sqrt{n}} \sum_{i=1}^n (\boldsymbol{X}_i - \boldsymbol{\mu}) = \sqrt{n}(\bar{\boldsymbol{X}}- \boldsymbol{\mu}).\]</span></p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{X}_n \stackrel{D}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{\Sigma})\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="properties-3" class="level3">
+<h3 class="anchored" data-anchor-id="properties-3">Properties</h3>
+<div id="thm-ch5-21" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.21</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> be a sequence of <span class="math inline">\(p\)</span>-dimensional random vectors.</p></li>
+<li><p>Suppose <span class="math inline">\(\boldsymbol{X}_n \stackrel{D}{\rightarrow} N_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{A}\)</span> be an <span class="math inline">\(m\times p\)</span> matrix of constants and <span class="math inline">\(\boldsymbol{b}\)</span> be an <span class="math inline">\(m\)</span>-dimensional vector of constants.</p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{A}\boldsymbol{X}_n + \boldsymbol{b} \stackrel{D}{\rightarrow} N_p(\boldsymbol{A}\boldsymbol{\mu} + \boldsymbol{b}, \boldsymbol{A}\boldsymbol{\Sigma}\boldsymbol{A}^{'})\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="delta-method-1" class="level3">
+<h3 class="anchored" data-anchor-id="delta-method-1"><span class="math inline">\(\Delta\)</span> method</h3>
+<div id="thm-ch5-22" class="theorem">
+<p><span class="theorem-title"><strong>定理 5.22</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(\{\boldsymbol{X}_n\}\)</span> be a sequence of <span class="math inline">\(p\)</span>-dimensional random vectors.</p></li>
+<li><p>Suppose <span class="math inline">\(\sqrt{n}(\boldsymbol{X}_n - \boldsymbol{\mu}_0) \stackrel{D}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{\Sigma})\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{g}\)</span> be a transformation <span class="math inline">\(\boldsymbol{g}(\boldsymbol{x}) = (g_1(\boldsymbol{x}), \ldots, g_1(\boldsymbol{x}))^{'}\)</span> such that <span class="math inline">\(1\le k\le p\)</span>.</p></li>
+<li><p>Assume the <span class="math inline">\(k\times p\)</span> matrix of partial derivatives <span class="math display">\[\boldsymbol{B} = \left[\frac{\partial g_i}{\partial \mu_j}\right], i = 1, 2, \ldots, k; j = 1, 2, \ldots, p,\]</span> are continuous and do not vanish in a neighborhood of <span class="math inline">\(\boldsymbol{\mu}_0\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{B}_0 = \boldsymbol{B}\)</span> at <span class="math inline">\(\boldsymbol{\mu}_0\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\sqrt{n} (\boldsymbol{g}(\boldsymbol{X}_n) - \boldsymbol{g}(\boldsymbol{\mu}_0)
+\stackrel{D}{\rightarrow} N_k(\boldsymbol{0}, \boldsymbol{B}_0\boldsymbol{\Sigma}\boldsymbol{B}_0^{'})\)</span>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="本章摘要" class="level2">
+<h2 class="anchored" data-anchor-id="本章摘要">本章摘要</h2>
+<p>本章說明統計程序在樣本量增加時的行為，並以收斂定理、CLT 與 Delta method 建立漸近近似。</p>
+</section>
+<section id="常見錯誤" class="level2">
+<h2 class="anchored" data-anchor-id="常見錯誤">常見錯誤</h2>
+<ul>
+<li>混淆不同收斂概念的方向與強弱</li>
+<li>未檢查 Delta method 的可微條件</li>
+<li>中央極限定理標準化錯誤</li>
+<li>把大樣本近似當成有限樣本精確結果</li>
+</ul>
+</section>
+<section id="章末練習" class="level2">
+<h2 class="anchored" data-anchor-id="章末練習">章末練習</h2>
+<ol type="1">
+<li>從本章選出三個關鍵定義，分別寫出數學形式、成立條件及一個例子。</li>
+<li>選擇一個主要定理或方法，重做推導並標記每一步使用的假設。</li>
+<li>從原講義例題挑選一題，完整寫出解題目標、方法選擇、計算與結果解釋。</li>
+<li>設計一個會違反本章方法條件的反例，說明錯誤會出現在哪一步。</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="待逐章補強">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">註釋</span>待逐章補強
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>建議後續為本章補入：中文概念導讀、完整解答、課堂練習難度標記，以及與下一章的銜接說明。</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已複製");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已複製");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04-sampling-inference.html" class="pagination-link" aria-label="抽樣、統計量與信賴區間">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">抽樣、統計量與信賴區間</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./06-likelihood.html" class="pagination-link" aria-label="最大概似方法">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">最大概似方法</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

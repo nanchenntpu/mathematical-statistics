@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; 常用機率分配 – 數理統計</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04-sampling-inference.html" rel="next">
+<link href="./02-multivariate.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-631496449bf32ff9b0bb69a6bfd9195d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "沒有結果",
+    "search-matching-documents-text": "符合的文件",
+    "search-copy-link-title": "複製搜尋連結",
+    "search-hide-matches-text": "隱藏其他符合的結果",
+    "search-more-match-text": "更多符合結果",
+    "search-more-matches-text": "更多符合結果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "送出",
+    "search-label": "搜尋"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-special-distributions.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">常用機率分配</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜尋" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">數理統計</a> 
+        <div class="sidebar-tools-main">
+    <a href="./數理統計.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜尋"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">數理統計講義</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">機率與單變量分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-multivariate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-special-distributions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">常用機率分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-sampling-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">抽樣、統計量與信賴區間</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-asymptotics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">一致性與極限分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-likelihood.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">最大概似方法</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sufficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">充分性、完備性與估計量品質</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目錄</h2>
+   
+  <ul class="collapse">
+  <li><a href="#學習目標" id="toc-學習目標" class="nav-link active" data-scroll-target="#學習目標">學習目標</a></li>
+  <li><a href="#必備的先備知識" id="toc-必備的先備知識" class="nav-link" data-scroll-target="#必備的先備知識">必備的先備知識</a></li>
+  <li><a href="#stage-1-recall常用離散分配快速複習" id="toc-stage-1-recall常用離散分配快速複習" class="nav-link" data-scroll-target="#stage-1-recall常用離散分配快速複習">Stage 1 — Recall：常用離散分配快速複習</a></li>
+  <li><a href="#the-binomial-and-related-distributions" id="toc-the-binomial-and-related-distributions" class="nav-link" data-scroll-target="#the-binomial-and-related-distributions">3.1 The Binomial and Related Distributions</a></li>
+  <li><a href="#the-poisson-distribution" id="toc-the-poisson-distribution" class="nav-link" data-scroll-target="#the-poisson-distribution">3.2 The Poisson Distribution</a></li>
+  <li><a href="#stage-2-deepen連續分配的結構與推導" id="toc-stage-2-deepen連續分配的結構與推導" class="nav-link" data-scroll-target="#stage-2-deepen連續分配的結構與推導">Stage 2 — Deepen：連續分配的結構與推導</a></li>
+  <li><a href="#the-gamma-chi2-and-beta-distributions" id="toc-the-gamma-chi2-and-beta-distributions" class="nav-link" data-scroll-target="#the-gamma-chi2-and-beta-distributions">3.3 The <span class="math inline">\(\Gamma\)</span>, <span class="math inline">\(\chi^2\)</span>, and <span class="math inline">\(\beta\)</span> Distributions</a></li>
+  <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution">3.4 The Normal Distribution</a></li>
+  <li><a href="#the-multivariate-normal-distribution" id="toc-the-multivariate-normal-distribution" class="nav-link" data-scroll-target="#the-multivariate-normal-distribution">3.5 The Multivariate Normal Distribution</a></li>
+  <li><a href="#stage-3-connect抽樣分配與後續推論" id="toc-stage-3-connect抽樣分配與後續推論" class="nav-link" data-scroll-target="#stage-3-connect抽樣分配與後續推論">Stage 3 — Connect：抽樣分配與後續推論</a></li>
+  <li><a href="#t--and-f-distributions" id="toc-t--and-f-distributions" class="nav-link" data-scroll-target="#t--and-f-distributions">3.6 <span class="math inline">\(t\)</span>- and <span class="math inline">\(F\)</span>-Distributions</a></li>
+  <li><a href="#本章摘要" id="toc-本章摘要" class="nav-link" data-scroll-target="#本章摘要">本章摘要</a></li>
+  <li><a href="#常見錯誤" id="toc-常見錯誤" class="nav-link" data-scroll-target="#常見錯誤">常見錯誤</a></li>
+  <li><a href="#章末練習" id="toc-章末練習" class="nav-link" data-scroll-target="#章末練習">章末練習</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">常用機率分配</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-important callout-titled" title="第 8 版對照與教學安排">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">重要</span>第 8 版對照與教學安排
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>本章以 Hogg, McKean &amp; Craig, <em>Introduction to Mathematical Statistics</em>, 8th Global Edition（以下簡稱 HMC8）Chapter 3 為編號依據。保留原講義的公式與例題，但不按篇幅平均講授：先喚醒大二已學過的常用分配，再深化分配之間的結構與推導，最後銜接後續抽樣分配與統計推論。</p>
+<p><span class="math display">\[
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="本章定位">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>本章定位
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。</p>
+</div>
+</div>
+<section id="學習目標" class="level2">
+<h2 class="anchored" data-anchor-id="學習目標">學習目標</h2>
+<p>完成本章後，學生應能：</p>
+<ul>
+<li>辨認二項、Poisson 與相關離散分配</li>
+<li>掌握 Gamma、卡方與 Beta 分配</li>
+<li>運用常態與多變量常態分配</li>
+<li>說明 t 與 F 分配的生成方式</li>
+<li>比較各分配的參數、支持集、期望與變異數</li>
+</ul>
+</section>
+<section id="必備的先備知識" class="level2">
+<h2 class="anchored" data-anchor-id="必備的先備知識">必備的先備知識</h2>
+<p>第 1 至 2 章的機率質量函數、密度函數與變數轉換。</p>
+<p>以下依原講義順序整理核心定義、定理、公式與例題。</p>
+</section>
+<section id="stage-1-recall常用離散分配快速複習" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-1-recall常用離散分配快速複習">Stage 1 — Recall：常用離散分配快速複習</h2>
+<p>本階段以例題帶回 Bernoulli、binomial、negative binomial、geometric、multinomial、hypergeometric 與 Poisson 分配；定義與基本動差不重新等比例講解。</p>
+</section>
+<section id="the-binomial-and-related-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="the-binomial-and-related-distributions">3.1 The Binomial and Related Distributions</h2>
+<section id="bernoulli-experiment-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="bernoulli-experiment-distribution">Bernoulli experiment distribution</h3>
+<ul>
+<li><p>A Bernoulli experiment is a random experiment.</p></li>
+<li><p>The outcome only has two mutually exclusive and exhaustive ways, say, success and failure.</p></li>
+</ul>
+</section>
+<section id="bernoulli-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="bernoulli-distribution">Bernoulli distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> denote a random variable associated with a Bernoulli experiment.</p></li>
+<li><p>Define <span class="math display">\[\begin{array}{ccc}
+X(\text{success})=1 &amp; \text{and} &amp; X(\text{failure})=0
+\end{array}\]</span></p></li>
+<li><p>The pmf of <span class="math inline">\(X\)</span> is <span class="math display">\[f(x)=p^x(1-p)^{1-x},~x=0, 1.\]</span></p></li>
+</ul>
+</section>
+<section id="moment-of-bernoulli-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="moment-of-bernoulli-distribution">Moment of Bernoulli distribution</h3>
+<ul>
+<li><p>The expected value of <span class="math inline">\(X\)</span> is <span class="math display">\[\mu=p.\]</span></p></li>
+<li><p>The variance of <span class="math inline">\(X\)</span> is <span class="math display">\[\sigma^2 = pq.\]</span></p></li>
+</ul>
+</section>
+<section id="binomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-distribution">Binomial distribution</h3>
+<ul>
+<li><p>A sequence of <span class="math inline">\(n\)</span> Bernoulli trials occurs.</p>
+<ul>
+<li><p>A Bernoulli experiment is performed several independent times.</p></li>
+<li><p>The probability of success remains the same from trial to trial.</p></li>
+</ul></li>
+<li><p>Let <span class="math inline">\(X\)</span> denote the number of successes in <span class="math inline">\(n\)</span> Bernoulli trials.</p></li>
+<li><p>The pmf of <span class="math inline">\(X\)</span> is <span class="math display">\[f(x) = {n\choose x} p^x (1-p)^{n-x},~x= 0, 1, 2, \cdots, n.\]</span></p></li>
+</ul>
+</section>
+<section id="moment-generating-function" class="level3">
+<h3 class="anchored" data-anchor-id="moment-generating-function">Moment generating function</h3>
+<ul>
+<li>Show that the mgf of a binomial distribution is <span class="math display">\[M(t) = [(1-p) + pe^t]^n.\]</span></li>
+</ul>
+</section>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<ul>
+<li><p>Let <span class="math inline">\(Y\)</span> be equal to the number of successes throughout <span class="math inline">\(n\)</span> independent repetitions of a random experiment with probability <span class="math inline">\(p\)</span> of success.</p></li>
+<li><p>Find the upper bound of <span class="math inline">\(P[|\frac{Y}{n}-p|\ge \epsilon]\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<ul>
+<li><p>Let the independent random variables <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span> and <span class="math inline">\(X_3\)</span> have the same cdf <span class="math inline">\(F(x)\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(Y\)</span> be the middle value of <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span> and <span class="math inline">\(X_3\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(F_Y(y)\)</span>.</p></li>
+</ul>
+</section>
+<section id="negative-binomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="negative-binomial-distribution">Negative binomial distribution</h3>
+<ul>
+<li><p>A sequence of Bernoulli trials occurs</p>
+<ul>
+<li><p>A Bernoulli experiment is performed several independent times.</p></li>
+<li><p>The probability of success remains the same from trial to trial.</p></li>
+</ul></li>
+<li><p>Let <span class="math inline">\(X\)</span> denote the number of trials where the <span class="math inline">\(r\)</span>th success is observed.</p></li>
+<li><p>The pmf of <span class="math inline">\(X\)</span> is <span class="math display">\[f(x) = {x-1\choose r-1} p^r (1-p)^{x-r},~x= r, r+1, r+2, \cdots.\]</span></p></li>
+</ul>
+</section>
+<section id="recall" class="level3">
+<h3 class="anchored" data-anchor-id="recall">Recall</h3>
+<ul>
+<li><p>Let <span class="math inline">\(h(x)=(1-x)^{-r}\)</span>.</p></li>
+<li><p>Based on Maclaurin’s series expansion, we have <span class="math display">\[(1-x)^{-r} = \sum_{k=0}^{\infty}\frac{h^{(k)}(0)}{x!}x^{k}= \sum_{k=0}^{\infty}{r+k-1\choose r-1}
+x^{k},~-1&lt;x&lt;1.\]</span></p></li>
+</ul>
+</section>
+<section id="probability-of-mass-function" class="level3">
+<h3 class="anchored" data-anchor-id="probability-of-mass-function">Probability of mass function</h3>
+<ul>
+<li>Show that <span class="math display">\[\sum_{x=r}^{\infty}{x-1\choose r-1} p^r (1-p)^{x-r}=1\]</span></li>
+</ul>
+</section>
+<section id="moment-generating-function-1" class="level3">
+<h3 class="anchored" data-anchor-id="moment-generating-function-1">Moment generating function</h3>
+<ul>
+<li>Show that <span class="math display">\[M(t) = E[e^{tX}] = \frac{(pe^{t})^r}{[1-(1-p)e^t]^r},~(1-p)e^t&lt;1.\]</span></li>
+</ul>
+</section>
+<section id="moment-of-negative-binomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="moment-of-negative-binomial-distribution">Moment of Negative binomial distribution</h3>
+<ul>
+<li><p>The expected value of <span class="math inline">\(X\)</span> is <span class="math display">\[\mu=\frac{r}{p}.\]</span></p></li>
+<li><p>The variance of <span class="math inline">\(X\)</span> is <span class="math display">\[\sigma^2 = \frac{rq}{p}.\]</span></p></li>
+</ul>
+</section>
+<section id="geometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="geometric-distribution">Geometric distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> denote the number of trials where the <span class="math inline">\(r=1\)</span>th success is observed.</p></li>
+<li><p>The pmf of <span class="math inline">\(X\)</span> is <span class="math display">\[f(x) = p (1-p)^{x-1},~x= 1, 2, 3, \cdots.\]</span></p></li>
+</ul>
+</section>
+<section id="recall-1" class="level3">
+<h3 class="anchored" data-anchor-id="recall-1">Recall</h3>
+<ul>
+<li>For a geometric series, the sum equals <span class="math display">\[\sum_{k=0}^{\infty}ax^{k}= \sum_{k=1}^{\infty}ax^{k-1}
+=\frac{a}{1-x},~-1&lt;x&lt;1.\]</span></li>
+</ul>
+</section>
+<section id="probability-of-mass-function-of-a-geometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="probability-of-mass-function-of-a-geometric-distribution">Probability of mass function of a geometric distribution</h3>
+<ul>
+<li>Show that <span class="math display">\[\sum_{x=1}^{\infty}p (1-p)^{x-1}=1\]</span></li>
+</ul>
+</section>
+<section id="distribution-function-of-a-geometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-function-of-a-geometric-distribution">Distribution function of a geometric distribution</h3>
+<ul>
+<li>Find<span class="math inline">\(P[X&gt;k]\)</span> and <span class="math inline">\(P[X\le k]\)</span>.</li>
+</ul>
+</section>
+<section id="additive-properties" class="level3">
+<h3 class="anchored" data-anchor-id="additive-properties">Additive properties</h3>
+<div id="thm-ch3-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.1</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_m\)</span> be independent random variables such that <span class="math inline">\(X_i\sim Bin(n_i, p)\)</span>, for <span class="math inline">\(i=1, 2, \ldots, m\)</span>.</p></li>
+<li><p>The distribution of <span class="math inline">\(Y=\sum_{i=1}^m X_i\)</span> is a <span class="math inline">\(Bin(\sum_{i=1}^m n_i, p)\)</span> distribution.</p></li>
+</ul>
+</div>
+</section>
+<section id="settings-for-multinomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="settings-for-multinomial-distribution">Settings for multinomial distribution</h3>
+<ul>
+<li><p>Let a random experiment be repeated <span class="math inline">\(n\)</span> independent times.</p></li>
+<li><p>On each repetition, there is one and only one outcome from one of <span class="math inline">\(k\)</span> categories.</p></li>
+<li><p>Call the categories <span class="math inline">\(C_1, C_2, \ldots , C_k\)</span>.</p></li>
+<li><p>For <span class="math inline">\(i=1,\ldots, k\)</span>, let <span class="math inline">\(p_i\)</span> be the probability that the outcome is an element of <span class="math inline">\(C_i\)</span>.</p></li>
+<li><p>Assume that <span class="math inline">\(p_i\)</span> remains constant throughout the <span class="math inline">\(n\)</span> independent repetitions.</p></li>
+</ul>
+</section>
+<section id="pmf-of-multinomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="pmf-of-multinomial-distribution">PMF of multinomial distribution</h3>
+<ul>
+<li><p>Define the random variable <span class="math inline">\(X_i\)</span> to be equal to the number of outcomes that are elements of <span class="math inline">\(C_i\)</span>, <span class="math inline">\(i = 1, 2,\ldots, k\)</span>, where <span class="math inline">\(X_k = n -\sum_{i=1}^{k-1} X_i\)</span>.</p></li>
+<li><p>The joint pmf of <span class="math inline">\((X_1, \ldots, X_{k-1})\)</span> is <span class="math display">\[P[X_1=x_1, X_2=x_2, \ldots, X_{k-1}=x_{k-1}] = \frac{n!}{x_1!\cdots x_{k-1}!x_k!}p_1^{x_1}\cdots p_k^{x_k},\]</span> for <span class="math inline">\(0\le x_i\le n\)</span>, <span class="math inline">\(i=1, \ldots, k\)</span>, <span class="math inline">\(\sum_{i=1}^k x_i=n\)</span> and <span class="math inline">\(\sum_{i=1}^k p_i=1\)</span>.</p></li>
+</ul>
+</section>
+<section id="moment-generating-function-2" class="level3">
+<h3 class="anchored" data-anchor-id="moment-generating-function-2">Moment generating function</h3>
+<ul>
+<li>Show that <span class="math display">\[M(t_1,\ldots, t_{k-1}) = E[e^{\boldsymbol{t}^{'}\boldsymbol{X}}] = \left(\sum_{i=1}^{k-1}p_ie^{t_i}+p_k\right)^n.\]</span></li>
+</ul>
+</section>
+<section id="example-3" class="level3">
+<h3 class="anchored" data-anchor-id="example-3">Example 3</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\((X_1, X_2, X_3)\)</span> has a multinomial distribution <span class="math inline">\((n, p_1, p_2, p_3)\)</span>.</p></li>
+<li><p>Find the marginal pmf of <span class="math inline">\(X_i\)</span>.</p></li>
+<li><p>Find the conditional pmf of <span class="math inline">\(X_1\)</span> given <span class="math inline">\(X_2\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-4" class="level3">
+<h3 class="anchored" data-anchor-id="example-4">Example 4</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\((X_1, X_2, X_3)\)</span> has a multinomial distribution <span class="math inline">\((n, p_1, p_2, p_3)\)</span>.</p></li>
+<li><p>Find the correlation coefficient of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-5-binomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-5-binomial-distribution">Example 5 — Binomial distribution</h3>
+<ul>
+<li><p>Suppose we have a lot of <span class="math inline">\(N\)</span> items of which <span class="math inline">\(D\)</span> are defective.</p></li>
+<li><p>Let <span class="math inline">\(X\)</span> denote the number of defective items in a sample of size <span class="math inline">\(n\)</span>.</p></li>
+<li><p>If the sampling is done with replacement and the items are chosen at random, then <span class="math inline">\(X\)</span> has a binomial distribution with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(D/N\)</span>.</p>
+<ul>
+<li><p>Mean <span class="math inline">\(E[X] = n(D/N)\)</span></p></li>
+<li><p>Variance <span class="math inline">\(\operatorname{Var}(X) = n(D/N)[(N - D)/N]\)</span></p></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-6-hypergeometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-6-hypergeometric-distribution">Example 6 — Hypergeometric distribution</h3>
+<ul>
+<li><p>Suppose we have <span class="math inline">\(N\)</span> items of which <span class="math inline">\(D\)</span> are defective.</p></li>
+<li><p>Let <span class="math inline">\(X\)</span> denote the number of defective items in a sample of size <span class="math inline">\(n\)</span>.</p></li>
+<li><p>If the sampling is done without replacement and the items are chosen at random, then <span class="math inline">\(X\)</span> has a hypergeometric distribution with pmf <span class="math display">\[p(x) = \frac{{N-D \choose n-x}{D\choose x}}{{N\choose n}}, x=0, 1, \ldots, n.\]</span></p></li>
+</ul>
+</section>
+<section id="example-7-hypergeometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-7-hypergeometric-distribution">Example 7 — Hypergeometric distribution</h3>
+<ul>
+<li>Show that <span class="math display">\[E[X] = n\frac{D}{N}\]</span></li>
+</ul>
+</section>
+<section id="example-8-hypergeometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-8-hypergeometric-distribution">Example 8 — Hypergeometric distribution</h3>
+<ul>
+<li>Show that <span class="math display">\[\operatorname{Var}(X) = n\frac{D}{N}\frac{N-D}{N}\frac{N-n}{N-1}\]</span></li>
+</ul>
+</section>
+</section>
+<section id="the-poisson-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="the-poisson-distribution">3.2 The Poisson Distribution</h2>
+<section id="motivation" class="level3">
+<h3 class="anchored" data-anchor-id="motivation">Motivation</h3>
+<ul>
+<li><p>Suppose the number of cell phone calls passing through a relay tower between 9 and 10 A.M is counted.</p></li>
+<li><p>Suppose the number of flaws in 100 feet of wire is counted.</p></li>
+<li><p>Suppose the number of customers that arrive at a ticket window between 12 noon and 2 P.M is counted.</p></li>
+</ul>
+</section>
+<section id="definition" class="level3">
+<h3 class="anchored" data-anchor-id="definition">Definition</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_t\)</span> denote the number of occurrences of such a process over the interval <span class="math inline">\((0, t]\)</span>.</p></li>
+<li><p>The range of <span class="math inline">\(X_t\)</span> is the set of nonnegative integers {0, 1, 2, <span class="math inline">\(\ldots\)</span>}.</p></li>
+<li><p>Let <span class="math inline">\(g(x, t)\)</span> denote the probability of <span class="math inline">\(x\)</span> changes in each interval of length <span class="math inline">\(t\)</span>, i.e.&nbsp;<span class="math display">\[g(x,t) = P[X_t = x]\]</span></p></li>
+</ul>
+</section>
+<section id="definition-1" class="level3">
+<h3 class="anchored" data-anchor-id="definition-1">Definition</h3>
+<ul>
+<li><p>An approximate Poisson process with parameter <span class="math inline">\(\lambda&gt;0\)</span> if the following conditions are satisfied:</p>
+<ol type="1">
+<li><p>The number of occurrences in nonoverlapping subintervals are independent.</p></li>
+<li><p>The probability of exactly one occurrence in a sufficiently short subinterval of length <span class="math inline">\(h\)</span> is approximately <span class="math inline">\(\lambda h\)</span>. <span class="math display">\[g(1, h) = \lambda h + o(h)\]</span></p></li>
+<li><p>The probability of two or more occurrences in a sufficiently short subinterval is essentially zero. <span class="math display">\[\sum_{t=2}^{\infty} g(t, h) = o(h).\]</span></p></li>
+</ol></li>
+</ul>
+</section>
+<section id="note" class="level3">
+<h3 class="anchored" data-anchor-id="note">Note</h3>
+<ul>
+<li><p><span class="math inline">\(o(h)\)</span> notation means that <span class="math inline">\(o(h)/h \rightarrow 0\)</span> as <span class="math inline">\(h \rightarrow 0\)</span>.</p></li>
+<li><p>For instance, <span class="math inline">\(h^2 = o(h)\)</span> and <span class="math inline">\(o(h) + o(h) = o(h)\)</span>.</p></li>
+</ul>
+</section>
+<section id="proof-i" class="level3">
+<h3 class="anchored" data-anchor-id="proof-i">Proof I</h3>
+<ul>
+<li>Show <span class="math inline">\(g(0, t) = e^{-\lambda t}\)</span>.</li>
+</ul>
+</section>
+<section id="proof-ii" class="level3">
+<h3 class="anchored" data-anchor-id="proof-ii">Proof II</h3>
+<ul>
+<li>Show <span class="math inline">\(g(x, t) = \frac{(\lambda t)^x e^{-\lambda t}}{x!}, x = 1, 2 , 3, \ldots\)</span>.</li>
+</ul>
+</section>
+<section id="recall-2" class="level3">
+<h3 class="anchored" data-anchor-id="recall-2">Recall</h3>
+<p><span class="math display">\[\small
+\begin{aligned}
+\lim_{n\rightarrow\infty} \frac{n(n-1)\cdots(n-x+1)}{n^x}&amp;=\lim_{n\rightarrow\infty}\left[(1)\left(1-\frac{1}{n}\right)\cdots\left(1-\frac{x-1}{n}\right)\right]=1\\
+\lim_{n\rightarrow\infty}\left(1-\frac{\lambda}{n}\right)^n&amp;=e^{-\lambda}\\
+\lim_{n\rightarrow\infty}\left(1-\frac{\lambda}{n}\right)^x&amp;=1
+\end{aligned}\]</span></p>
+</section>
+<section id="poisson-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="poisson-distribution">Poisson distribution</h3>
+<ul>
+<li><p><span class="math inline">\(X\)</span> has a Poisson distribution if its pmf is of the form <span class="math display">\[f(x) = \frac{\lambda^x e^{-\lambda}}{x!},~x=0, 1, 2, \cdots\]</span></p></li>
+<li><p>Show <span class="math inline">\(\sum_{x=0}^\infty f(x)=1\)</span>.</p></li>
+</ul>
+</section>
+<section id="moment" class="level3">
+<h3 class="anchored" data-anchor-id="moment">Moment</h3>
+<ul>
+<li>Show that <span class="math inline">\(E[X]=\lambda\)</span> and <span class="math inline">\(\operatorname{Var}(X)=\lambda\)</span>.</li>
+</ul>
+</section>
+<section id="moment-generating-function-3" class="level3">
+<h3 class="anchored" data-anchor-id="moment-generating-function-3">Moment generating function</h3>
+<ul>
+<li>Show that <span class="math display">\[M(t)=e^{\lambda(e^t-1)}, ~t\in R.\]</span></li>
+</ul>
+</section>
+<section id="additive-properties-1" class="level3">
+<h3 class="anchored" data-anchor-id="additive-properties-1">Additive properties</h3>
+<div id="thm-ch3-2" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.2</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be independent random variables such that <span class="math inline">\(X_i\sim Poisson(m_i)\)</span>, for <span class="math inline">\(i=1, 2, \ldots, n\)</span>.</p></li>
+<li><p>The distribution of <span class="math inline">\(Y=\sum_{i=1}^n X_i\)</span> is a <span class="math inline">\(Poisson(\sum_{i=1}^n m_i)\)</span> distribution.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="stage-2-deepen連續分配的結構與推導" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-2-deepen連續分配的結構與推導">Stage 2 — Deepen：連續分配的結構與推導</h2>
+<p>本階段著重由 transformation、Gamma function、MGF 與加法性質建立分配間的關係，並把單變量結果推廣到常態向量。</p>
+</section>
+<section id="the-gamma-chi2-and-beta-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="the-gamma-chi2-and-beta-distributions">3.3 The <span class="math inline">\(\Gamma\)</span>, <span class="math inline">\(\chi^2\)</span>, and <span class="math inline">\(\beta\)</span> Distributions</h2>
+<section id="recall-3" class="level3">
+<h3 class="anchored" data-anchor-id="recall-3">Recall</h3>
+<ul>
+<li><p>Poisson distribution with mean <span class="math inline">\(\lambda\)</span></p>
+<ul>
+<li>Record the number of occurrence in a given interval.</li>
+</ul></li>
+<li><p>Exponential distribution</p>
+<ul>
+<li>Denote the waiting time <span class="math inline">\(W\)</span> between the occurrences.</li>
+</ul></li>
+</ul>
+</section>
+<section id="derivation-of-the-exponential-distribution-function" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-of-the-exponential-distribution-function">Derivation of the exponential distribution function</h3>
+<ul>
+<li>The cdf of the waiting time is <span class="math display">\[\begin{aligned}
+F(w)=P[W\le w]&amp;=1-P[W&gt;w]\\&amp;=1-P[\text{no occurrence in }[0, w]] \\&amp;=1-e^{-\lambda w}
+\end{aligned}\]</span> for <span class="math inline">\(w&gt;0\)</span>.</li>
+</ul>
+</section>
+<section id="the-pdf-of-an-exponential-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="the-pdf-of-an-exponential-distribution">The pdf of an exponential distribution</h3>
+<ul>
+<li>The pdf of the waiting time is <span class="math display">\[\begin{aligned}
+f(w)=\lambda e^{-\lambda w}
+\end{aligned}\]</span> for <span class="math inline">\(w&gt;0\)</span>.</li>
+</ul>
+</section>
+<section id="an-alternative-representation-of-pdf" class="level3">
+<h3 class="anchored" data-anchor-id="an-alternative-representation-of-pdf">An alternative representation of pdf</h3>
+<ul>
+<li>The pdf of the waiting time is <span class="math display">\[\begin{aligned}
+f(w)=\frac{1}{\theta} e^{-w/\theta}
+\end{aligned}\]</span> for <span class="math inline">\(w&gt;0\)</span>.</li>
+</ul>
+</section>
+<section id="mgf-of-exponential-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="mgf-of-exponential-distribution">Mgf of exponential distribution</h3>
+<ul>
+<li>The mgf of the exponential distribution is <span class="math display">\[M(t) = \frac{1}{1-\theta t}, t&lt;\frac{1}{\theta}.\]</span></li>
+</ul>
+</section>
+<section id="special-moments-of-exponential-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="special-moments-of-exponential-distribution">Special moments of exponential distribution</h3>
+<ul>
+<li><p>The expected value is <span class="math inline">\(\mu=\theta\)</span>.</p></li>
+<li><p>The variance is <span class="math inline">\(\sigma^2=\theta^2\)</span>.</p></li>
+</ul>
+</section>
+<section id="remark" class="level3">
+<h3 class="anchored" data-anchor-id="remark">Remark</h3>
+<ul>
+<li>The exponential distribution has a forgetfulness properties, i.e., <span class="math display">\[P[X&gt;x+y|X&gt;x]=P[X&gt;y].\]</span></li>
+</ul>
+</section>
+<section id="derivation-of-the-gamma-distribution-function" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-of-the-gamma-distribution-function">Derivation of the Gamma distribution function</h3>
+<ul>
+<li><p>Let <span class="math inline">\(W\)</span> denote the waiting time till the <span class="math inline">\(\alpha\)</span>th occurrence.</p></li>
+<li><p>The cdf of <span class="math inline">\(W\)</span> is <span class="math display">\[\begin{aligned}
+F(w)=P[W\le w]&amp;=1-P[W&gt;w]\\&amp;=1-P[\text{fewer than }\alpha\text{ occurrences in }[0, w]] \\&amp;
+=1-\sum_{k=0}^{\alpha-1}\frac{(\lambda w)^ke^{-\lambda w}}{k!}
+\end{aligned}\]</span> for <span class="math inline">\(w&gt;0\)</span>.</p></li>
+</ul>
+</section>
+<section id="the-pdf-of-gamma-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="the-pdf-of-gamma-distribution">The pdf of gamma distribution</h3>
+<ul>
+<li>The pdf of <span class="math inline">\(W\)</span> is <span class="math display">\[\begin{aligned}
+f(w)=\frac{\lambda^\alpha}{(\alpha-1)!}w^{\alpha-1}e^{-\lambda w}
+\end{aligned}\]</span> for <span class="math inline">\(w&gt;0\)</span>.</li>
+</ul>
+</section>
+<section id="the-gamma-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-gamma-function">The gamma function</h3>
+<ul>
+<li><p>The gamma function is defined by <span class="math display">\[\Gamma(t)=\int_0^{\infty}y^{t-1}e^{-y}dy, t&gt;0.\]</span> for <span class="math inline">\(w&gt;0\)</span>.</p></li>
+<li><p>When <span class="math inline">\(t=n\)</span> is a positive integer, then <span class="math inline">\(\Gamma(n)=(n-1)!\)</span>.</p></li>
+</ul>
+</section>
+<section id="the-gamma-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="the-gamma-distribution">The gamma distribution</h3>
+<ul>
+<li>The gamma distribution is defined as <span class="math display">\[f(x) = \frac{1}{\Gamma(\alpha)\theta^\alpha}x^{\alpha-1}e^{-x/\theta}, 0\le x&lt;\infty.\]</span></li>
+</ul>
+</section>
+<section id="the-gamma-distribution-1" class="level3">
+<h3 class="anchored" data-anchor-id="the-gamma-distribution-1">The gamma distribution</h3>
+<ul>
+<li>Show that <span class="math display">\[\int_0^\infty f(x) dx= \int_0^{\infty} \frac{1}{\Gamma(\alpha)\theta^\alpha}x^{\alpha-1}e^{-x/\theta}dx=1.\]</span></li>
+</ul>
+</section>
+<section id="mgf-of-the-gamma-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="mgf-of-the-gamma-distribution">Mgf of the gamma distribution</h3>
+<ul>
+<li>Show that <span class="math display">\[M(t)=\frac{1}{(1-\theta t)^\alpha},~t&lt;\frac{1}{\theta}.\]</span></li>
+</ul>
+</section>
+<section id="special-moments-of-the-gamma-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="special-moments-of-the-gamma-distribution">Special moments of the gamma distribution</h3>
+<ul>
+<li>Show that <span class="math inline">\(\mu=\alpha\theta\)</span> and <span class="math inline">\(\sigma^2=\alpha\theta^2\)</span>.</li>
+</ul>
+</section>
+<section id="chi-square-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="chi-square-distribution">Chi-square distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> have a gamma distribution with <span class="math inline">\(\theta=2\)</span> and <span class="math inline">\(\alpha=r/2\)</span>, where <span class="math inline">\(r\)</span> is a positive integer.</p></li>
+<li><p>The pdf of <span class="math inline">\(X\)</span> is <span class="math display">\[f(x)=\frac{1}{\Gamma(r/2)2^{r/2}}x^{r/2-1}e^{-x/2},\]</span> for <span class="math inline">\(0&lt;x&lt;\infty.\)</span></p></li>
+</ul>
+</section>
+<section id="properties-of-the-chi-square-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-the-chi-square-distribution">Properties of the chi-square distribution</h3>
+<ul>
+<li><p>The mgf is <span class="math display">\[M(t)=(1-2t)^{-r/2}, t&lt;\frac{1}{2}.\]</span></p></li>
+<li><p><span class="math inline">\(E[X]=r\)</span> and <span class="math inline">\(\sigma^2=2r\)</span>.</p></li>
+</ul>
+</section>
+<section id="percentiles" class="level3">
+<h3 class="anchored" data-anchor-id="percentiles">Percentiles</h3>
+<ul>
+<li><p>Let <span class="math inline">\(\alpha\)</span> be a positive probability (usually less than 0.05).</p></li>
+<li><p><span class="math inline">\(X\sim \chi^2(r)\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\chi_\alpha^2(r)\)</span> is a number such that <span class="math display">\[P[X\ge \chi_\alpha^2(r)]=\alpha.\]</span></p></li>
+<li><p><span class="math inline">\(\chi_{1-\alpha}^2(r)\)</span> is the 100(<span class="math inline">\(1-\alpha\)</span>)th percentile.</p></li>
+<li><p>The 100<span class="math inline">\(\alpha\)</span> percentile is the number such that <span class="math display">\[P[X\le \chi_{1-\alpha}^2(r)]=1-\alpha.\]</span></p></li>
+</ul>
+</section>
+<section id="example-9" class="level3">
+<h3 class="anchored" data-anchor-id="example-9">Example 9</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> have a gamma distribution with <span class="math inline">\(\alpha = r/2\)</span>, where <span class="math inline">\(r\)</span> is a positive integer, and <span class="math inline">\(\beta &gt; 0\)</span>.</p></li>
+<li><p>Define the random variable <span class="math inline">\(Y = 2\beta X\)</span>.</p></li>
+<li><p>Find the distribution of <span class="math inline">\(Y\)</span>.</p></li>
+</ul>
+</section>
+<section id="beta-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="beta-distribution">Beta distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> be two independent random variables that have <span class="math inline">\(\Gamma\)</span> distributions with parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(Y_1 = X_1+X_2\)</span> and <span class="math inline">\(Y_2=X_1/(X_1+X_2)\)</span>.</p></li>
+<li><p>Find the distribution of <span class="math inline">\(Y_2\)</span>.</p></li>
+</ul>
+</section>
+<section id="special-moments-of-beta-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="special-moments-of-beta-distribution">Special moments of beta distribution</h3>
+<ul>
+<li><p><span class="math inline">\(E[Y_2] = \frac{\alpha}{\alpha+\beta}\)</span></p></li>
+<li><p><span class="math inline">\(\operatorname{Var}(Y_2) = \frac{\alpha\beta}{(\alpha+\beta+1)(\alpha+\beta)^2}\)</span></p></li>
+</ul>
+</section>
+<section id="example-10-dirichlet-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-10-dirichlet-distribution">Example 10 — Dirichlet Distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_{k+1}\)</span> be independent random variables that have <span class="math inline">\(\Gamma\)</span> distributions with parameters <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\beta=1\)</span>, <span class="math inline">\(i=1, 2, \ldots, k+1\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(Y_i = X_i/(X_1+X_2+\cdots+X_{k+1})\)</span>, <span class="math inline">\(i= 1, 2, \ldots, k\)</span>.</p></li>
+<li><p>Find the joint distribution of <span class="math inline">\(Y_i\)</span>, <span class="math inline">\(i= 1, 2, \ldots, k\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="the-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="the-normal-distribution">3.4 The Normal Distribution</h2>
+<section id="normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="normal-distribution">Normal distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> have a normal distribution.</p></li>
+<li><p>The pdf of <span class="math inline">\(X\)</span> is given by <span class="math display">\[f(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left[ -\frac{(x-\mu)^2}{2\sigma^2}\right], -\infty&lt;x&lt;\infty,\]</span> where</p>
+<ul>
+<li><p><span class="math inline">\(-\infty&lt;\mu&lt;\infty\)</span></p></li>
+<li><p><span class="math inline">\(0&lt;\sigma&lt;\infty\)</span></p></li>
+</ul></li>
+<li><p><span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span>.</p></li>
+</ul>
+</section>
+<section id="pdf-of-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="pdf-of-normal-distribution">Pdf of normal distribution</h3>
+<p><img src="assets/graph/fig3-4-1.png" class="img-fluid"></p>
+</section>
+<section id="derivation" class="level3">
+<h3 class="anchored" data-anchor-id="derivation">Derivation</h3>
+<ul>
+<li>Show that <span class="math display">\[\int_{-\infty}^{\infty}f(x) dx=1.\]</span></li>
+</ul>
+</section>
+<section id="mgf-of-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="mgf-of-normal-distribution">Mgf of normal distribution</h3>
+<ul>
+<li>Show that <span class="math display">\[M(t)=\exp\left(\mu t+\frac{\sigma^2 t^2}{2}\right)\]</span></li>
+</ul>
+</section>
+<section id="special-moments-of-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="special-moments-of-normal-distribution">Special moments of normal distribution</h3>
+<ul>
+<li>Show that <span class="math inline">\(E[X]=\mu\)</span> and <span class="math inline">\(\operatorname{Var}(X)=\sigma^2\)</span>.</li>
+</ul>
+</section>
+<section id="standard-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="standard-normal-distribution">Standard normal distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(Z\sim N(0,1)\)</span>.</p></li>
+<li><p><span class="math inline">\(Z\)</span> has a standard normal distribution.</p></li>
+<li><p>The cdf of <span class="math inline">\(Z\)</span> is <span class="math display">\[\Phi(z)=P[Z\le z]=\int_{-\infty}^z\frac{1}{\sqrt{2\pi}}e^{-w^2/2}dw.\]</span></p></li>
+<li><p>Table values are provided.</p></li>
+</ul>
+</section>
+<section id="properties" class="level3">
+<h3 class="anchored" data-anchor-id="properties">Properties</h3>
+<ul>
+<li>Show that <span class="math inline">\(\Phi(z)=1-\Phi(-z)\)</span>.</li>
+</ul>
+</section>
+<section id="example-11" class="level3">
+<h3 class="anchored" data-anchor-id="example-11">Example 11</h3>
+<ul>
+<li><p>Find</p>
+<ul>
+<li><p><span class="math inline">\(P[Z\le 1.24]\)</span></p></li>
+<li><p><span class="math inline">\(P[1.24\le Z\le 2.37]\)</span></p></li>
+<li><p><span class="math inline">\(P[-2.37\le  Z\le -1.24]\)</span></p></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-12" class="level3">
+<h3 class="anchored" data-anchor-id="example-12">Example 12</h3>
+<ul>
+<li><p>Find <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that</p>
+<ul>
+<li><p><span class="math inline">\(P[Z\le a]=0.9147\)</span> and</p></li>
+<li><p><span class="math inline">\(P[Z\ge b]=0.0526\)</span>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="percentiles-1" class="level3">
+<h3 class="anchored" data-anchor-id="percentiles-1">Percentiles</h3>
+<ul>
+<li><p>Let <span class="math inline">\(\alpha\)</span> be a positive probability (usually less than 0.05).</p></li>
+<li><p><span class="math inline">\(Z\sim N(0,1)\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(z_\alpha\)</span> is a number such that <span class="math display">\[P[X\ge z_\alpha]=\alpha.\]</span></p></li>
+<li><p><span class="math inline">\(z_\alpha\)</span> is the 100(<span class="math inline">\(1-\alpha\)</span>)th percentile.</p></li>
+<li><p>The 100<span class="math inline">\(\alpha\)</span> percentile is the number such that <span class="math display">\[P[X\le z_\alpha]=1-\alpha.\]</span></p></li>
+</ul>
+</section>
+<section id="standard-normal-pdf" class="level3">
+<h3 class="anchored" data-anchor-id="standard-normal-pdf">Standard normal pdf</h3>
+<p><img src="assets/graph/fig3-4-2.png" class="img-fluid"></p>
+</section>
+<section id="example-13" class="level3">
+<h3 class="anchored" data-anchor-id="example-13">Example 13</h3>
+<ul>
+<li>Show that <span class="math inline">\(z_{1-\alpha}=-z_{\alpha}.\)</span></li>
+</ul>
+</section>
+<section id="theorem" class="level3">
+<h3 class="anchored" data-anchor-id="theorem">Theorem</h3>
+<div id="thm-ch3-3" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.3</strong></span> &nbsp;</p>
+<ul>
+<li>If <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span>, then <span class="math inline">\(Z=\frac{X-\mu}{\sigma} \sim N(0,1)\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="remark-1" class="level3">
+<h3 class="anchored" data-anchor-id="remark-1">Remark</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X\)</span> is any random variable with <span class="math inline">\(E[X]=\mu\)</span> and <span class="math inline">\(\operatorname{Var}(X)=\sigma^2\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(Z=\frac{X-\mu}{\sigma}\)</span>.</p></li>
+<li><p>We have <span class="math display">\[\begin{align*}
+\mu_Z&amp;=E[Z]\\
+\sigma_Z^2 &amp;=E\left[\left(\frac{X-\mu}{\sigma}\right)^2\right]
+\end{align*}\]</span></p></li>
+<li><p><span class="math inline">\(Z\)</span> is often called the standard score associated with <span class="math inline">\(X\)</span></p></li>
+</ul>
+</section>
+<section id="theorem-1" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-1">Theorem</h3>
+<div id="thm-ch3-4" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.4</strong></span> &nbsp;</p>
+<ul>
+<li>If <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span>, then <span class="math inline">\(V=\left(\frac{X-\mu}{\sigma}\right)^2 \sim \chi^2(1)\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="additive-properties-of-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="additive-properties-of-normal-distribution">Additive properties of normal distribution</h3>
+<div id="thm-ch3-5" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.5</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots , X_n\)</span> be independent random variables such that, for <span class="math inline">\(i = 1,\ldots,n\)</span>,</p></li>
+<li><p><span class="math inline">\(X_i\)</span> has a <span class="math inline">\(N(\mu_i,\sigma_i^2)\)</span> distribution.</p></li>
+<li><p>Let <span class="math inline">\(Y =\sum_{i=1}^n a_iX_i\)</span>, where <span class="math inline">\(a_1,\ldots, a_n\)</span> are constants.</p></li>
+<li><p>Then the distribution of <span class="math inline">\(Y\)</span> is <span class="math inline">\(N( \sum_{i=1}^na_i\mu_i, \sum_{i=1}^na_i^2\sigma_i^2)\)</span></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="the-multivariate-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="the-multivariate-normal-distribution">3.5 The Multivariate Normal Distribution</h2>
+<section id="bivariate-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="bivariate-normal-distribution">Bivariate normal distribution</h3>
+<ul>
+<li><p>Assume <span class="math inline">\(X\sim N(\mu_X, \sigma_X^2)\)</span>.</p></li>
+<li><p>The joint pdf of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is <span class="math display">\[f(x,y)=\frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}}\exp\left[-\frac{q(x,y)}{2}\right]\]</span> where <span class="math display">\[\begin{aligned}
+q(x,y) = &amp;\frac{1}{1-\rho^2}\Big[\left(\frac{x-\mu_X}{\sigma_X}\right)^2
+-2\rho \left(\frac{x-\mu_X}{\sigma_X}\right) \left(\frac{y-\mu_Y}{\sigma_Y}\right)\\
+&amp;+\left(\frac{y-\mu_Y}{\sigma_Y}\right)^2
+\Big]
+\end{aligned}\]</span></p></li>
+<li><p>It is called a bivariate normal pdf.</p></li>
+</ul>
+</section>
+<section id="bivariate-normal-with-rho0.5" class="level3">
+<h3 class="anchored" data-anchor-id="bivariate-normal-with-rho0.5">Bivariate normal with <span class="math inline">\(\rho=0.5\)</span></h3>
+<p><img src="assets/graph/fig3-5-1.png" class="img-fluid"></p>
+</section>
+<section id="mgf" class="level3">
+<h3 class="anchored" data-anchor-id="mgf">Mgf</h3>
+<ul>
+<li>Show that the joint mgf is <span class="math display">\[M(t_1, t_2) = \exp\left\{t_1\mu_1+t_2\mu_2 +\frac{1}{2}(t_1^2\sigma_1^2+2t_1t_2\rho\sigma_1\sigma_2+t_2^2\sigma_2^2)\right\}\]</span></li>
+</ul>
+</section>
+<section id="theorem-2" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2">Theorem</h3>
+<div id="thm-ch3-6" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.6</strong></span> If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a bivariate normal distribution with correlation coefficient <span class="math inline">\(\rho\)</span>, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math inline">\(\rho=0\)</span>.</p>
+</div>
+</section>
+<section id="multivariate-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="multivariate-normal-distribution">Multivariate normal distribution</h3>
+<ul>
+<li><p>Consider the random vector <span class="math inline">\(\boldsymbol{Z} = (Z_1,\ldots,Z_n)^{'}\)</span> , where <span class="math inline">\(Z_1,\dots,Z_n\)</span> are iid <span class="math inline">\(N(0,1)\)</span>.</p></li>
+<li><p>Then the joint density of <span class="math inline">\(\boldsymbol{Z}\)</span> is <span class="math display">\[f(\boldsymbol{z}) = \left(\frac{1}{2\pi}\right)^{n/2} \exp\left\{-\frac{1}{2}\boldsymbol{z}^{'}\boldsymbol{z}\right\}\]</span> for <span class="math inline">\(\boldsymbol{z}\in R^n\)</span>.</p></li>
+<li><p><span class="math inline">\(\boldsymbol{Z}\)</span> has a multivariate normal distribution with mean vector <span class="math inline">\(\boldsymbol{0}\)</span> and covariance matrix <span class="math inline">\(\boldsymbol{I}_n\)</span>.</p></li>
+<li><p>We abbreviate this by saying that <span class="math inline">\(\boldsymbol{Z}\)</span> has an <span class="math inline">\(N_n(\boldsymbol{0}, \boldsymbol{I}_n)\)</span> distribution</p></li>
+</ul>
+</section>
+<section id="moments" class="level3">
+<h3 class="anchored" data-anchor-id="moments">Moments</h3>
+<ul>
+<li>We have <span class="math display">\[\begin{aligned}
+E[\boldsymbol{Z}] &amp; = \boldsymbol{0}\\
+\operatorname{Var}[\boldsymbol{Z}] &amp; = \boldsymbol{I}_n\\
+\end{aligned}\]</span></li>
+</ul>
+</section>
+<section id="moment-generating-function-4" class="level3">
+<h3 class="anchored" data-anchor-id="moment-generating-function-4">Moment generating function</h3>
+<ul>
+<li>We have <span class="math display">\[\begin{aligned}
+M(\boldsymbol{t}) &amp; = \exp\left\{\frac{1}{2}{\boldsymbol t}^{'}\boldsymbol{t}\right\}
+\end{aligned}\]</span></li>
+</ul>
+</section>
+<section id="spectral-decomposition-of-covariance-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="spectral-decomposition-of-covariance-matrix">Spectral Decomposition of Covariance matrix</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is a <span class="math inline">\(n\times n\)</span>, symmetric, and positive semi-definite matrix.</p></li>
+<li><p><span class="math inline">\(\boldsymbol{\Sigma}\)</span> can be decomposed as <span class="math display">\[\boldsymbol{\Sigma} = \boldsymbol{\Gamma}^{'} \boldsymbol{\Lambda}\boldsymbol{\Gamma},\]</span> where</p>
+<ul>
+<li><p><span class="math inline">\(\boldsymbol{\Lambda}\)</span> is the diagonal matrix <span class="math inline">\(\boldsymbol{\Lambda} = diag(\lambda_1, \ldots, \lambda_n )\)</span>,</p></li>
+<li><p><span class="math inline">\(\lambda_1\ge\lambda_2\ge \cdots\ge \lambda_n\ge 0\)</span> are the eigenvalues of <span class="math inline">\(\boldsymbol{\Sigma}\)</span>,</p></li>
+<li><p>the columns of <span class="math inline">\(\boldsymbol{\Gamma}^{'}\)</span>, <span class="math inline">\(v_1, v_2,\ldots , v_n\)</span>, are the corresponding eigenvectors</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="properties-of-orthogonal-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-orthogonal-matrix">Properties of orthogonal matrix</h3>
+<ul>
+<li><p><span class="math inline">\(\boldsymbol{\Gamma}\)</span> is an orthogonal matrix.</p></li>
+<li><p><span class="math inline">\(\boldsymbol{\Gamma}^{-1}\)</span> = <span class="math inline">\(\boldsymbol{\Gamma}^{'}\)</span></p></li>
+<li><p>Thus, we have <span class="math display">\[\boldsymbol{\Gamma}\boldsymbol{\Gamma}^{'} = \boldsymbol{I}\]</span></p></li>
+</ul>
+</section>
+<section id="another-representation-of-boldsymbolsigma" class="level3">
+<h3 class="anchored" data-anchor-id="another-representation-of-boldsymbolsigma">Another representation of <span class="math inline">\(\boldsymbol{\Sigma}\)</span></h3>
+<ul>
+<li><p><span class="math inline">\(\boldsymbol{\Sigma}\)</span> can be expressed as <span class="math display">\[\begin{aligned}
+\boldsymbol{\Sigma} =&amp; \boldsymbol{\Gamma}^{'}\boldsymbol{\Lambda}\boldsymbol{\Gamma}\\
+  =&amp; [\boldsymbol{\Gamma}^{'}\boldsymbol{\Lambda}^{1/2}\boldsymbol{\Gamma}]
+[\boldsymbol{\Gamma}^{'}\boldsymbol{\Lambda}^{1/2}\boldsymbol{\Gamma}]\\
+\end{aligned}\]</span></p></li>
+<li><p>Denote <span class="math display">\[\boldsymbol{\Sigma} ^{1/2} = [\boldsymbol{\Gamma}^{'}\boldsymbol{\Lambda}^{1/2}\boldsymbol{\Gamma}]\]</span></p></li>
+<li><p><span class="math inline">\(\boldsymbol{\Sigma}^{1/2}\)</span> is symmetric and positive semi-definite.</p></li>
+<li><p>Suppose <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is positive definite; that is, all of its eigenvalues are strictly positive. Then <span class="math display">\[(\boldsymbol{\Sigma} ^{1/2})^{-1} = [\boldsymbol{\Gamma}^{'}\boldsymbol{\Lambda}^{-1/2}\boldsymbol{\Gamma}^{'}]\]</span></p></li>
+</ul>
+</section>
+<section id="transformation-of-multivariate-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="transformation-of-multivariate-normal-distribution">Transformation of multivariate normal distribution</h3>
+<ul>
+<li><p>Suppose <span class="math inline">\(\boldsymbol{Z}\)</span> has an <span class="math inline">\(N_n(\boldsymbol{0}, \boldsymbol{I}_n)\)</span> distribution.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{\Sigma}\)</span> be a positive semi-definite, symmetric matrix and let <span class="math inline">\(\boldsymbol{\mu}\)</span> be an <span class="math inline">\(n \times 1\)</span> vector of constants.</p></li>
+<li><p>Define <span class="math display">\[\boldsymbol{X} = \boldsymbol{\Sigma}^{1/2}\boldsymbol{Z} + \boldsymbol{\mu}\]</span></p></li>
+</ul>
+</section>
+<section id="moments-1" class="level3">
+<h3 class="anchored" data-anchor-id="moments-1">Moments</h3>
+<ul>
+<li>We have <span class="math display">\[\begin{aligned}
+E[\boldsymbol{X}] &amp; = \boldsymbol{\mu}\\
+\operatorname{Var}[\boldsymbol{X}] &amp; = \boldsymbol{\Sigma}
+\end{aligned}\]</span></li>
+</ul>
+</section>
+<section id="moment-generating-function-5" class="level3">
+<h3 class="anchored" data-anchor-id="moment-generating-function-5">Moment generating function</h3>
+<ul>
+<li>We have <span class="math display">\[\begin{aligned}
+M(\boldsymbol{t}) &amp; =
+\exp\left\{\boldsymbol{t}^{'} \boldsymbol{\mu} + \frac{1}{2}{\boldsymbol t}^{'}\boldsymbol{\Sigma}\boldsymbol{t}\right\}
+\end{aligned}\]</span></li>
+</ul>
+</section>
+<section id="multivariate-normal-distribution-1" class="level3">
+<h3 class="anchored" data-anchor-id="multivariate-normal-distribution-1">Multivariate normal distribution</h3>
+<div id="def-ch3-1" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 3.1</strong></span> &nbsp;</p>
+<ul>
+<li><p><span class="math inline">\(\boldsymbol{X}\)</span> has a multivariate normal distribution if its mgf is <span class="math display">\[\begin{aligned}
+M(\boldsymbol{t}) &amp; =
+\exp\left\{\boldsymbol{t}^{'} \boldsymbol{\mu} + \frac{1}{2}{\boldsymbol t}^{'}\boldsymbol{\Sigma}\boldsymbol{t}\right\}
+\end{aligned}\]</span> for all <span class="math inline">\(\boldsymbol{t}\in R^n\)</span>.</p></li>
+<li><p>We say <span class="math inline">\(\boldsymbol{X}\)</span> has a <span class="math inline">\(N_m(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="multivariate-normal-density-function" class="level3">
+<h3 class="anchored" data-anchor-id="multivariate-normal-density-function">Multivariate normal density function</h3>
+<ul>
+<li><p>We have <span class="math display">\[\boldsymbol{Z} = \boldsymbol{\Sigma}^{-1/2}(\boldsymbol{X}  - \boldsymbol{\mu} )\]</span></p></li>
+<li><p>The Jacobian equals <span class="math inline">\(|\boldsymbol{\Sigma}^{-1/2}| = |\boldsymbol{\Sigma}|^{-1/2}\)</span></p></li>
+<li><p>Then the joint density of <span class="math inline">\(\boldsymbol{X}\)</span> is <span class="math display">\[f(\boldsymbol{x}) = \frac{1}{(2\pi)^{n/2} |\boldsymbol{\Sigma}|^{1/2}}
+\exp\left\{-\frac{1}{2}(\boldsymbol{x} - \boldsymbol{\mu})^{'}\boldsymbol{\Sigma}^{-1}(\boldsymbol{x} - \boldsymbol{\mu})\right\}\]</span> for <span class="math inline">\(\boldsymbol{x}\in R^n\)</span>.</p></li>
+</ul>
+</section>
+<section id="distribution-of-quadratic-term" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-quadratic-term">Distribution of quadratic term</h3>
+<div id="thm-ch3-7" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.7</strong></span> &nbsp;</p>
+<ul>
+<li><p><span class="math inline">\(\boldsymbol{X}\)</span> has a <span class="math inline">\(N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span>, where <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is positive definite.</p></li>
+<li><p>Then <span class="math inline">\(Y=(\boldsymbol{X} - \boldsymbol{\mu} )^{'}\boldsymbol{\Sigma}^{-1} (\boldsymbol{X}  - \boldsymbol{\mu} )\)</span> has a <span class="math inline">\(\chi_n^2\)</span> distribution.</p></li>
+</ul>
+</div>
+</section>
+<section id="distribution-of-linear-combination" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-linear-combination">Distribution of linear combination</h3>
+<div id="thm-ch3-8" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.8</strong></span> &nbsp;</p>
+<ul>
+<li><p><span class="math inline">\(\boldsymbol{X}\)</span> has a <span class="math inline">\(N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span>, where <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is positive definite.</p></li>
+<li><p>Let <span class="math inline">\(\boldsymbol{Y}=\boldsymbol{A}\boldsymbol{X} +  \boldsymbol{b}\)</span>, where <span class="math inline">\(\boldsymbol{A}\)</span> is an <span class="math inline">\(m\times n\)</span> matrix and <span class="math inline">\(\boldsymbol{b}\in R^m\)</span>.</p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{Y}\)</span> has a <span class="math inline">\(N_m(\boldsymbol{A}\boldsymbol{\mu} +  \boldsymbol{b}, \boldsymbol{A}\boldsymbol{\Sigma}\boldsymbol{A}^{'})\)</span> distribution.</p></li>
+</ul>
+</div>
+</section>
+<section id="partition" class="level3">
+<h3 class="anchored" data-anchor-id="partition">Partition</h3>
+<ul>
+<li><p>Let <span class="math display">\[\boldsymbol{X} = \begin{bmatrix}
+\boldsymbol{X}_1 \\ \boldsymbol{X}_2
+\end{bmatrix}\]</span> where <span class="math inline">\(\boldsymbol{X}_1\)</span> is a subvector of dimension <span class="math inline">\(m&lt;n\)</span> and <span class="math inline">\(\boldsymbol{X}_2\)</span> is a subvector of dimension <span class="math inline">\(p = n - m\)</span>.</p></li>
+<li><p>Let <span class="math display">\[\boldsymbol{\mu} = \begin{bmatrix}
+\boldsymbol{\mu}_1 \\ \boldsymbol{\mu}_2
+\end{bmatrix}\]</span> and <span class="math display">\[\boldsymbol{\Sigma} = \begin{bmatrix}
+\boldsymbol{\Sigma}_{11} &amp; \boldsymbol{\Sigma}_{12}  \\ \boldsymbol{\Sigma}_{21} &amp; \boldsymbol{\Sigma}_{22}
+\end{bmatrix}\]</span></p></li>
+</ul>
+</section>
+<section id="distribution-of-boldsymbolx_1" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-boldsymbolx_1">Distribution of <span class="math inline">\(\boldsymbol{X}_1\)</span></h3>
+<ul>
+<li><p>Let <span class="math display">\[\boldsymbol{A} = \begin{bmatrix}
+\boldsymbol{I}_m \vdots \boldsymbol{O}_{m\times p}
+\end{bmatrix}\]</span> where <span class="math inline">\(\boldsymbol{O}_{m\times p}\)</span> an <span class="math inline">\(m\times p\)</span> matrix of zeroes.</p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{X}_1 = \boldsymbol{A} \boldsymbol{X}\)</span></p></li>
+</ul>
+<div class="corollary">
+<ul>
+<li><p>Suppose <span class="math inline">\(\boldsymbol{X}\)</span> has a <span class="math inline">\(N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> distribution.</p></li>
+<li><p>Let <span class="math display">\[\boldsymbol{X} = \begin{bmatrix}
+\boldsymbol{X}_1 \\ \boldsymbol{X}_2
+\end{bmatrix}\]</span></p></li>
+<li><p>Then <span class="math inline">\(\boldsymbol{X}_1\)</span> has a <span class="math inline">\(N_n(\boldsymbol{\mu}_1, \boldsymbol{\Sigma}_{11})\)</span> distribution.</p></li>
+</ul>
+</div>
+</section>
+<section id="independent-partition" class="level3">
+<h3 class="anchored" data-anchor-id="independent-partition">Independent partition</h3>
+<div id="thm-ch3-9" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.9</strong></span> &nbsp;</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(\boldsymbol{X}\)</span> has a <span class="math inline">\(N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> distribution.</p></li>
+<li><p>Let <span class="math display">\[\boldsymbol{X} = \begin{bmatrix}
+\boldsymbol{X}_1 \\ \boldsymbol{X}_2
+\end{bmatrix}\]</span></p></li>
+<li><p><span class="math inline">\(\boldsymbol{X}_1\)</span> and <span class="math inline">\(\boldsymbol{X}_2\)</span> are independent if and only if <span class="math inline">\(\boldsymbol{\Sigma}_{12}= \boldsymbol{0}\)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="conditional-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-distribution">Conditional distribution</h3>
+<div id="thm-ch3-10" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.10</strong></span> &nbsp;</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(\boldsymbol{X}\)</span> has a <span class="math inline">\(N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> distribution.</p></li>
+<li><p>Let <span class="math display">\[\boldsymbol{X} = \begin{bmatrix}
+\boldsymbol{X}_1 \\ \boldsymbol{X}_2
+\end{bmatrix}\]</span></p></li>
+<li><p>Assume <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is positive definite.</p></li>
+<li><p>Then the conditional distribution of <span class="math inline">\(\boldsymbol{X}_1\)</span> given <span class="math inline">\(\boldsymbol{X}_2\)</span> is <span class="math display">\[N_m(\boldsymbol{\mu}_1 + \boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}(\boldsymbol{X}_2-\boldsymbol{\mu}_2), \boldsymbol{\Sigma}_{11}-\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}\boldsymbol{\Sigma}_{21})\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="special-case-p2" class="level3">
+<h3 class="anchored" data-anchor-id="special-case-p2">Special case <span class="math inline">\(p=2\)</span></h3>
+<div id="thm-ch3-11" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.11</strong></span> &nbsp;</p>
+<ul>
+<li><p>Suppose <span class="math inline">\(\boldsymbol{X}\)</span> has a <span class="math inline">\(N_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> distribution.</p></li>
+<li><p>Let <span class="math display">\[\boldsymbol{X} = \begin{bmatrix}
+X \\ Y
+\end{bmatrix}\]</span></p></li>
+<li><p>Assume <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is positive definite.</p></li>
+<li><p>Then the conditional distribution of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X=x\)</span> is <span class="math display">\[N({\mu}_2 + \rho\frac{\sigma_2}{\sigma_1}(x-{\mu}_1), \sigma_2^2(1-\rho^2))\]</span></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="stage-3-connect抽樣分配與後續推論" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="stage-3-connect抽樣分配與後續推論">Stage 3 — Connect：抽樣分配與後續推論</h2>
+<p>本階段把常態、卡方、<span class="math inline">\(t\)</span> 與 <span class="math inline">\(F\)</span> 分配連結到 sample mean、sample variance、Student’s theorem，以及後續信賴區間與檢定。</p>
+</section>
+<section id="t--and-f-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="t--and-f-distributions">3.6 <span class="math inline">\(t\)</span>- and <span class="math inline">\(F\)</span>-Distributions</h2>
+<section id="students-t-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="students-t-distribution">Student’s <span class="math inline">\(t\)</span> distribution</h3>
+<div id="thm-ch3-12" class="theorem">
+<p><span class="theorem-title"><strong>定理 3.12</strong></span> &nbsp;</p>
+<ul>
+<li><p>Let <span class="math display">\[T=\frac{Z}{\sqrt{U/r}}\]</span> where</p>
+<ul>
+<li><p><span class="math inline">\(Z\sim N(0,1)\)</span></p></li>
+<li><p><span class="math inline">\(U\sim \chi^2_r\)</span></p></li>
+<li><p><span class="math inline">\(Z\)</span> and <span class="math inline">\(U\)</span> are independent</p></li>
+</ul></li>
+<li><p>Then <span class="math inline">\(T\)</span> has a <span class="math inline">\(t\)</span> distribution with pdf <span class="math display">\[f(t) = \frac{\Gamma((r+1)/2)}{\sqrt{\pi r}\Gamma(r/2)}\frac{1}{(1+t^2/r)^{(r+1)/2}}, -\infty&lt;t&lt;\infty.\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="moment-1" class="level3">
+<h3 class="anchored" data-anchor-id="moment-1">Moment</h3>
+<ul>
+<li>Show that <span class="math display">\[\begin{aligned}
+E[T] &amp;= 0\\
+\operatorname{Var}(T) &amp; = \frac{r}{r-2} , r&gt;2
+\end{aligned}\]</span></li>
+</ul>
+</section>
+<section id="example-14-f-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="example-14-f-distribution">Example 14 — <span class="math inline">\(F\)</span> distribution</h3>
+<ul>
+<li><p>Let <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> be independent chi-square random variables, with <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> degrees of freedom. <span class="math display">\[f(x_1) = \frac{1}{\Gamma(r_1/2) 2^{r_1/2}} x_1^{r_1/2-1} e^{-x_1/2}, 0&lt;x_1&lt;\infty\]</span> and <span class="math display">\[f(x_2) = \frac{1}{\Gamma(r_2/2) 2^{r_2/2}} x_2^{r_2/2-1} e^{-x_2/2}, 0&lt;x_1&lt;\infty\]</span></p></li>
+<li><p>Find the pdf of <span class="math inline">\(F=\frac{U/r_1}{V/r_2}\)</span>.</p></li>
+</ul>
+</section>
+<section id="moment-2" class="level3">
+<h3 class="anchored" data-anchor-id="moment-2">Moment</h3>
+<ul>
+<li>Show that <span class="math display">\[\begin{aligned}
+E[F] &amp;= \frac{r_2}{r_2-2}, r_2&gt;2
+\end{aligned}\]</span></li>
+</ul>
+</section>
+<section id="students-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="students-theorem">Student’s theorem</h3>
+<ul>
+<li><p>Let <span class="math inline">\(X_1\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(X_n\)</span> be a random sample from <span class="math inline">\(N(\mu, \sigma^2)\)</span>.</p></li>
+<li><p>Define <span class="math inline">\(\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i\)</span> and <span class="math inline">\(S^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar{X})^2\)</span>.</p></li>
+<li><p>Then</p>
+<ul>
+<li><p><span class="math inline">\(\bar{X}\sim N(\mu, \sigma^2/n)\)</span></p></li>
+<li><p><span class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\sim \chi^2_{n-1}\)</span></p></li>
+<li><p><span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(S^2\)</span> are independent.</p></li>
+<li><p><span class="math display">\[T =\frac{\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}}{\sqrt{\frac{(n-1)S^2}{\sigma^2}/(n-1)}}=\frac{\bar{X}-\mu}{S/\sqrt{n}}\sim t_{n-1}\]</span></p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="本章摘要" class="level2">
+<h2 class="anchored" data-anchor-id="本章摘要">本章摘要</h2>
+<p>本章整理統計推論最常出現的分配家族及其生成關係，為抽樣分配、區間估計與檢定奠定基礎。</p>
+</section>
+<section id="常見錯誤" class="level2">
+<h2 class="anchored" data-anchor-id="常見錯誤">常見錯誤</h2>
+<ul>
+<li>混淆分配的參數化方式</li>
+<li>忘記標示支持集</li>
+<li>套用常態近似時未檢查條件</li>
+<li>將卡方、t、F 的自由度視為一般尺度參數</li>
+</ul>
+</section>
+<section id="章末練習" class="level2">
+<h2 class="anchored" data-anchor-id="章末練習">章末練習</h2>
+<ol type="1">
+<li>從本章選出三個關鍵定義，分別寫出數學形式、成立條件及一個例子。</li>
+<li>選擇一個主要定理或方法，重做推導並標記每一步使用的假設。</li>
+<li>從原講義例題挑選一題，完整寫出解題目標、方法選擇、計算與結果解釋。</li>
+<li>設計一個會違反本章方法條件的反例，說明錯誤會出現在哪一步。</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="待逐章補強">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">註釋</span>待逐章補強
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>建議後續為本章補入：中文概念導讀、完整解答、課堂練習難度標記，以及與下一章的銜接說明。</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已複製");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已複製");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02-multivariate.html" class="pagination-link" aria-label="多變量分配與變數轉換">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04-sampling-inference.html" class="pagination-link" aria-label="抽樣、統計量與信賴區間">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">抽樣、統計量與信賴區間</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

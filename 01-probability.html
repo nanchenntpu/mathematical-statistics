@@ -169,6 +169,9 @@ window.Quarto = {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">數理統計</a> 
+        <div class="sidebar-tools-main">
+    <a href="./數理統計.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -194,6 +197,36 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./02-multivariate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-special-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">常用機率分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-sampling-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">抽樣、統計量與信賴區間</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-asymptotics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">一致性與極限分配</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-likelihood.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">最大概似方法</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sufficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">充分性、完備性與估計量品質</span></span></a>
   </div>
 </li>
     </ul>
@@ -500,6 +533,13 @@ A \cup (B \cap C) &amp;= (A \cup B) \cap (A \cup C)\\
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ds)</span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-probability_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="set-functions" class="level3">
@@ -1867,7 +1907,7 @@ P\!\left(\left|\overline X_n-\mu\right|\ge\varepsilon\right)
 \Longrightarrow
 \overline X_n\xrightarrow{P}\mu.
 \]</span></p>
-<p>後續將把 <span class="math inline">\(T(X_1,\ldots,X_n)\)</span> 視為 statistic，研究其 sampling distribution，並在漸近理論中系統整理 convergence in probability。參見 <a href="04-sampling-inference.qmd">Sampling and Inference</a> 與 <a href="05-asymptotics.qmd">Asymptotics</a>。</p>
+<p>後續將把 <span class="math inline">\(T(X_1,\ldots,X_n)\)</span> 視為 statistic，研究其 sampling distribution，並在漸近理論中系統整理 convergence in probability。參見 <a href="./04-sampling-inference.html">Sampling and Inference</a> 與 <a href="./05-asymptotics.html">Asymptotics</a>。</p>
 </div>
 </div>
 </section>
