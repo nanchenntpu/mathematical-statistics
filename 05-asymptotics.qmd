@@ -2,6 +2,14 @@
 title: "一致性與極限分配"
 ---
 
+::: {.callout-important title="第 8 版對照與教學安排"}
+本章以 HMC8 Chapter 5 為編號依據。先快速回顧 random sample、statistic 與 estimator，再深入兩種收斂、Slutsky-type 性質與 Delta method，最後以 CLT 和 multivariate extensions 銜接漸近推論。
+
+$$
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+$$
+:::
+
 ::: {.callout-tip title="本章定位"}
 本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
 :::
@@ -21,6 +29,8 @@ title: "一致性與極限分配"
 期望、變異數、動差生成函數及基本微積分。
 
 以下依原講義順序整理核心定義、定理、公式與例題。
+
+## Stage 1 — Recall：樣本、統計量與估計量 {.unnumbered}
 
 ### Random sample
 
@@ -58,7 +68,9 @@ title: "一致性與極限分配"
 
   - Then the pivot random variable of interest is $$Z_n= \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \sim N(0, 1).$$
 
-## Convergence in probability
+## Stage 2 — Deepen：機率收斂與分配收斂 {.unnumbered}
+
+## 5.1 Convergence in Probability
 
 ### Convergence in probability
 
@@ -182,7 +194,7 @@ title: "一致性與極限分配"
 
 - Show $Y_n$ is a consistent estimator of $\theta$.
 
-## Convergence in distribution
+## 5.2 Convergence in Distribution
 
 ### Convergence in distribution
 
@@ -418,7 +430,9 @@ title: "一致性與極限分配"
 
 - Show that $$W_n = \left(\frac{Z_n}{\sqrt{2}n}\right)^{1/2} \stackrel{D}{\rightarrow} N(0, 1).$$
 
-## Central limit theorem
+## Stage 3 — Connect：中央極限定理與漸近推論 {.unnumbered}
+
+## 5.3 Central Limit Theorem
 
 ### Central limit theorem
 
@@ -448,7 +462,7 @@ title: "一致性與極限分配"
 
 - Show that $$\frac{\hat{p} - p}{\sqrt{\hat{p}(1-\hat{p})/n}} \stackrel{D}{\rightarrow} N(0,1).$$
 
-## Extensions to multivariate distribution
+## 5.4 Extensions to Multivariate Distributions
 
 ### Recall
 

@@ -2,6 +2,14 @@
 title: "常用機率分配"
 ---
 
+::: {.callout-important title="第 8 版對照與教學安排"}
+本章以 Hogg, McKean & Craig, *Introduction to Mathematical Statistics*, 8th Global Edition（以下簡稱 HMC8）Chapter 3 為編號依據。保留原講義的公式與例題，但不按篇幅平均講授：先喚醒大二已學過的常用分配，再深化分配之間的結構與推導，最後銜接後續抽樣分配與統計推論。
+
+$$
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+$$
+:::
+
 ::: {.callout-tip title="本章定位"}
 本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
 :::
@@ -22,7 +30,11 @@ title: "常用機率分配"
 
 以下依原講義順序整理核心定義、定理、公式與例題。
 
-## Binomial and related distributions
+## Stage 1 — Recall：常用離散分配快速複習 {.unnumbered}
+
+本階段以例題帶回 Bernoulli、binomial、negative binomial、geometric、multinomial、hypergeometric 與 Poisson 分配；定義與基本動差不重新等比例講解。
+
+## 3.1 The Binomial and Related Distributions
 
 ### Bernoulli experiment distribution
 
@@ -200,7 +212,7 @@ title: "常用機率分配"
 
 - Show that $$\operatorname{Var}(X) = n\frac{D}{N}\frac{N-D}{N}\frac{N-n}{N-1}$$
 
-## The Poisson distribution
+## 3.2 The Poisson Distribution
 
 ### Motivation
 
@@ -273,7 +285,11 @@ $$\small
 - The distribution of $Y=\sum_{i=1}^n X_i$ is a $Poisson(\sum_{i=1}^n m_i)$ distribution.
 :::
 
-## $\Gamma$, $\chi^2$ and $\beta$ distributions
+## Stage 2 — Deepen：連續分配的結構與推導 {.unnumbered}
+
+本階段著重由 transformation、Gamma function、MGF 與加法性質建立分配間的關係，並把單變量結果推廣到常態向量。
+
+## 3.3 The $\Gamma$, $\chi^2$, and $\beta$ Distributions
 
 ### Recall
 
@@ -408,7 +424,7 @@ $$\small
 
 - Find the joint distribution of $Y_i$, $i= 1, 2, \ldots, k$.
 
-## The normal distribution
+## 3.4 The Normal Distribution
 
 ### Normal distribution
 
@@ -527,7 +543,7 @@ $$\small
 - Then the distribution of $Y$ is $N( \sum_{i=1}^na_i\mu_i, \sum_{i=1}^na_i^2\sigma_i^2)$
 :::
 
-## Multivariate Normal Distribution
+## 3.5 The Multivariate Normal Distribution
 
 ### Bivariate normal distribution
 
@@ -743,7 +759,11 @@ If $X$ and $Y$ have a bivariate normal distribution with correlation coefficient
 - Then the conditional distribution of $Y$ given $X=x$ is $$N({\mu}_2 + \rho\frac{\sigma_2}{\sigma_1}(x-{\mu}_1), \sigma_2^2(1-\rho^2))$$
 :::
 
-## F and T Distributions
+## Stage 3 — Connect：抽樣分配與後續推論 {.unnumbered}
+
+本階段把常態、卡方、$t$ 與 $F$ 分配連結到 sample mean、sample variance、Student's theorem，以及後續信賴區間與檢定。
+
+## 3.6 $t$- and $F$-Distributions
 
 ### Student's $t$ distribution
 

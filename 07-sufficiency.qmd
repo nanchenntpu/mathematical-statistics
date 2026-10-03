@@ -2,6 +2,14 @@
 title: "充分性、完備性與估計量品質"
 ---
 
+::: {.callout-important title="第 8 版對照與教學安排"}
+本章以 HMC8 Chapter 7 為編號依據。先回顧估計量的品質準則，再深化 sufficiency、Rao–Blackwell、completeness 與 exponential class，最後連到多參數、minimal sufficiency、ancillary statistics 與 independence。
+
+$$
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+$$
+:::
+
 ::: {.callout-tip title="本章定位"}
 本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
 :::
@@ -22,7 +30,9 @@ title: "充分性、完備性與估計量品質"
 
 以下依原講義順序整理核心定義、定理、公式與例題。
 
-## Measures of quality of estimators
+## Stage 1 — Recall：估計量品質的判準 {.unnumbered}
+
+## 7.1 Measures of Quality of Estimators
 
 ### Notation
 
@@ -194,7 +204,9 @@ title: "充分性、完備性與估計量品質"
 
 - These two data sets provide the same information about the parameter $\theta$ and a statistician should obtain the same estimate of $\theta$ from either.
 
-## A sufficient statistic for a parameter
+## Stage 2 — Deepen：充分性、完備性與指數族 {.unnumbered}
+
+## 7.2 A Sufficient Statistic for a Parameter
 
 ### Example 10 — Sufficient statistic
 
@@ -272,7 +284,7 @@ title: "充分性、完備性與估計量品質"
 
 - Find a sufficient statistic of $\theta$.
 
-## Properties of a sufficient statistic
+## 7.3 Properties of a Sufficient Statistic
 
 ### Recall
 
@@ -319,7 +331,7 @@ title: "充分性、完備性與估計量品質"
 
 - Find an MVUE of $\theta$.
 
-## Completeness and uniqueness
+## 7.4 Completeness and Uniqueness
 
 ### Example 17 — Poisson distribution
 
@@ -379,7 +391,7 @@ title: "充分性、完備性與估計量品質"
 
 - Find the UMVUE of $\theta$.
 
-## The exponential class of distributions
+## 7.5 The Exponential Class of Distributions
 
 ### Exponential class
 
@@ -473,7 +485,9 @@ title: "充分性、完備性與估計量品質"
 
 - Show that $\bar{X}$ is the UMVUE of $\theta$.
 
-## Functions of a parameter
+## Stage 3 — Connect：函數、多參數與輔助統計量 {.unnumbered}
+
+## 7.6 Functions of a Parameter
 
 ### Example 25 — Bernoulli distribution
 
@@ -493,7 +507,7 @@ title: "充分性、完備性與估計量品質"
 
 - Find the UMVUE of $P[X_1\le c]$.
 
-## The case of several parameters
+## 7.7 The Case of Several Parameters
 
 ### Sufficient statistic
 
@@ -605,7 +619,7 @@ title: "充分性、完備性與估計量品質"
 
 - Find the joint complete sufficient statistics of $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$.
 
-## Minimal sufficiency and ancillary statistics
+## 7.8 Minimal Sufficiency and Ancillary Statistics
 
 ### Minimal sufficient statistics
 
@@ -711,7 +725,7 @@ title: "充分性、完備性與估計量品質"
 
 - Show that $Z$ is an ancillary statistic and is called a location and scale invariate statistic.
 
-## Sufficiency, completeness, and independence
+## 7.9 Sufficiency, Completeness, and Independence
 
 ### Independence
 

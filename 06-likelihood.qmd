@@ -2,6 +2,14 @@
 title: "最大概似方法"
 ---
 
+::: {.callout-important title="第 8 版對照與教學安排"}
+本章以 HMC8 Chapter 6 為編號依據。由 likelihood 與 score 的基本概念起步，深入 MLE、Fisher information、Rao–Cramér lower bound，再連到 likelihood-ratio testing、多參數模型與 EM algorithm。
+
+$$
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+$$
+:::
+
 ::: {.callout-tip title="本章定位"}
 本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
 :::
@@ -22,7 +30,9 @@ title: "最大概似方法"
 
 以下依原講義順序整理核心定義、定理、公式與例題。
 
-## Maximum likelihood estimation
+## Stage 1 — Recall：Likelihood 的基本語言 {.unnumbered}
+
+## 6.1 Maximum Likelihood Estimation
 
 ### Parametric assumption
 
@@ -125,7 +135,9 @@ title: "最大概似方法"
 - Then $\hat{\theta}_n \stackrel{P}{\rightarrow} \theta_0$.
 :::
 
-## Rao-Cramér lower bound and efficiency
+## Stage 2 — Deepen：資訊量、下界與效率 {.unnumbered}
+
+## 6.2 Rao–Cramér Lower Bound and Efficiency
 
 ### Assumptions -- Regularity conditions
 
@@ -235,7 +247,9 @@ title: "最大概似方法"
 
 - Find an unbiased estimator of $\theta$.
 
-## Maximum likelihood tests
+## Stage 3 — Connect：估計、檢定與計算方法 {.unnumbered}
+
+## 6.3 Maximum Likelihood Tests
 
 ### Hypotheses
 
@@ -345,7 +359,7 @@ title: "最大概似方法"
 
 - Find the critical region based on LRT, Wald test and score test.
 
-## Multiparameter case: estimation
+## 6.4 Multiparameter Case: Estimation
 
 ### Likelihood function and log likelihood function for multiparameter
 
@@ -476,7 +490,7 @@ title: "最大概似方法"
 - Then $\hat{\boldsymbol{\eta}}$ is the mle of ${\boldsymbol{\eta}}$ and $$\sqrt{n}(\hat{\boldsymbol{\eta}}- \boldsymbol{\eta}) \stackrel{D}{\rightarrow} N_k(\boldsymbol{0}, \boldsymbol{B}[\boldsymbol{I}^{-1}(\boldsymbol{\theta})]\boldsymbol{B}^{'})$$
 :::
 
-## Multiparameter case: testing
+## 6.5 Multiparameter Case: Testing
 
 ### Hypotheses
 
@@ -532,7 +546,7 @@ title: "最大概似方法"
 
 - Find the LRT.
 
-## The EM algorithm
+## 6.6 The EM Algorithm
 
 ### Motivation
 

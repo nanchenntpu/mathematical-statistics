@@ -2,6 +2,14 @@
 title: "抽樣、統計量與信賴區間"
 ---
 
+::: {.callout-important title="第 8 版對照與教學安排"}
+本章以 HMC8 Chapter 4 為編號依據。現有講義涵蓋 Sections 4.1、4.2 與 4.4；其他課本小節不為了形式完整而硬加內容。教學上先喚醒統計量與估計量，再深化 order statistics，最後連到 confidence intervals。
+
+$$
+\boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
+$$
+:::
+
 ::: {.callout-tip title="本章定位"}
 本講義由蘇南誠老師編授。感謝黃怡婷老師提供原始數理統計講義檔案；本章保留原有英文術語與公式，並整理為可連續閱讀的教學形式。
 :::
@@ -22,9 +30,11 @@ title: "抽樣、統計量與信賴區間"
 
 以下依原講義順序整理核心定義、定理、公式與例題。
 
-## Outline
+## 教學路線 {.unnumbered}
 
-## Sampling and Statistics
+## Stage 1 — Recall：樣本、統計量與估計量 {.unnumbered}
+
+## 4.1 Sampling and Statistics
 
 ### Statistical Inference
 
@@ -110,7 +120,9 @@ title: "抽樣、統計量與信賴區間"
    ![](assets/graph/fig4-1-1.png)   ![](assets/graph/fig4-1-2.png)
   ------------------------------------- -------------------------------------
 
-## Order statistics
+## Stage 2 — Deepen：次序統計量與樣本分位數 {.unnumbered}
+
+## 4.4 Order Statistics
 
 ### Order statistics
 
@@ -328,7 +340,9 @@ A random sample of size 15 on a random variable $X$.
 
 ![](assets/graph/fig4-4-1b.png)
 
-## Confidence intervals
+## Stage 3 — Connect：由抽樣分配到區間估計 {.unnumbered}
+
+## 4.2 Confidence Intervals
 
 ### Confidence intervals
 

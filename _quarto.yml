@@ -10,13 +10,11 @@ book:
     - index.qmd
     - 01-probability.qmd
     - 02-multivariate.qmd
-    # - 03-special-distributions.qmd
-    # - 04-sampling-inference.qmd
-    # - 05-asymptotics.qmd
-    # - 06-likelihood.qmd
-    # - 07-sufficiency.qmd
-  downloads: [pdf]
-
+    - 03-special-distributions.qmd
+    - 04-sampling-inference.qmd
+    - 05-asymptotics.qmd
+    - 06-likelihood.qmd
+    - 07-sufficiency.qmd
 bibliography: references.bib
 
 # Quarto Book 中，1 表示只編到章節下一層；三級標題不會出現 2.3.8。
