@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; 多變量分配與變數轉換 – 數理統計</title>
+<title>2&nbsp; 多變量分配與變數轉換 – 數理統計</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -117,7 +117,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-multivariate.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-multivariate.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="搜尋" onclick="window.quartoOpenSearch();">
@@ -133,9 +133,6 @@ window.Quarto = {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">數理統計</a> 
-        <div class="sidebar-tools-main">
-    <a href="./數理統計.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
-</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -148,19 +145,19 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">首頁</span></span></a>
+ <span class="menu-text">數理統計講義</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-probability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">機率與單變量分配</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">機率與單變量分配</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-multivariate.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></span></a>
   </div>
 </li>
     </ul>
@@ -176,16 +173,16 @@ window.Quarto = {
   <li><a href="#學習目標" id="toc-學習目標" class="nav-link active" data-scroll-target="#學習目標">學習目標</a></li>
   <li><a href="#必備的先備知識" id="toc-必備的先備知識" class="nav-link" data-scroll-target="#必備的先備知識">必備的先備知識</a></li>
   <li><a href="#stage-1-recall二維基本款快速喚醒" id="toc-stage-1-recall二維基本款快速喚醒" class="nav-link" data-scroll-target="#stage-1-recall二維基本款快速喚醒">Stage 1 — Recall：二維基本款快速喚醒</a></li>
-  <li><a href="#distributions-of-two-random-variables" id="toc-distributions-of-two-random-variables" class="nav-link" data-scroll-target="#distributions-of-two-random-variables">Distributions of two random variables</a></li>
-  <li><a href="#transformations-bivariate-random-variables" id="toc-transformations-bivariate-random-variables" class="nav-link" data-scroll-target="#transformations-bivariate-random-variables">Transformations: Bivariate random variables</a></li>
-  <li><a href="#conditional-distributions-and-expectations" id="toc-conditional-distributions-and-expectations" class="nav-link" data-scroll-target="#conditional-distributions-and-expectations">Conditional Distributions and Expectations</a></li>
-  <li><a href="#independent-random-variables" id="toc-independent-random-variables" class="nav-link" data-scroll-target="#independent-random-variables">Independent random variables</a></li>
-  <li><a href="#the-correlation-coefficient" id="toc-the-correlation-coefficient" class="nav-link" data-scroll-target="#the-correlation-coefficient">The correlation coefficient</a></li>
+  <li><a href="#distributions-of-two-random-variables" id="toc-distributions-of-two-random-variables" class="nav-link" data-scroll-target="#distributions-of-two-random-variables">2.1 Distributions of Two Random Variables</a></li>
+  <li><a href="#transformations-bivariate-random-variables" id="toc-transformations-bivariate-random-variables" class="nav-link" data-scroll-target="#transformations-bivariate-random-variables">2.2 Transformations: Bivariate Random Variables</a></li>
+  <li><a href="#conditional-distributions-and-expectations" id="toc-conditional-distributions-and-expectations" class="nav-link" data-scroll-target="#conditional-distributions-and-expectations">2.3 Conditional Distributions and Expectations</a></li>
+  <li><a href="#independent-random-variables" id="toc-independent-random-variables" class="nav-link" data-scroll-target="#independent-random-variables">2.4 Independent Random Variables</a></li>
+  <li><a href="#the-correlation-coefficient" id="toc-the-correlation-coefficient" class="nav-link" data-scroll-target="#the-correlation-coefficient">2.5 The Correlation Coefficient</a></li>
   <li><a href="#stage-2-deepen由二維推廣到多維" id="toc-stage-2-deepen由二維推廣到多維" class="nav-link" data-scroll-target="#stage-2-deepen由二維推廣到多維">Stage 2 — Deepen：由二維推廣到多維</a></li>
-  <li><a href="#extension-to-several-random-variables" id="toc-extension-to-several-random-variables" class="nav-link" data-scroll-target="#extension-to-several-random-variables">Extension to several random variables</a></li>
-  <li><a href="#transformations-for-several-random-variables" id="toc-transformations-for-several-random-variables" class="nav-link" data-scroll-target="#transformations-for-several-random-variables">Transformations for several random variables</a></li>
+  <li><a href="#extension-to-several-random-variables" id="toc-extension-to-several-random-variables" class="nav-link" data-scroll-target="#extension-to-several-random-variables">2.6 Extension to Several Random Variables</a></li>
+  <li><a href="#transformations-for-several-random-variables" id="toc-transformations-for-several-random-variables" class="nav-link" data-scroll-target="#transformations-for-several-random-variables">2.7 Transformations for Several Random Variables</a></li>
   <li><a href="#stage-3-connect連接抽樣分配與統計推論" id="toc-stage-3-connect連接抽樣分配與統計推論" class="nav-link" data-scroll-target="#stage-3-connect連接抽樣分配與統計推論">Stage 3 — Connect：連接抽樣分配與統計推論</a></li>
-  <li><a href="#linear-combinations-random-variables" id="toc-linear-combinations-random-variables" class="nav-link" data-scroll-target="#linear-combinations-random-variables">Linear combinations random variables</a></li>
+  <li><a href="#linear-combinations-of-random-variables" id="toc-linear-combinations-of-random-variables" class="nav-link" data-scroll-target="#linear-combinations-of-random-variables">2.8 Linear Combinations of Random Variables</a></li>
   <li><a href="#本章摘要" id="toc-本章摘要" class="nav-link" data-scroll-target="#本章摘要">本章摘要</a></li>
   <li><a href="#常見錯誤" id="toc-常見錯誤" class="nav-link" data-scroll-target="#常見錯誤">常見錯誤</a></li>
   <li><a href="#章末練習" id="toc-章末練習" class="nav-link" data-scroll-target="#章末練習">章末練習</a></li>
@@ -197,7 +194,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">多變量分配與變數轉換</span></h1>
 </div>
 
 
@@ -229,6 +226,19 @@ window.Quarto = {
 \boxed{\text{Recall}\longrightarrow\text{Deepen}\longrightarrow\text{Connect}}
 \]</span></p>
 <p>的三階段安排：先快速喚醒二維隨機變數的基本工具，再推廣到 <span class="math inline">\(n\)</span> 維隨機向量、共變異矩陣與多維變數轉換，最後連接線性組合、random sample、sample mean 與 sample variance。標題依 Hogg, McKean &amp; Craig Chapter 2 的內容順序安排，各節不採等比例講解。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="第 8 版編號原則">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">重要</span>第 8 版編號原則
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>本章以 Hogg, McKean &amp; Craig, <em>Introduction to Mathematical Statistics</em>, 8th Global Edition（以下簡稱 HMC8）Chapter 2, pp.&nbsp;99–168 為主要對照。原書的 section、definition、theorem、corollary 與 example 編號均照錄；講義自行增加或延伸的內容標為 <strong>Supplementary Example</strong>，不占用課本編號。講義未選入的課本項目保留編號缺口，不重新連號。</p>
 </div>
 </div>
 <section id="學習目標" class="level2">
@@ -273,11 +283,11 @@ window.Quarto = {
 <p>本階段的重點不是重複所有計算，而是確認學生能在離散與連續情形中，從 joint distribution 正確取得 marginal 與 conditional distributions，判斷 independence，計算 covariance / correlation，並在變數轉換時同時處理 Jacobian 與轉換後的支持集。</p>
 </section>
 <section id="distributions-of-two-random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="distributions-of-two-random-variables">Distributions of two random variables</h2>
-<section id="definition" class="level3">
-<h3 class="anchored" data-anchor-id="definition">Definition</h3>
-<div id="def-ch2-1" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.1</strong></span> &nbsp;</p>
+<h2 class="anchored" data-anchor-id="distributions-of-two-random-variables">2.1 Distributions of Two Random Variables</h2>
+<section id="definition-2.1.1-random-vector" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.1.1-random-vector">Definition 2.1.1 — Random Vector</h3>
+<div id="def-hmc8-2-1-1" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 2.1</strong></span> &nbsp;</p>
 <ul>
 <li><p>Consider a random experiment with a sample space <span class="math inline">\({\mathcal{C}}\)</span>.</p></li>
 <li><p>Define consider two random variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.</p></li>
@@ -311,7 +321,7 @@ F_{X_1,X_2}(a_1,b_2) - F_{X_1,X_2}(b_1,a_2) + F_{X_1,X_2}(a_1,a_2)
 <section id="discrete-random-vector" class="level3">
 <h3 class="anchored" data-anchor-id="discrete-random-vector">Discrete random vector</h3>
 <div id="def-ch2-2" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.2</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>定義 2.2</strong></span> &nbsp;</p>
 <ul>
 <li><p>Suppose <span class="math inline">\({\mathcal{D}}\)</span> is finite or countable.</p></li>
 <li><p>Let <span class="math inline">\(S\)</span> denote the two-dimensional space of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.</p></li>
@@ -345,7 +355,7 @@ F_{X_1,X_2}(a_1,b_2) - F_{X_1,X_2}(b_1,a_2) + F_{X_1,X_2}(a_1,a_2)
 <section id="continuous-random-vector" class="level3">
 <h3 class="anchored" data-anchor-id="continuous-random-vector">Continuous random vector</h3>
 <div id="def-ch2-3" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.3</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>定義 2.3</strong></span> &nbsp;</p>
 <ul>
 <li><p>A random vector <span class="math inline">\((X_1, X_2)\)</span> with space <span class="math inline">\({\mathcal{D}}\)</span> is of the continuous type if its cdf <span class="math inline">\(F_{X_1,X_2}(x_1,x_2)\)</span> is continuous.</p></li>
 <li><p><span class="math inline">\(F_{X_1,X_2}(x_1,x_2)\)</span> can be expressed as <span class="math display">\[F_{X_1,X_2}(x_1,x_2) = \int_{-\infty}^{x_1}\int_{-\infty}^{x_2}
@@ -385,29 +395,32 @@ f_{X_1,X_2}(w_1,w_2)dw_1dw_2,\]</span> for all <span class="math inline">\((x_1,
 <li><p>The probability of this event is <span class="math display">\[F_{X_1}(x_1) = P[X_1\le x_1, -\infty&lt;X_2&lt;\infty]\]</span> for all <span class="math inline">\(x_1\in \mathbb{R}\)</span>.</p></li>
 </ul>
 </section>
-<section id="marginal-pmf" class="level3">
-<h3 class="anchored" data-anchor-id="marginal-pmf">Marginal pmf</h3>
+<section id="marginal-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="marginal-distributions">2.1.1 Marginal Distributions</h3>
+<section id="marginal-pmf" class="level4">
+<h4 class="anchored" data-anchor-id="marginal-pmf">Marginal pmf</h4>
 <ul>
 <li><p>Let (<span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>) be a discrete random vector.</p></li>
 <li><p>Find the probability of <span class="math inline">\(\{X_1\le x_1\}\)</span> and the pmf of <span class="math inline">\(X_1\)</span>.</p></li>
 </ul>
 </section>
-<section id="supplementary-example-2.1-b" class="level3">
-<h3 class="anchored" data-anchor-id="supplementary-example-2.1-b">Supplementary Example 2.1-B</h3>
+</section>
+<section id="example-2.1.4-marginal-pmfs" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.1.4-marginal-pmfs">Example 2.1.4 — Marginal pmfs</h3>
 <ul>
 <li><p>Let the joint pmf of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be defined by <span class="math display">\[f(x,y)=\frac{x+y}{21}, x=1, 2, 3; y=1, 2.\]</span></p></li>
 <li><p>Find <span class="math inline">\(f_X(x)\)</span> and <span class="math inline">\(f_Y(y)\)</span>.</p></li>
 </ul>
-</section>
-<section id="marginal-pdf" class="level3">
-<h3 class="anchored" data-anchor-id="marginal-pdf">Marginal pdf</h3>
+<section id="marginal-pdf" class="level4">
+<h4 class="anchored" data-anchor-id="marginal-pdf">Marginal pdf</h4>
 <ul>
 <li><p>Let (<span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>) be a continuous random vector.</p></li>
 <li><p>Find the probability of <span class="math inline">\(\{X_1\le x_1\}\)</span> and the pdf of <span class="math inline">\(X_1\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-2.1.4" class="level3">
-<h3 class="anchored" data-anchor-id="example-2.1.4">Example 2.1.4</h3>
+</section>
+<section id="supplementary-example-2.1-c-marginal-pdfs" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-2.1-c-marginal-pdfs">Supplementary Example 2.1-C — Marginal pdfs</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the joint pdf<span class="math display">\[f(x,y) = \left\{\begin{array}{ll}
 x+y &amp; 0&lt;x&lt;1, 0&lt;y&lt;1\\
@@ -417,36 +430,39 @@ x+y &amp; 0&lt;x&lt;1, 0&lt;y&lt;1\\
 <li><p>Find <span class="math inline">\(P[X+Y\le 1]\)</span>.</p></li>
 </ul>
 </section>
-<section id="expectation-discrete-type" class="level3">
-<h3 class="anchored" data-anchor-id="expectation-discrete-type">Expectation – Discrete type</h3>
+<section id="expectation" class="level3">
+<h3 class="anchored" data-anchor-id="expectation">2.1.2 Expectation</h3>
+<section id="expectation-discrete-type" class="level4">
+<h4 class="anchored" data-anchor-id="expectation-discrete-type">Expectation – Discrete type</h4>
 <ul>
 <li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> be random variables of the discrete type with the joint pmf <span class="math inline">\(f(x_1, x_2)\)</span> on the space <span class="math inline">\(S\)</span>.</p></li>
 <li><p>If <span class="math inline">\(u(X_1, X_2)\)</span> is a function of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, then <span class="math display">\[E[u(X_1, X_2)] = \sum\sum_{(x_1,x_2)\in S} u(x_1, x_2) f(x_1, x_2),\]</span> if it exists, is called the mathematical expectation of <span class="math inline">\(u(X_1, X_2)\)</span>.</p></li>
 </ul>
 </section>
-<section id="remark" class="level3">
-<h3 class="anchored" data-anchor-id="remark">Remark</h3>
+<section id="remark" class="level4">
+<h4 class="anchored" data-anchor-id="remark">Remark</h4>
 <ul>
 <li>If <span class="math display">\[\sum\sum_{(x_1,x_2)\in S} |u(x_1, x_2)| f(x_1, x_2),\]</span> converges, then <span class="math inline">\(E[u(X_1, X_2)]\)</span> exists.</li>
 </ul>
 </section>
-<section id="expectation-continuous-type" class="level3">
-<h3 class="anchored" data-anchor-id="expectation-continuous-type">Expectation – Continuous type</h3>
+<section id="expectation-continuous-type" class="level4">
+<h4 class="anchored" data-anchor-id="expectation-continuous-type">Expectation – Continuous type</h4>
 <ul>
 <li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> be random variables of the discrete type with the joint pdf <span class="math inline">\(f(x_1, x_2)\)</span> on the space <span class="math inline">\(S\)</span>.</p></li>
 <li><p>If <span class="math inline">\(u(X_1, X_2)\)</span> is a function of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, then <span class="math display">\[E[u(X_1, X_2)] = \int\int_{(x_1,x_2)\in S} u(x_1, x_2) f(x_1, x_2) dx_1dx_2,\]</span> if it exists, is called the mathematical expectation of <span class="math inline">\(u(X_1, X_2)\)</span>.</p></li>
 </ul>
 </section>
-<section id="remark-1" class="level3">
-<h3 class="anchored" data-anchor-id="remark-1">Remark</h3>
+<section id="remark-1" class="level4">
+<h4 class="anchored" data-anchor-id="remark-1">Remark</h4>
 <ul>
 <li>If <span class="math display">\[\int\int_{(x_1,x_2)\in S} |u(x_1, x_2)| f(x_1, x_2)dx_1dx_2&lt;\infty,\]</span> converges, then <span class="math inline">\(E[u(X_1, X_2)]\)</span> exists.</li>
 </ul>
 </section>
-<section id="expectation" class="level3">
-<h3 class="anchored" data-anchor-id="expectation">Expectation</h3>
-<div id="thm-ch2-1" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.1</strong></span> &nbsp;</p>
+</section>
+<section id="theorem-2.1.1-linearity-of-expectation" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.1.1-linearity-of-expectation">Theorem 2.1.1 — Linearity of Expectation</h3>
+<div id="thm-hmc8-2-1-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.1</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\((X_1, X_2)\)</span> be a random vector.</p></li>
 <li><p>Let <span class="math inline">\(Y_1 = g_1(X_1, X_2)\)</span> and <span class="math inline">\(Y_2 = g_2(X_1,X_2)\)</span> be random variables whose expectations exist.</p></li>
@@ -454,10 +470,10 @@ x+y &amp; 0&lt;x&lt;1, 0&lt;y&lt;1\\
 </ul>
 </div>
 </section>
-<section id="moment-generating-function" class="level3">
-<h3 class="anchored" data-anchor-id="moment-generating-function">Moment generating function</h3>
-<div id="def-ch2-4" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.4</strong></span> &nbsp;</p>
+<section id="definition-2.1.2-moment-generating-function-of-a-random-vector" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.1.2-moment-generating-function-of-a-random-vector">Definition 2.1.2 — Moment Generating Function of a Random Vector</h3>
+<div id="def-hmc8-2-1-2" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 2.4</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\({\boldsymbol X} = (X_1,X_2)^{'}\)</span> be a random vector.</p></li>
 <li><p>If <span class="math inline">\(E[e^{t_1X_1+t_2X_2}]\)</span> exists for <span class="math inline">\(|t_1| &lt; h_1\)</span> and <span class="math inline">\(|t_2| &lt; h_2\)</span>, where <span class="math inline">\(h_1\)</span> and <span class="math inline">\(h_2\)</span> are positive.</p></li>
@@ -473,8 +489,8 @@ x+y &amp; 0&lt;x&lt;1, 0&lt;y&lt;1\\
 <li><p>The mgfs of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are immediately seen to be <span class="math inline">\(M_{X_1,X_2} (t_1, 0)\)</span> and <span class="math inline">\(M_{X_1,X_2} (0, t_2)\)</span>.</p></li>
 </ul>
 </section>
-<section id="example-2.1.7" class="level3">
-<h3 class="anchored" data-anchor-id="example-2.1.7">Example 2.1.7</h3>
+<section id="example-2.1.10-joint-mgf" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.1.10-joint-mgf">Example 2.1.10 — Joint MGF</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the joint pdf<span class="math display">\[f(x,y) = \left\{\begin{array}{ll}
 e^{-y} &amp; 0&lt;x&lt;y&lt;\infty\\
@@ -483,10 +499,10 @@ e^{-y} &amp; 0&lt;x&lt;y&lt;\infty\\
 <li><p>Find <span class="math inline">\(M(t_1, t_2)\)</span>, <span class="math inline">\(M(t_1,0)\)</span> and <span class="math inline">\(M(0, t_2)\)</span>.</p></li>
 </ul>
 </section>
-<section id="expected-value" class="level3">
-<h3 class="anchored" data-anchor-id="expected-value">Expected value</h3>
-<div id="def-ch2-5" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.5</strong></span> &nbsp;</p>
+<section id="definition-2.1.3-expected-value-of-a-random-vector" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.1.3-expected-value-of-a-random-vector">Definition 2.1.3 — Expected Value of a Random Vector</h3>
+<div id="def-hmc8-2-1-3" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 2.5</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\({\boldsymbol X} = (X_1,X_2)^{'}\)</span> be a random vector.</p></li>
 <li><p>Then the expected value of <span class="math inline">\({\boldsymbol X}\)</span> exists if the expectations of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> exist.</p></li>
@@ -498,7 +514,7 @@ E[X_1]\\E[X_2]
 </section>
 </section>
 <section id="transformations-bivariate-random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="transformations-bivariate-random-variables">Transformations: Bivariate random variables</h2>
+<h2 class="anchored" data-anchor-id="transformations-bivariate-random-variables">2.2 Transformations: Bivariate Random Variables</h2>
 <section id="transformations-discrete" class="level3">
 <h3 class="anchored" data-anchor-id="transformations-discrete">Transformations – Discrete</h3>
 <ul>
@@ -594,7 +610,7 @@ f_{X_1, X_2}(w_1(y_1,y_2), w_2(y_1, y_2)) |J|, &amp; (y_1, y_2) \in \mathcal{T}\
 </section>
 </section>
 <section id="conditional-distributions-and-expectations" class="level2">
-<h2 class="anchored" data-anchor-id="conditional-distributions-and-expectations">Conditional Distributions and Expectations</h2>
+<h2 class="anchored" data-anchor-id="conditional-distributions-and-expectations">2.3 Conditional Distributions and Expectations</h2>
 <section id="conditional-distribution-for-discrete-r.v." class="level3">
 <h3 class="anchored" data-anchor-id="conditional-distribution-for-discrete-r.v.">Conditional distribution for discrete r.v.</h3>
 <ul>
@@ -686,8 +702,8 @@ E[u(X_2)|X_1=x_1] = \left\{
 <li><p>Find <span class="math inline">\(E[X_1|x_2]\)</span> and <span class="math inline">\(\operatorname{Var}(X_1|x_2)\)</span>.</p></li>
 </ul>
 </section>
-<section id="supplementary-example-2.3-a" class="level3">
-<h3 class="anchored" data-anchor-id="supplementary-example-2.3-a">Supplementary Example 2.3-A</h3>
+<section id="supplementary-example-2.3-a-extension-of-example-2.3.1" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-2.3-a-extension-of-example-2.3.1">Supplementary Example 2.3-A — Extension of Example 2.3.1</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> have the joint pdf <span class="math display">\[f_{X_1, X_2}(x_1, x_2) =
 \left\{
@@ -698,10 +714,10 @@ E[u(X_2)|X_1=x_1] = \left\{
 <li><p>Find <span class="math inline">\(P[0&lt;X_1&lt;\frac{1}{2}|X_2 =\frac{3}{4}]\)</span> and <span class="math inline">\(P[0&lt;X_1&lt;\frac{1}{2}]\)</span></p></li>
 </ul>
 </section>
-<section id="conditional-variance-and-variance" class="level3">
-<h3 class="anchored" data-anchor-id="conditional-variance-and-variance">Conditional variance and variance</h3>
-<div id="thm-ch2-2" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.2</strong></span> &nbsp;</p>
+<section id="theorem-2.3.1-conditional-mean-and-variance-identities" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.3.1-conditional-mean-and-variance-identities">Theorem 2.3.1 — Conditional Mean and Variance Identities</h3>
+<div id="thm-hmc8-2-3-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.2</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\((X_1,X_2)\)</span> be a random vector such that the variance of <span class="math inline">\(X_2\)</span> is finite.</p></li>
 <li><p>We have</p>
@@ -714,11 +730,11 @@ E[u(X_2)|X_1=x_1] = \left\{
 </section>
 </section>
 <section id="independent-random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="independent-random-variables">Independent random variables</h2>
-<section id="independence" class="level3">
-<h3 class="anchored" data-anchor-id="independence">Independence</h3>
-<div id="def-ch2-6" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.6</strong></span> &nbsp;</p>
+<h2 class="anchored" data-anchor-id="independent-random-variables">2.4 Independent Random Variables</h2>
+<section id="definition-2.4.1-independence" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.4.1-independence">Definition 2.4.1 — Independence</h3>
+<div id="def-hmc8-2-4-1" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 2.6</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let the random variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> have the joint pdf <span class="math inline">\(f(x_1,x_2)\)</span> [joint pmf <span class="math inline">\(p(x_1,x_2)\)</span>].</p></li>
 <li><p>Let the marginal pdfs [pmfs] <span class="math inline">\(f_1(x_1) [p_1(x_1)]\)</span> and <span class="math inline">\(f_2(x_2) [p_2(x_2)]\)</span>.</p></li>
@@ -734,8 +750,8 @@ E[u(X_2)|X_1=x_1] = \left\{
 <li><p>There may be certain points <span class="math inline">\((x_1,x_2) \in {\mathcal{S}}\)</span> at which <span class="math inline">\(f(x_1,x_2) \ne f_1(x_1)f_2(x_2)\)</span>. However, if <span class="math inline">\(A\)</span> is the set of points <span class="math inline">\((x_1,x_2)\)</span> at which the equality does not hold, then <span class="math inline">\(P(A) = 0\)</span>.</p></li>
 </ul>
 </section>
-<section id="supplementary-example-2.5-a" class="level3">
-<h3 class="anchored" data-anchor-id="supplementary-example-2.5-a">Supplementary Example 2.5-A</h3>
+<section id="example-2.4.1-sampling-without-replacement" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.4.1-sampling-without-replacement">Example 2.4.1 — Sampling Without Replacement</h3>
 <ul>
 <li><p>Suppose an urn contains 10 blue, 8 red, and 7 yellow balls that are the same except for color.</p></li>
 <li><p>Suppose 4 balls are drawn without replacement.</p></li>
@@ -743,10 +759,10 @@ E[u(X_2)|X_1=x_1] = \left\{
 <li><p>Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p></li>
 </ul>
 </section>
-<section id="independence-1" class="level3">
-<h3 class="anchored" data-anchor-id="independence-1">Independence</h3>
-<div id="thm-ch2-3" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.3</strong></span> &nbsp;</p>
+<section id="theorem-2.4.1-factorization-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.4.1-factorization-criterion">Theorem 2.4.1 — Factorization Criterion</h3>
+<div id="thm-hmc8-2-4-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.3</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let the random variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> have supports <span class="math inline">\({\mathcal{S}}_1\)</span> and <span class="math inline">\({\mathcal{S}}_2\)</span>, respectively, and have the joint pdf <span class="math inline">\(f(x_1,x_2)\)</span>.</p></li>
 <li><p>Then <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent if and only if <span class="math inline">\(f(x_1,x_2)\)</span> can be written as a product of a nonnegative function of <span class="math inline">\(x_1\)</span> and a nonnegative function of <span class="math inline">\(x_2\)</span>.</p></li>
@@ -754,8 +770,8 @@ E[u(X_2)|X_1=x_1] = \left\{
 </ul>
 </div>
 </section>
-<section id="class-example-2.5-a" class="level3">
-<h3 class="anchored" data-anchor-id="class-example-2.5-a">Class Example 2.5-A</h3>
+<section id="supplementary-example-2.4-a-product-form-density" class="level3">
+<h3 class="anchored" data-anchor-id="supplementary-example-2.4-a-product-form-density">Supplementary Example 2.4-A — Product-form Density</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> have the joint pdf <span class="math display">\[f_{X_1, X_2}(x_1, x_2) =
 \left\{
@@ -766,8 +782,8 @@ E[u(X_2)|X_1=x_1] = \left\{
 <li><p>Are <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> independent?</p></li>
 </ul>
 </section>
-<section id="example-2.5.2" class="level3">
-<h3 class="anchored" data-anchor-id="example-2.5.2">Example 2.5.2</h3>
+<section id="example-2.4.3-a-non-product-support" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.4.3-a-non-product-support">Example 2.4.3 — A Non-product Support</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> have the joint pdf <span class="math display">\[f_{X_1, X_2}(x_1, x_2) =
 \left\{
@@ -778,10 +794,10 @@ E[u(X_2)|X_1=x_1] = \left\{
 <li><p>Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p></li>
 </ul>
 </section>
-<section id="independence-2" class="level3">
-<h3 class="anchored" data-anchor-id="independence-2">Independence</h3>
-<div id="thm-ch2-4" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.4</strong></span> &nbsp;</p>
+<section id="theorem-2.4.2-cdf-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.4.2-cdf-criterion">Theorem 2.4.2 — CDF Criterion</h3>
+<div id="thm-hmc8-2-4-2" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.4</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> have the joint cdf <span class="math inline">\(F(x_1,x_2)\)</span>.</p></li>
 <li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> have the marginal cdfs <span class="math inline">\(F_1(x_1)\)</span> and <span class="math inline">\(F_2(x_2)\)</span>.</p></li>
@@ -789,19 +805,19 @@ E[u(X_2)|X_1=x_1] = \left\{
 </ul>
 </div>
 </section>
-<section id="independence-3" class="level3">
-<h3 class="anchored" data-anchor-id="independence-3">Independence</h3>
-<div id="thm-ch2-5" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.5</strong></span> &nbsp;</p>
+<section id="theorem-2.4.3-rectangle-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.4.3-rectangle-criterion">Theorem 2.4.3 — Rectangle Criterion</h3>
+<div id="thm-hmc8-2-4-3" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.5</strong></span> &nbsp;</p>
 <ul>
 <li><span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent if and only if <span class="math display">\[P[a&lt;X_1\le b, c&lt;X_2\le d] = P[a&lt;X_1\le b]P[c&lt;X_2\le d]\]</span> for every <span class="math inline">\(a&lt;b\)</span> and <span class="math inline">\(c&lt;d\)</span>, where <span class="math inline">\(a, b, c, d\)</span> are constants.</li>
 </ul>
 </div>
 </section>
-<section id="independence-4" class="level3">
-<h3 class="anchored" data-anchor-id="independence-4">Independence</h3>
-<div id="thm-ch2-6" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.6</strong></span> &nbsp;</p>
+<section id="theorem-2.4.4-products-of-functions" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.4.4-products-of-functions">Theorem 2.4.4 — Products of Functions</h3>
+<div id="thm-hmc8-2-4-4" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.6</strong></span> &nbsp;</p>
 <ul>
 <li><p>Suppose <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent.</p></li>
 <li><p>Suppose <span class="math inline">\(E[u(X_1)]&lt;\infty\)</span> and <span class="math inline">\(E[\nu(X_2)]&lt;\infty\)</span>.</p></li>
@@ -809,18 +825,18 @@ E[u(X_2)|X_1=x_1] = \left\{
 </ul>
 </div>
 </section>
-<section id="independence-5" class="level3">
-<h3 class="anchored" data-anchor-id="independence-5">Independence</h3>
-<div id="thm-ch2-7" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.7</strong></span> &nbsp;</p>
+<section id="theorem-2.4.5-mgf-factorization" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.4.5-mgf-factorization">Theorem 2.4.5 — MGF Factorization</h3>
+<div id="thm-hmc8-2-4-5" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.7</strong></span> &nbsp;</p>
 <ul>
 <li><p>Suppose <span class="math inline">\(M(t_1, t_2)&lt;\infty\)</span>.</p></li>
 <li><p>Then <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent if and only if <span class="math display">\[M(t_1, t_2) = M(t_1, 0) M(0, t_2).\]</span></p></li>
 </ul>
 </div>
 </section>
-<section id="example-2.5.5" class="level3">
-<h3 class="anchored" data-anchor-id="example-2.5.5">Example 2.5.5</h3>
+<section id="example-2.4.5-dependence-from-the-joint-mgf" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.4.5-dependence-from-the-joint-mgf">Example 2.4.5 — Dependence from the Joint MGF</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> have the joint pdf <span class="math display">\[f_{X_1, X_2}(x_1, x_2) =
 \left\{
@@ -834,11 +850,11 @@ e^{-x_2} &amp; 0&lt;x_1&lt;x_2&lt;\infty\\
 </section>
 </section>
 <section id="the-correlation-coefficient" class="level2">
-<h2 class="anchored" data-anchor-id="the-correlation-coefficient">The correlation coefficient</h2>
+<h2 class="anchored" data-anchor-id="the-correlation-coefficient">2.5 The Correlation Coefficient</h2>
 <section id="covariance" class="level3">
 <h3 class="anchored" data-anchor-id="covariance">Covariance</h3>
 <div id="def-ch2-7" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.7</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>定義 2.7</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\((X, Y)\)</span> have a joint distribution.</p></li>
 <li><p>Denote the means of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> by <span class="math inline">\(\mu_1\)</span> and <span class="math inline">\(\mu_2\)</span> and their respective variances by <span class="math inline">\(\sigma_1^2\)</span> and <span class="math inline">\(\sigma_2^2\)</span>.</p></li>
@@ -855,7 +871,7 @@ e^{-x_2} &amp; 0&lt;x_1&lt;x_2&lt;\infty\\
 <section id="correlation-coefficient" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-coefficient">Correlation coefficient</h3>
 <div id="def-ch2-8" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.8</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>定義 2.8</strong></span> &nbsp;</p>
 <ul>
 <li>If each of <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span> is positive, then the correlation coefficient between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined by <span class="math display">\[\rho = \frac{\operatorname{cov}(X, Y)}{\sigma_1\sigma_2}.\]</span></li>
 </ul>
@@ -867,18 +883,18 @@ e^{-x_2} &amp; 0&lt;x_1&lt;x_2&lt;\infty\\
 <li>The expected value of the product of two random variables is equal to the product of their expectations plus their covariance; <span class="math display">\[E[XY] = \mu_1\mu_2 + \operatorname{Cov}(X, Y) = \mu_1\mu_2 + \rho\sigma_1\sigma_2.\]</span></li>
 </ul>
 </section>
-<section id="supplementary-example-2.4-a" class="level3">
-<h3 class="anchored" data-anchor-id="supplementary-example-2.4-a">Supplementary Example 2.4-A</h3>
+<section id="example-2.5.1-coin-flip-random-vector" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.5.1-coin-flip-random-vector">Example 2.5.1 — Coin-flip Random Vector</h3>
 <ul>
 <li><p>A fair coin is flipped three times.</p></li>
 <li><p><span class="math inline">\(X_1\)</span> is the number of heads on the first two flips while <span class="math inline">\(X_2\)</span> is the number of heads on all three flips.</p></li>
 <li><p>Find the correlation coefficient of <span class="math inline">\((X_1,X_2)\)</span>.</p></li>
 </ul>
 </section>
-<section id="correlation-coefficient1" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-coefficient1">Correlation coefficient<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h3>
-<div id="thm-ch2-8" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.8</strong></span> &nbsp;</p>
+<section id="theorem-2.5.1-bounds-for-correlation1" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.5.1-bounds-for-correlation1">Theorem 2.5.1 — Bounds for Correlation<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h3>
+<div id="thm-hmc8-2-5-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.8</strong></span> &nbsp;</p>
 <ul>
 <li>For all jointly distributed random variables <span class="math inline">\((X,Y)\)</span> whose correlation coefficient <span class="math inline">\(\rho\)</span> exists, <span class="math inline">\(-1 \le \rho\le 1\)</span>.</li>
 </ul>
@@ -892,27 +908,27 @@ e^{-x_2} &amp; 0&lt;x_1&lt;x_2&lt;\infty\\
 <li><p>The discriminant is <span class="math inline">\(b^2-4ac\)</span>.</p></li>
 </ul>
 </section>
-<section id="independence-6" class="level3">
-<h3 class="anchored" data-anchor-id="independence-6">Independence</h3>
-<div id="thm-ch2-9" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.9</strong></span> &nbsp;</p>
+<section id="theorem-2.5.2-independence-implies-zero-covariance" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.5.2-independence-implies-zero-covariance">Theorem 2.5.2 — Independence Implies Zero Covariance</h3>
+<div id="thm-hmc8-2-5-2" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.9</strong></span> &nbsp;</p>
 <ul>
 <li>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent random variables, then <span class="math display">\[\rho = 0.\]</span></li>
 </ul>
 </div>
 </section>
-<section id="class-example-2.4-a" class="level3">
-<h3 class="anchored" data-anchor-id="class-example-2.4-a">Class Example 2.4-A</h3>
+<section id="example-2.5.3-uncorrelated-but-dependent" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.5.3-uncorrelated-but-dependent">Example 2.5.3 — Uncorrelated but Dependent</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be jointly discrete random variables whose distribution has mass 1/4 at each of the four points (-1, 0), (0, -1), (1, 0) and (0, 1).</p></li>
 <li><p>Find the correlation coefficient of <span class="math inline">\((X_1,X_2)\)</span>.</p></li>
 <li><p>Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p></li>
 </ul>
 </section>
-<section id="linear-function" class="level3">
-<h3 class="anchored" data-anchor-id="linear-function">Linear function</h3>
-<div id="thm-ch2-10" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.10</strong></span> &nbsp;</p>
+<section id="theorem-2.5.3-linear-conditional-means" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.5.3-linear-conditional-means">Theorem 2.5.3 — Linear Conditional Means</h3>
+<div id="thm-hmc8-2-5-3" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.10</strong></span> &nbsp;</p>
 <ul>
 <li><p>Suppose <span class="math inline">\((X, Y)\)</span> have a joint distribution with the variances of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> finite and positive.</p></li>
 <li><p>Denote the means and variances of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> by <span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span> and <span class="math inline">\(\sigma_1^2\)</span>, <span class="math inline">\(\sigma_2^2\)</span>.</p></li>
@@ -921,8 +937,8 @@ e^{-x_2} &amp; 0&lt;x_1&lt;x_2&lt;\infty\\
 </ul>
 </div>
 </section>
-<section id="example-2.4.2" class="level3">
-<h3 class="anchored" data-anchor-id="example-2.4.2">Example 2.4.2</h3>
+<section id="example-2.5.4-linear-conditional-means" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.5.4-linear-conditional-means">Example 2.5.4 — Linear Conditional Means</h3>
 <ul>
 <li><p>Let the random variables X and Y have the linear conditional means <span class="math inline">\(E(Y |x) = 4x + 3\)</span> and <span class="math inline">\(E(X|y) = \frac{1}{16} y - 3\)</span>.</p></li>
 <li><p>Can <span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span>, <span class="math inline">\(\rho\)</span>, <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span> be obtained?</p></li>
@@ -937,11 +953,11 @@ e^{-x_2} &amp; 0&lt;x_1&lt;x_2&lt;\infty\\
 <p>大二教材主要集中在雙變量情形；本階段是本章的主要新內容。學習重點是用向量與矩陣統整平均數、變異數與共變異數，理解 covariance matrix 的結構，並將二維 transformation 的方法推廣到多維與 many-to-one 情形。</p>
 </section>
 <section id="extension-to-several-random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="extension-to-several-random-variables">Extension to several random variables</h2>
+<h2 class="anchored" data-anchor-id="extension-to-several-random-variables">2.6 Extension to Several Random Variables</h2>
 <section id="random-vector" class="level3">
 <h3 class="anchored" data-anchor-id="random-vector">Random vector</h3>
 <div id="def-ch2-9" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.9</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>定義 2.9</strong></span> &nbsp;</p>
 <ul>
 <li><p>Consider a random experiment with a sample space <span class="math inline">\({\mathcal{C}}\)</span>.</p></li>
 <li><p>Let the random variable <span class="math inline">\(X_i\)</span> assign to each element <span class="math inline">\(c \in {\mathcal{C}}\)</span> one and only one real number <span class="math inline">\(X_i(c) = x_i\)</span>, <span class="math inline">\(i = 1,2,...,n\)</span>.</p></li>
@@ -1072,10 +1088,10 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 \int\cdots\int_{\mathcal{D}_{2:n}} u(x_2, \ldots, x_n) f_{X_2,\ldots,X_n\mid X_1}(x_2, \ldots, x_n\mid x_1)\,dx_2\cdots dx_n,
 \end{aligned}\]</span></p>
 </section>
-<section id="independence-7" class="level3">
-<h3 class="anchored" data-anchor-id="independence-7">Independence</h3>
+<section id="independence" class="level3">
+<h3 class="anchored" data-anchor-id="independence">Independence</h3>
 <div id="def-ch2-10" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.10</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>定義 2.10</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let the random variables <span class="math inline">\(X_1, \cdots, X_n\)</span> have the joint pdf <span class="math inline">\(f(x_1,\cdots, x_n)\)</span> [joint pmf <span class="math inline">\(p(x_1,\cdots, x_n)\)</span>].</p></li>
 <li><p>Let the marginal pdfs [pmfs] <span class="math inline">\(f_1(x_1) [p_1(x_1)]\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(f_n(x_n) [p_n(x_n)]\)</span>.</p></li>
@@ -1084,21 +1100,30 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 </ul>
 </div>
 </section>
-<section id="independence-8" class="level3">
-<h3 class="anchored" data-anchor-id="independence-8">Independence</h3>
-<div id="thm-ch2-11" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.11</strong></span> &nbsp;</p>
+<section id="product-expectation-for-independent-variables" class="level3">
+<h3 class="anchored" data-anchor-id="product-expectation-for-independent-variables">Product Expectation for Independent Variables</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="HMC8 unnumbered result">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">註釋</span>HMC8 unnumbered result
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li><p>Suppose <span class="math inline">\(X_1, \cdots, X_n\)</span> are independent.</p></li>
 <li><p>Suppose <span class="math inline">\(E[u(X_i)]&lt;\infty\)</span>, <span class="math inline">\(i=1,2, \ldots, n\)</span>.</p></li>
 <li><p>We have <span class="math display">\[E[u(X_1)\cdots u(X_n)] = E[u(X_1)]\cdots E[u(X_n)] = \prod_{i=1}^n E[u(X_i)]\]</span></p></li>
 </ul>
 </div>
+</div>
 </section>
-<section id="moment-generating-function-1" class="level3">
-<h3 class="anchored" data-anchor-id="moment-generating-function-1">Moment generating function</h3>
+<section id="moment-generating-function" class="level3">
+<h3 class="anchored" data-anchor-id="moment-generating-function">Moment generating function</h3>
 <div id="def-ch2-11" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.11</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>定義 2.11</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\({\boldsymbol X} = (X_1,X_2, \cdots, X_n)\)</span> be a random vector.</p></li>
 <li><p>If <span class="math inline">\(E[e^{\sum_{i=1}^nt_iX_i}]\)</span> exists for <span class="math inline">\(|t_i| &lt; h_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span> where <span class="math inline">\(h_i&gt;0\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>.</p></li>
@@ -1106,10 +1131,10 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 </ul>
 </div>
 </section>
-<section id="independence-9" class="level3">
-<h3 class="anchored" data-anchor-id="independence-9">Independence</h3>
-<div id="thm-ch2-12" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.12</strong></span> &nbsp;</p>
+<section id="theorem-2.6.1-mgf-of-a-linear-combination" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.6.1-mgf-of-a-linear-combination">Theorem 2.6.1 — MGF of a Linear Combination</h3>
+<div id="thm-hmc8-2-6-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.11</strong></span> &nbsp;</p>
 <ul>
 <li><p>Suppose <span class="math inline">\(X_1, X_2, \cdots, X_n\)</span> are <span class="math inline">\(n\)</span> mutually independent random variables.</p></li>
 <li><p>Suppose, for all <span class="math inline">\(i = 1,2,\cdots,n\)</span>, <span class="math inline">\(X_i\)</span> has mgf <span class="math inline">\(M_i(t)\)</span>, for <span class="math inline">\(|t| &lt; h_i\)</span>, where <span class="math inline">\(h_i &gt; 0\)</span>.</p></li>
@@ -1118,8 +1143,8 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 </ul>
 </div>
 </section>
-<section id="supplementary-example-2.6-a" class="level3">
-<h3 class="anchored" data-anchor-id="supplementary-example-2.6-a">Supplementary Example 2.6-A</h3>
+<section id="example-2.6.2-maximum-of-independent-variables" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.6.2-maximum-of-independent-variables">Example 2.6.2 — Maximum of Independent Variables</h3>
 <ul>
 <li><p>Let the random variables <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span> and <span class="math inline">\(X_3\)</span> be three mutually independent random variable and let each have the pdf <span class="math display">\[f(x) =
 \left\{
@@ -1137,9 +1162,10 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 <li><p>If several random variables are mutually independent and have the same distribution, we say that they are independent and identically distributed, which we abbreviate as iid.</p></li>
 </ul>
 </section>
-<section id="independence-10" class="level3">
-<h3 class="anchored" data-anchor-id="independence-10">Independence</h3>
-<div class="corollary">
+<section id="corollary-2.6.1-mgf-of-an-iid-sum" class="level3">
+<h3 class="anchored" data-anchor-id="corollary-2.6.1-mgf-of-an-iid-sum">Corollary 2.6.1 — MGF of an iid Sum</h3>
+<div id="cor-hmc8-2-6-1" class="theorem corollary">
+<p><span class="theorem-title"><strong>推論 2.1</strong></span> &nbsp;</p>
 <ul>
 <li><p>Suppose <span class="math inline">\(X_1, X_2, \cdots, X_n\)</span> are iid random variable with the common mgf <span class="math inline">\(M(t)\)</span>, for <span class="math inline">\(|t| &lt; h\)</span>, where <span class="math inline">\(h &gt; 0\)</span>.</p></li>
 <li><p>Let <span class="math inline">\(T = \sum_{i=1}^n X_i\)</span>.</p></li>
@@ -1147,8 +1173,10 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 </ul>
 </div>
 </section>
-<section id="random-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="random-matrix">Random matrix</h3>
+<section id="multivariate-variance-covariance-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="multivariate-variance-covariance-matrix">2.6.1 Multivariate Variance-Covariance Matrix</h3>
+<section id="random-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="random-matrix">Random matrix</h4>
 <ul>
 <li><p>Let <span class="math inline">\({\boldsymbol X} = (X_1, \ldots, X_n)^{'}\)</span> be an <span class="math inline">\(n\)</span>-dimensional random vector.</p></li>
 <li><p>Define <span class="math inline">\(E({\boldsymbol X}) = (E[X_1], \ldots, E[X_n])^{'}\)</span>.</p></li>
@@ -1156,10 +1184,11 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 <li><p>Define the expectation of a random matrix <span class="math display">\[E[{\boldsymbol W}] = [E(W_{ij})].\]</span></p></li>
 </ul>
 </section>
-<section id="random-matrix-1" class="level3">
-<h3 class="anchored" data-anchor-id="random-matrix-1">Random matrix</h3>
-<div id="thm-ch2-13" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.13</strong></span> &nbsp;</p>
+</section>
+<section id="theorem-2.6.2-linearity-for-random-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.6.2-linearity-for-random-matrices">Theorem 2.6.2 — Linearity for Random Matrices</h3>
+<div id="thm-hmc8-2-6-2" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.12</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\({\boldsymbol W}_1\)</span> and <span class="math inline">\({\boldsymbol W}_2\)</span> be <span class="math inline">\(m \times n\)</span> matrices of random variables.</p></li>
 <li><p>Let <span class="math inline">\({\boldsymbol A}_1\)</span> and <span class="math inline">\({\boldsymbol A}_2\)</span> be <span class="math inline">\(k \times m\)</span> matrices of constants.</p></li>
@@ -1171,13 +1200,13 @@ E[u(X_2, \ldots, X_n)\mid X_1=x_1]
 </ul></li>
 </ul>
 </div>
-</section>
-<section id="random-vector-1" class="level3">
-<h3 class="anchored" data-anchor-id="random-vector-1">Random vector</h3>
+<section id="variance-covariance-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="variance-covariance-matrix">Variance-covariance matrix</h4>
 <ul>
 <li><p>Let <span class="math inline">\({\boldsymbol X} = (X_1,\ldots, X_n)^{'}\)</span> be an <span class="math inline">\(n\)</span>-dimensional random vector, such that <span class="math inline">\(\sigma_i^2=\sigma_{ii}=\operatorname{Var}(X_i)&lt;\infty\)</span>.</p></li>
 <li><p>The mean of <span class="math inline">\({\boldsymbol X}\)</span> is <span class="math inline">\(\boldsymbol{\mu} = E[\boldsymbol{X}]\)</span>. and we define its variance-covariance matrix as <span class="math display">\[\operatorname{Cov}({\boldsymbol X}) = E[({\boldsymbol X} - {\boldsymbol \mu})({\boldsymbol X} - {\boldsymbol \mu})^{'}] = [\sigma_{ij}]\]</span> whose the (<span class="math inline">\(i\)</span>,<span class="math inline">\(j\)</span>)th off diagonal entry is <span class="math inline">\(\operatorname{Cov}(X_i,X_j)\)</span> and the <span class="math inline">\((i, i)\)</span>th diagonal entry is <span class="math inline">\(\sigma_i^2 = \operatorname{Var}(X_i)\)</span>.</p></li>
 </ul>
+</section>
 </section>
 <section id="example-2.6.3" class="level3">
 <h3 class="anchored" data-anchor-id="example-2.6.3">Example 2.6.3</h3>
@@ -1192,10 +1221,10 @@ e^{-y} &amp; 0&lt;x&lt;y&lt;\infty\\
 <li><p>Find <span class="math inline">\(E[{\boldsymbol Z}]\)</span> and <span class="math inline">\(\operatorname{Cov}({\boldsymbol Z})\)</span>.</p></li>
 </ul>
 </section>
-<section id="random-vector-2" class="level3">
-<h3 class="anchored" data-anchor-id="random-vector-2">Random vector</h3>
-<div id="thm-ch2-14" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.14</strong></span> &nbsp;</p>
+<section id="theorem-2.6.3-covariance-matrix-identities" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.6.3-covariance-matrix-identities">Theorem 2.6.3 — Covariance Matrix Identities</h3>
+<div id="thm-hmc8-2-6-3" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.13</strong></span> &nbsp;</p>
 <ul>
 <li><p>Let <span class="math inline">\({\boldsymbol X} = (X_1,\ldots, X_n)^{'}\)</span> be an <span class="math inline">\(n\)</span>-dimensional random vector, such that <span class="math inline">\(\sigma_i^2=\sigma_{ii}=\operatorname{Var}(X_i)&lt;\infty\)</span>.</p></li>
 <li><p>Let <span class="math inline">\({\boldsymbol A}\)</span> be an <span class="math inline">\(m \times n\)</span> matrices of constants.</p></li>
@@ -1219,7 +1248,7 @@ e^{-y} &amp; 0&lt;x&lt;y&lt;\infty\\
 </section>
 </section>
 <section id="transformations-for-several-random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="transformations-for-several-random-variables">Transformations for several random variables</h2>
+<h2 class="anchored" data-anchor-id="transformations-for-several-random-variables">2.7 Transformations for Several Random Variables</h2>
 <section id="continuous-transformation-4" class="level3">
 <h3 class="anchored" data-anchor-id="continuous-transformation-4">Continuous transformation</h3>
 <ul>
@@ -1337,7 +1366,7 @@ f_{\boldsymbol Y}(y_1, y_2, \ldots, y_n)
 <section id="example-2.7.5" class="level3">
 <h3 class="anchored" data-anchor-id="example-2.7.5">Example 2.7.5</h3>
 <ul>
-<li><p>Let <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, <span class="math inline">\(X_4\)</span> be independent random variables with com- mon pdf <span class="math display">\[f(x) =
+<li><p>Let <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, <span class="math inline">\(X_4\)</span> be independent random variables with common pdf <span class="math display">\[f(x) =
 \left\{
 \begin{array}{ll}
 e^{-x} &amp; 0&lt;x\\
@@ -1354,8 +1383,8 @@ e^{-x} &amp; 0&lt;x\\
 </blockquote>
 <p>本階段以線性組合與 random sample 收束本章。學生應能計算線性統計量的期望、變異數與共變異數，辨認 <span class="math inline">\(\bar X\)</span> 與 <span class="math inline">\(S^2\)</span> 是樣本的函數，並理解 <span class="math inline">\(E(S^2)=\sigma^2\)</span> 為何是後續估計理論的重要起點。</p>
 </section>
-<section id="linear-combinations-random-variables" class="level2">
-<h2 class="anchored" data-anchor-id="linear-combinations-random-variables">Linear combinations random variables</h2>
+<section id="linear-combinations-of-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="linear-combinations-of-random-variables">2.8 Linear Combinations of Random Variables</h2>
 <section id="linear-combination" class="level3">
 <h3 class="anchored" data-anchor-id="linear-combination">Linear combination</h3>
 <ul>
@@ -1364,24 +1393,49 @@ e^{-x} &amp; 0&lt;x\\
 T &amp; = \sum_{i=1}^n a_iX_i\\
 W &amp; = \sum_{i=1}^m b_iY_i
 \end{aligned}\]</span> for specified constants <span class="math inline">\(a_i\)</span> and <span class="math inline">\(b_i\)</span>, <span class="math inline">\(i = 1, 2, \ldots, n\)</span>.</p></li>
-<li><p>Supoose <span class="math inline">\(E[X_i] = \mu_{X_i}\)</span>, <span class="math inline">\(i=1, 2, \ldots, n\)</span> and <span class="math inline">\(E[Y_i] = \mu_{Y_i}\)</span>, <span class="math inline">\(i=1, 2, \ldots, m\)</span>.</p></li>
+<li><p>Suppose <span class="math inline">\(E[X_i] = \mu_{X_i}\)</span>, <span class="math inline">\(i=1, 2, \ldots, n\)</span> and <span class="math inline">\(E[Y_i] = \mu_{Y_i}\)</span>, <span class="math inline">\(i=1, 2, \ldots, m\)</span>.</p></li>
 </ul>
 </section>
-<section id="mean-and-variance-of-t" class="level3">
-<h3 class="anchored" data-anchor-id="mean-and-variance-of-t">Mean and variance of <span class="math inline">\(T\)</span></h3>
-<div id="thm-ch2-15" class="theorem">
-<p><span class="theorem-title"><strong>定理 3.15</strong></span> &nbsp;</p>
-<ul>
-<li><p><span class="math inline">\(E[T] = \sum_{i=1}^n a_i \mu_{X_i}\)</span> and <span class="math inline">\(E[W] = \sum_{i=1}^n b_i \mu_{Y_i}\)</span>.</p></li>
-<li><p><span class="math inline">\(\operatorname{Var}(T) = \sum_{i=1}^n a_i^2\operatorname{Var}(X_i) + 2\sum_{i&lt;j} a_i a_j \operatorname{Cov}(X_i, X_j)\)</span>.</p></li>
-<li><p><span class="math inline">\(Cov(T, W) = \sum_{i=1}^n\sum_{j=1}^ma_ib_j\operatorname{Cov}(X_i, Y_j)\)</span>.</p></li>
-</ul>
+<section id="theorem-2.8.1-mean-of-a-linear-combination" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.8.1-mean-of-a-linear-combination">Theorem 2.8.1 — Mean of a Linear Combination</h3>
+<div id="thm-hmc8-2-8-1" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.14</strong></span> <span class="math display">\[
+E[T] = \sum_{i=1}^n a_i\mu_{X_i}.
+\]</span></p>
 </div>
 </section>
-<section id="random-sample" class="level3">
-<h3 class="anchored" data-anchor-id="random-sample">Random sample</h3>
-<div id="def-ch2-12" class="theorem definition">
-<p><span class="theorem-title"><strong>定義 3.12</strong></span> &nbsp;</p>
+<section id="theorem-2.8.2-covariance-of-linear-combinations" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-2.8.2-covariance-of-linear-combinations">Theorem 2.8.2 — Covariance of Linear Combinations</h3>
+<div id="thm-hmc8-2-8-2" class="theorem">
+<p><span class="theorem-title"><strong>定理 2.15</strong></span> <span class="math display">\[
+\operatorname{Cov}(T,W)
+=\sum_{i=1}^n\sum_{j=1}^m a_i b_j\operatorname{Cov}(X_i,Y_j).
+\]</span></p>
+</div>
+</section>
+<section id="corollary-2.8.1-variance-of-a-linear-combination" class="level3">
+<h3 class="anchored" data-anchor-id="corollary-2.8.1-variance-of-a-linear-combination">Corollary 2.8.1 — Variance of a Linear Combination</h3>
+<div id="cor-hmc8-2-8-1" class="theorem corollary">
+<p><span class="theorem-title"><strong>推論 2.2</strong></span> <span class="math display">\[
+\operatorname{Var}(T)
+=\sum_{i=1}^n a_i^2\operatorname{Var}(X_i)
++2\sum_{i&lt;j}a_i a_j\operatorname{Cov}(X_i,X_j).
+\]</span></p>
+</div>
+</section>
+<section id="corollary-2.8.2-independent-components" class="level3">
+<h3 class="anchored" data-anchor-id="corollary-2.8.2-independent-components">Corollary 2.8.2 — Independent Components</h3>
+<div id="cor-hmc8-2-8-2" class="theorem corollary">
+<p><span class="theorem-title"><strong>推論 2.3</strong></span> If <span class="math inline">\(X_1,\ldots,X_n\)</span> are independent and <span class="math inline">\(\operatorname{Var}(X_i)=\sigma_i^2\)</span>, then</p>
+<p><span class="math display">\[
+\operatorname{Var}(T)=\sum_{i=1}^n a_i^2\sigma_i^2.
+\]</span></p>
+</div>
+</section>
+<section id="definition-2.8.1-random-sample" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.8.1-random-sample">Definition 2.8.1 — Random Sample</h3>
+<div id="def-hmc8-2-8-1" class="theorem definition">
+<p><span class="theorem-title"><strong>定義 2.12</strong></span> &nbsp;</p>
 <ul>
 <li><p>If the random variables <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> are independent and identically distributed.</p></li>
 <li><p>Each <span class="math inline">\(X_i\)</span> has the same distribution.</p></li>
@@ -1389,6 +1443,19 @@ W &amp; = \sum_{i=1}^m b_iY_i
 <li><p>Abbreviate independent and identically distributed by iid.</p></li>
 </ul>
 </div>
+</section>
+<section id="example-2.8.1-sample-mean" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.8.1-sample-mean">Example 2.8.1 — Sample Mean</h3>
+<p>Let <span class="math inline">\(X_1,\ldots,X_n\)</span> be iid with common mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. For</p>
+<p><span class="math display">\[
+\overline X=\frac{1}{n}\sum_{i=1}^n X_i,
+\]</span></p>
+<p>Theorem 2.8.1 and Corollary 2.8.2 give</p>
+<p><span class="math display">\[
+E(\overline X)=\mu,
+\qquad
+\operatorname{Var}(\overline X)=\frac{\sigma^2}{n}.
+\]</span></p>
 </section>
 <section id="example-2.8.2-sample-variance" class="level3">
 <h3 class="anchored" data-anchor-id="example-2.8.2-sample-variance">Example 2.8.2 — Sample Variance</h3>
@@ -1847,7 +1914,7 @@ W &amp; = \sum_{i=1}^m b_iY_i
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./01-probability.html" class="pagination-link" aria-label="機率與單變量分配">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">機率與單變量分配</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">機率與單變量分配</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
