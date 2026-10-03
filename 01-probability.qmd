@@ -1536,6 +1536,198 @@ $$
 - A function $\phi$ defined on an interval $(a, b)$, $-\infty< a < b <\infty$, is said to be a convex function if for all $x, y$ in $(a, b)$ and for all $0 < \gamma < 1$, $$\phi(\gamma x + (1 - \gamma)y) \le \gamma \phi(x) + (1 - \gamma) \phi(y).$$ We say $\phi$ is strictly convex if the above inequality is strict.
 :::
 
+```{r}
+#| label: fig-convex-function
+#| fig-cap: "凸函數不等式的幾何意義"
+#| echo: true
+#| warning: false
+#| fig-width: 8
+#| fig-height: 6
+
+# 定義凸函數
+f <- function(x) x^2
+x_seq <- seq(-5, 5, length.out = 500)
+
+# 設定參數
+x1 <- -1
+x2 <- 3
+lambda <- 0.3
+
+# 計算凸組合
+x_lambda <- lambda * x1 + (1 - lambda) * x2
+y_curve <- f(x_lambda)
+y_secant <- lambda * f(x1) + (1 - lambda) * f(x2)
+
+# 基本畫布與凸函數
+plot(
+  x_seq, f(x_seq),
+  type = "l",
+  col = "steelblue",
+  lwd = 3,
+  xlim = c(-5, 5),
+  ylim = c(0, 26),
+  xlab = expression(x),
+  ylab = expression(f(x)),
+  main = expression(paste(
+    "Convex function:  ", f(x) == x^2
+  )),
+  axes = FALSE
+)
+
+# 自訂座標軸
+axis(1, at = seq(-5, 5, by = 1))
+axis(2, at = seq(0, 25, by = 5), las = 1)
+box()
+
+# 畫出 x 軸
+abline(h = 0, col = "black", lwd = 1)
+
+# 兩端點垂直連接至 x 軸
+segments(
+  x1, 0, x1, f(x1),
+  col = "gray40",
+  lty = 3,
+  lwd = 2
+)
+
+segments(
+  x2, 0, x2, f(x2),
+  col = "gray40",
+  lty = 3,
+  lwd = 2
+)
+
+# 兩端點
+points(
+  c(x1, x2),
+  c(f(x1), f(x2)),
+  pch = 19,
+  col = "black",
+  cex = 1.3
+)
+
+# 在 x 軸上標示端點位置
+points(
+  c(x1, x2),
+  c(0, 0),
+  pch = 16,
+  col = "gray40",
+  cex = 0.8
+)
+
+# 畫出割線
+segments(
+  x1, f(x1),
+  x2, f(x2),
+  col = "gray40",
+  lty = 2,
+  lwd = 2.5
+)
+
+# 凸組合位置垂直連接至 x 軸
+segments(
+  x_lambda, 0,
+  x_lambda, y_secant,
+  col = "darkgreen",
+  lty = 3,
+  lwd = 2
+)
+
+# 曲線上的藍點：左式
+points(
+  x_lambda, y_curve,
+  col = "blue",
+  pch = 19,
+  cex = 1.8
+)
+
+# 割線上的紅點：右式
+points(
+  x_lambda, y_secant,
+  col = "red",
+  pch = 19,
+  cex = 1.8
+)
+
+# 強調兩點之間的差距
+segments(
+  x_lambda, y_curve,
+  x_lambda, y_secant,
+  col = "darkgreen",
+  lwd = 3
+)
+
+# 端點標籤
+text(
+  x1, 0.7,
+  labels = expression(x[1] == -1),
+  pos = 2,
+  cex = 1
+)
+
+text(
+  x2, 0.7,
+  labels = expression(x[2] == 3),
+  pos = 4,
+  cex = 1
+)
+
+# 凸組合在 x 軸上的位置
+text(
+  x_lambda, 0.6,
+  labels = bquote(
+    lambda*x[1] + (1-lambda)*x[2] == .(x_lambda)
+  ),
+  pos = 4,
+  cex = 0.9,
+  col = "darkgreen"
+)
+
+# 左式標籤
+text(
+  x_lambda, y_curve,
+  labels = bquote(
+    f(lambda*x[1] + (1-lambda)*x[2]) == .(y_curve)
+  ),
+  pos = 2,
+  offset = 0.8,
+  col = "blue",
+  cex = 0.9
+)
+
+# 右式標籤
+text(
+  x_lambda, y_secant,
+  labels = bquote(
+    lambda*f(x[1]) + (1-lambda)*f(x[2]) == .(y_secant)
+  ),
+  pos = 4,
+  offset = 0.8,
+  col = "red",
+  cex = 0.9
+)
+
+# 參數與不等式
+legend(
+  "topleft",
+  legend = c(
+    expression(lambda == 0.3),
+    expression(
+      f(lambda*x[1] + (1-lambda)*x[2])
+      <=
+      lambda*f(x[1]) + (1-lambda)*f(x[2])
+    )
+  ),
+  col = c("black", "darkgreen"),
+  lty = c(NA, 1),
+  pch = c(NA, NA),
+  lwd = c(NA, 2),
+  bty = "n",
+  cex = 1
+)
+```
+
+
 ### Properties -- Convex function
 
 ::: {#thm-ch1-20}
